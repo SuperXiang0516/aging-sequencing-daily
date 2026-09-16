@@ -1,0 +1,173 @@
+[
+  {
+    "pmid": "42747345",
+    "title": "Cross-domain cooperation drives nutrient acquisition and metabolism in the bark beetle holobiont.",
+    "doi": null,
+    "journal": "The ISME journal",
+    "issn": "1751-7370",
+    "pub_date": "2026-09-16",
+    "authors": "Saati-Santamaría Zaki; Veselská Tereza; Švec Karel; Kostovčík Martin; Peral-Aranega Ezequiel et al.",
+    "abstract": "Microbial symbiosis underpins host adaptation, yet mechanisms of metabolic integration in holobionts remain unclear. Using metatranscriptomics, genomics, and metabolic assays, we investigated gut microbiome interactions in the European spruce bark beetle (Ips typographus). We observed metabolic complementarity among symbionts and host, forming cross-domain networks that support nutrient acquisition. Nitrogen recycling revealed strong interdependence: no single partner possessed a complete uric acid degradation pathway, but combined evidence supports a distributed pathway spanning beetle, Bacteria, and fungi. Additionally, bacterial nitrate reduction to ammonia indicates a potential nitrogen influx, making otherwise inaccessible inorganic nitrogen available to the host. Shaped by microbial interactions, symbionts also likely supply specific amino acids, while vitamin metabolism showed cross-domain co-metabolism, with Bacteria as main producers of B vitamins, while host and fungi modulated interconversion. Carbohydrate degradation was highly partitioned; bacteria target xylan and pectin, while fungi contribute to glucan breakdown. Crucially, our data provide indirect evidence that the beetle may contribute to complete cellulose degradation, highlighting an underappreciated host role in lignocellulose processing. In terms of enzymatic functional diversity, the bacteriome emerged as the most important microbiome component-an observation that contrasts with the traditional focus on fungi and underscores the need to consider bacterial contributions in insect symbioses. Despite life-stage variation, core metabolic functions remained stable. Overall, metabolic interdependence, rather than microbial composition alone, structures holobiont function. These results highlight functional redundancy and ecological resilience, emphasizing the importance of microbial cooperation and host-microbe metabolic evolution.",
+    "pub_types": [
+      "Journal Article"
+    ],
+    "article_type": "研究论文",
+    "mesh_terms": [],
+    "keywords": [
+      "Bark beetle",
+      "Co-metabolism",
+      "Cross-domain RNA-Seq",
+      "Holobiont",
+      "Host–microbe interactions",
+      "Metabolic complementarity",
+      "Metatranscriptome",
+      "Microbial cooperation",
+      "Symbiosis"
+    ],
+    "summary_zh": "（待生成）",
+    "innovation": "（待生成）",
+    "limitation": "（待生成）",
+    "study_object": "（待生成）",
+    "disease": "（待生成）",
+    "sample_size": "（待生成）",
+    "ai_done": true,
+    "fetch_date": "2026-09-16"
+  },
+  {
+    "pmid": "42154957",
+    "title": "Immune checkpoint inhibitor myocarditis: a metagenomic investigation of infectious pathogens.",
+    "doi": null,
+    "journal": "European heart journal",
+    "issn": "1522-9645",
+    "pub_date": "2026-09-16",
+    "authors": "Lorca Rebeca; Bretagne Marie-Claire; Boizeau Laure; Cappy Pierre; Allenbach Yves et al.",
+    "abstract": "",
+    "pub_types": [
+      "Journal Article"
+    ],
+    "article_type": "研究论文",
+    "mesh_terms": [],
+    "keywords": [
+      "Cardio-oncology",
+      "Metagenomics",
+      "Myocarditis"
+    ],
+    "summary_zh": "无摘要；标题提示对免疫检查点抑制剂相关心肌炎进行感染病原体的宏基因组研究。",
+    "innovation": "未描述",
+    "limitation": "未描述",
+    "study_object": "未描述；技术类型：宏基因组",
+    "disease": "免疫检查点抑制剂相关心肌炎",
+    "sample_size": "未描述",
+    "ai_done": true,
+    "fetch_date": "2026-09-16"
+  },
+  {
+    "pmid": "42745690",
+    "title": "Drought Stress Mediated Changes in Food Crops: Mechanisms and Remediation Strategies.",
+    "doi": null,
+    "journal": "Advanced science (Weinheim, Baden-Wurttemberg, Germany)",
+    "issn": "2198-3844",
+    "pub_date": "2026-09-16",
+    "authors": "Duan Xiaoyi; Wang Litao; Koski Tuuli-Marjaana; An Lizhe; Efferth Thomas et al.",
+    "abstract": "Climate change has intensified drought frequency and severity, threatening global food security, particularly for staple crops like maize, wheat, and soybean. As central secondary metabolites, flavonoids orchestrate cellular redox homeostasis, stress signal transduction, and metabolic plasticity during plant drought responses. Previous reviews are confined to isolated molecular cascades and separate treatment of flavonoid metabolism, rhizosphere microecology, and agronomic mitigation strategies, failing to establish an integrated multi-scale regulatory framework. To fill this fragmented gap, this review integrates advances in plant physiology, microbial ecology, and nanobiotechnology to construct a cross-scale framework of flavonoid-mediated drought resistance in major food crops. We systematically summarize species-specific flavonoid regulatory networks and metabolic reprogramming triggered by drought-induced oxidative stress, dissect rhizosphere microbiome effects on flavonoid biosynthesis and drought signaling, and elaborate novel mechanisms whereby nanomaterials reshape flavonoid metabolism and boost drought tolerance via tuning ROS homeostasis. Furthermore, this work integrates soil amendment and precision irrigation to decipher synergistic drought-resistance crosstalk among agronomic practices, crop metabolism, and root-associated microbiota. Collectively, this review unifies molecular, microbial, technological, and agronomic perspectives to establish a multi-scale, interdisciplinary framework for crop drought adaptation. It delivers fundamental theoretical support for climate-resilient agriculture and outlines priority research avenues to safeguard global food security.",
+    "pub_types": [
+      "Journal Article",
+      "Review"
+    ],
+    "article_type": "综述",
+    "mesh_terms": [],
+    "keywords": [
+      "climate‐resilient agriculture",
+      "drought stress",
+      "flavonoids",
+      "nanomaterials",
+      "rhizosphere microbiome"
+    ],
+    "summary_zh": "（待生成）",
+    "innovation": "（待生成）",
+    "limitation": "（待生成）",
+    "study_object": "（待生成）",
+    "disease": "（待生成）",
+    "sample_size": "（待生成）",
+    "ai_done": true,
+    "fetch_date": "2026-09-16"
+  },
+  {
+    "pmid": "42747315",
+    "title": "Gut microbiota functional remodeling and butyrate depletion amplify anti-Ro/La antibody-driven type I interferon activation in neonatal lupus.",
+    "doi": null,
+    "journal": "Gut microbes",
+    "issn": "1949-0984",
+    "pub_date": "2026-09-16",
+    "authors": "Sun Wenqiang; Li Yihui; Liu Xue; Yu Shuyang; Li Wenmei et al.",
+    "abstract": "The early-life gut microbiome may influence susceptibility to antibody-mediated neonatal autoimmunity, but the underlying mechanisms remain poorly understood. We investigated whether gut microbial functional capacity and metabolites influence autoantibody-dependent immune activation in 90 neonates, including healthy controls, anti-Ro/La-exposed neonates without neonatal lupus erythematosus (No-NLE), and neonates with NLE (n = 30 per group). Shotgun metagenomic profiling demonstrated progressive remodeling of the neonatal gut microbiome across the three groups, with anti-Ro/La exposure associated with depletion of early-life commensal-associated taxa, including Bifidobacterium, Rothia, and Clostridium, and enrichment of taxa with opportunistic potential, including Klebsiella and Enterococcus, with greatest ecological divergence in neonates with NLE. Functional profiling identified altered microbial carbohydrate-processing capacity, marked by enrichment of glycosyltransferase family 4 (GT4) and depletion of GT2 in NLE. These alterations coincided with broad reductions in plasma short-chain fatty acid metabolites, most prominently butyrate, together with increased serum immunoglobulin G (IgG) and interferon-α (IFN-α) and decreased complement component 4 (C4). A GT4-Klebsiella-Rothia-IFN-α signature distinguished NLE from No-NLE (AUC = 0.883; 95% CI, 0.799-0.967). In functional assays, pooled bacteria-depleted fecal filtrates from neonates with NLE potentiated IFN-α production by neonatal peripheral blood mononuclear cells in the presence of anti-Ro/La-positive plasma. Conversely, sodium butyrate suppressed anti-Ro/La-associated IFN-α production and reduced 28 inflammation-related proteins, including CXCL10, ADA, and PD-L1, involved in cytokine, IL-17, and TNF signaling. Together, these findings provide functional evidence supporting a microbiota-associated butyrate-type I interferon pathway that may amplify maternal autoantibody-dependent immune activation and contribute to the clinical manifestation of NLE.",
+    "pub_types": [
+      "Journal Article"
+    ],
+    "article_type": "研究论文",
+    "mesh_terms": [
+      "Humans",
+      "Gastrointestinal Microbiome",
+      "Interferon Type I",
+      "Infant, Newborn",
+      "Autoantibodies",
+      "Lupus Erythematosus, Systemic",
+      "Butyrates",
+      "Female",
+      "Bacteria",
+      "Male"
+    ],
+    "keywords": [
+      "Butyrate",
+      "gut microbial metabolism",
+      "neonatal lupus erythematosus",
+      "shotgun metagenomics",
+      "type I interferon"
+    ],
+    "summary_zh": "（待生成）",
+    "innovation": "（待生成）",
+    "limitation": "（待生成）",
+    "study_object": "（待生成）",
+    "disease": "（待生成）",
+    "sample_size": "（待生成）",
+    "ai_done": true,
+    "fetch_date": "2026-09-16"
+  },
+  {
+    "pmid": "42747286",
+    "title": "Enterocloster citroniae and related gut microbiome species modulate Vibrio cholerae biofilm formation through the production of bioactive small molecules.",
+    "doi": null,
+    "journal": "Virulence",
+    "issn": "2150-5608",
+    "pub_date": "2026-09-16",
+    "authors": "Pauer Heidi; Nasiri Saeideh; Magalhães Nathalia Santos; Nguyen Vivian T; Ferreira Nicole Victor et al.",
+    "abstract": "Cholera is a diarrheal disease that affects millions of people globally. Although the causative agent, Vibrio cholerae, has been extensively studied in isolation, investigation of its interactions with the gut microbiota started relatively recently. We and others previously showed that microbiota-derived metabolites significantly influence V. cholerae behavior. By investigating how an organic extract of human feces affects V. cholerae gene expression, we showed that gut metabolites strongly suppress swimming motility, a trait important for host colonization. Interestingly, extracts of pure cultures of a gut commensal, Enterocloster citroniae, recapitulated this inhibition. Here, we present a comprehensive examination of the effect of small molecules produced by E. citroniae and related species on V. cholerae behavior. We show that E. citroniae small molecules inhibit motility by various V. cholerae strains, and that several phylogenetically related species produce this activity, although the magnitude of the effect varies between strains. Using biofilm formation assays in static and flow conditions, we show that V. cholerae strongly induces biofilm formation in response to E. citroniae metabolites. Transcriptome and reporter analyses showed that several genes involved in the synthesis of an extracellular polysaccharide are induced by E. citroniae metabolites. Finally, we show that V. cholerae interactions with host cells are also modulated by this commensal. These findings advance our understanding of microbiome-pathogen interactions and how commensal bacteria influence V. cholerae virulence through the production of small molecules. In the future, this knowledge may be used to design novel microbiome-based therapeutic approaches to combat cholera and other infections.",
+    "pub_types": [
+      "Journal Article"
+    ],
+    "article_type": "研究论文",
+    "mesh_terms": [
+      "Vibrio cholerae",
+      "Biofilms",
+      "Humans",
+      "Gastrointestinal Microbiome",
+      "Gene Expression Regulation, Bacterial",
+      "Cholera"
+    ],
+    "keywords": [
+      "Chemical signaling",
+      "bioactive metabolites",
+      "colonization resistance",
+      "microbe-microbe interactions",
+      "natural products"
+    ],
+    "summary_zh": "研究肠道共生菌E. citroniae小分子对霍乱弧菌行为的影响，发现其抑制运动并诱导生物膜形成。",
+    "innovation": "系统研究E. citroniae及相关肠道菌小分子对霍乱弧菌行为的影响 | 发现E. citroniae小分子抑制霍乱弧菌运动并强烈诱导生物膜形成 | 通过转录组和报告基因分析揭示胞外多糖合成相关基因被诱导",
+    "limitation": "未描述",
+    "study_object": "人类肠道/粪便与肠道共生菌纯培养物；霍乱弧菌；体外生物膜实验、转录组和报告基因分析",
+    "disease": "霍乱",
+    "sample_size": "未描述",
+    "ai_done": true,
+    "fetch_date": "2026-09-16"
+  }
+]
