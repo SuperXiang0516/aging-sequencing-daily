@@ -1,0 +1,36 @@
+[
+  {
+    "pmid": "42662892",
+    "title": "Prevention of HNSCC by chewing gum delivery of enzymes/antimicrobials to reduce carcinogenic acetaldehyde produced by pathogenic microbes.",
+    "doi": null,
+    "journal": "Molecular therapy. Oncology",
+    "issn": "2950-3299",
+    "pub_date": "2026-09-17",
+    "authors": "Wakade Geetanjali; Liu Serena Chaolu; Diep Nhi Eliana; Daniell Henry",
+    "abstract": "Acetaldehyde, a WHO Group 1 human carcinogen, produced by oral microbes, plays a critical role at the onset of head and neck squamous cell carcinoma (HNSCC). Candida albicans isolated from different HNSCC patient saliva samples produced similar levels of acetaldehyde; the production level increased in a dose-dependent manner, with the highest level observed at 100 mM glucose or ethanol. Streptococci produced acetaldehyde in ethanol-free media, but the level increased up to 500-1,000 mM alcohol, whereas Fusobacterium nucleatum and Porphyromonas gingivalis showed ethanol-induced acetaldehyde production, peaking at 170 mM ethanol. Treatment with the antimicrobial peptide protegrin-1 (PG-1) reduced microbial viability and acetaldehyde production but required dextranase and mutanase to gain access by disruption of the extracellular polymeric substance. Microbial or plant-derived β-glucanase, chitinase, and mannanase degraded Candida albicans cell wall and blocked aldehyde release. Collectively, microbes present in HNSCC patient saliva increase acetaldehyde production from glucose and alcohol. Acetaldehyde production is inhibited by enzyme-antimicrobial formulations in chewing gums. Cancer prevention continues to increase survival more than most available treatments. Therefore, data presented here augur well for the clinical evaluation of antibacterial and antifungal chewing gums to control pathogenic microbes and their carcinogenic metabolites at the early stages of HNSCC.",
+    "pub_types": [
+      "Journal Article"
+    ],
+    "article_type": "研究论文",
+    "mesh_terms": [],
+    "keywords": [
+      "alcocol and cancer",
+      "candidiasis",
+      "carcinogenic metabolites",
+      "dysbiosis",
+      "head and neck cancer",
+      "oral cancer",
+      "oral microbiome",
+      "oral molecular therapy",
+      "pathogenic bacteria"
+    ],
+    "summary_zh": "（待生成）",
+    "innovation": "（待生成）",
+    "limitation": "（待生成）",
+    "study_object": "（待生成）",
+    "disease": "（待生成）",
+    "sample_size": "（待生成）",
+    "ai_done": true,
+    "fetch_date": "2026-09-17"
+  }
+]
