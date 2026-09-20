@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Meta-SeuBiomed 统一命令行工具
+衰老测序文献雷达统一命令行工具
 
 用法:
     python metaweb fetch   [选项]    # 抓取文献
@@ -128,7 +128,8 @@ def cmd_auto(args):
     log.info("=" * 50)
     log.info("步骤 2/3: 生成AI摘要")
     log.info("=" * 50)
-    summarize_papers.run(target_date=target_date, all_files=False, force=args.force)
+    # 范围回填、手动 PMID 和失败重试可能分布在多个日期文件中。
+    summarize_papers.run(all_files=True, force=args.force)
 
     # 3. 整合
     log.info("=" * 50)
@@ -151,30 +152,26 @@ def cmd_daily(args):
 
 
 def cmd_set(args):
-    """设置/查看搜索关键词"""
+    """设置或查看完整的 PubMed 主题查询。"""
     config_path = BASE_DIR / "config.env"
     example_path = BASE_DIR / "config.env.example"
 
-    # --check: 查看当前关键词
+    # --check: 查看当前查询
     if args.check:
-        keywords = _read_config_value(config_path, "SEARCH_KEYWORDS")
-        if keywords:
-            kw_list = [kw.strip() for kw in keywords.split(",") if kw.strip()]
-            print(f"当前搜索关键词（{len(kw_list)} 个）:")
-            for i, kw in enumerate(kw_list, 1):
-                print(f"  {i}. {kw}")
+        query = _read_config_value(config_path, "PUBMED_BASE_QUERY")
+        if query:
+            print("当前自定义 PubMed 主题查询：")
+            print(query)
         else:
-            print("未配置自定义关键词，使用默认值:")
-            for i, kw in enumerate(["metagenome", "metagenomic", "microbiome"], 1):
-                print(f"  {i}. {kw}")
-            print("\n提示: 使用 python metaweb.py set --term 来自定义关键词")
+            import fetch_pubmed
+            print("未配置自定义查询，使用内置的“衰老概念 AND 测序概念”查询：")
+            print(fetch_pubmed.build_topic_query())
         return
 
-    # --term: 设置搜索关键词
-    if args.term:
-        terms = [t.strip() for t in args.term if t.strip()]
-        if not terms:
-            print("错误: 请提供至少一个搜索关键词")
+    if args.query is not None:
+        query = args.query.strip()
+        if not query:
+            print("错误: 自定义查询不能为空")
             sys.exit(1)
 
         # 更新 config.env（如不存在则从 example 复制）
@@ -183,16 +180,15 @@ def cmd_set(args):
             shutil.copy2(example_path, config_path)
             print(f"已从 config.env.example 创建 config.env")
 
-        _set_config_value(config_path, "SEARCH_KEYWORDS", ", ".join(terms))
-        print(f"搜索关键词已更新为（{len(terms)} 个）:")
-        for i, t in enumerate(terms, 1):
-            print(f"  {i}. {t}")
+        _set_config_value(config_path, "PUBMED_BASE_QUERY", query)
+        print("PubMed 主题查询已更新：")
+        print(query)
         return
 
     # 无参数: 显示帮助
     print("用法:")
-    print("  python metaweb.py set --term keyword1 keyword2 ...   # 设置搜索关键词")
-    print("  python metaweb.py set --check                       # 查看当前关键词")
+    print("  python metaweb.py set --query '(aging[Title/Abstract]) AND (RNA-seq[Title/Abstract])'")
+    print("  python metaweb.py set --check")
 
 
 def _read_config_value(config_path: Path, key: str) -> str:
@@ -242,21 +238,20 @@ def _set_config_value(config_path: Path, key: str, value: str):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Meta-SeuBiomed 宏基因组文献追踪系统 - 统一命令行工具",
+        description="衰老测序文献雷达 - 统一命令行工具",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
-  python metaweb set --term metagenome microbiome     # 设置搜索关键词
-  python metaweb set --check                          # 查看当前关键词
-  python metaweb fetch                                # 抓取今天到昨天（默认1天）
-  python metaweb fetch --days 7                       # 抓取最近7天
-  python metaweb fetch --pmid 38912345 38967890       # 按PMID号抓取
-  python metaweb fetch --start-date 2026-04-01 --end-date 2026-04-30  # 日期范围
-  python metaweb auto --days 7                        # 自动抓取最近7天并整合
-  python metaweb auto --pmid 38912345                 # 按PMID自动流水线
-  python metaweb summarize                            # 为所有论文生成摘要
-  python metaweb build                                # 整合数据到 web/data.json
-  python metaweb daily                                # 每日自动化运行
+  python metaweb.py set --check                       # 查看内置/自定义主题查询
+  python metaweb.py fetch                             # 抓取今天
+  python metaweb.py fetch --days 7                    # 抓取最近7天
+  python metaweb.py fetch --pmid 38912345 38967890    # 按PMID号抓取
+  python metaweb.py fetch --start-date 2026-04-01 --end-date 2026-04-30  # 日期范围
+  python metaweb.py auto --days 7                     # 自动抓取最近7天并整合
+  python metaweb.py auto --pmid 38912345              # 按PMID自动流水线
+  python metaweb.py summarize --all                   # 为所有待处理论文生成摘要
+  python metaweb.py build                             # 整合数据到 web/data.json
+  python metaweb.py daily                             # 每日自动化运行
 """
     )
 
@@ -301,10 +296,10 @@ def main():
     parser_daily.set_defaults(func=cmd_daily)
 
     # ── set 命令 ──
-    parser_set = subparsers.add_parser("set", help="设置/查看搜索关键词")
-    parser_set.add_argument("--term", nargs="+", default=None, metavar="KEYWORD",
-                            help="设置搜索关键词（可多个，空格分隔）")
-    parser_set.add_argument("--check", action="store_true", help="查看当前搜索关键词")
+    parser_set = subparsers.add_parser("set", help="设置/查看完整 PubMed 主题查询")
+    parser_set.add_argument("--query", default=None, metavar="QUERY",
+                            help="自定义完整 PubMed 查询（不含日期；请用引号包裹）")
+    parser_set.add_argument("--check", action="store_true", help="查看当前主题查询")
     parser_set.set_defaults(func=cmd_set)
 
     # 解析参数

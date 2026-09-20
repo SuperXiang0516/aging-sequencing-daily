@@ -1,0 +1,85 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest import mock
+
+from scripts import summarize_papers
+
+
+class NormalizeSummaryTests(unittest.TestCase):
+    @staticmethod
+    def _valid_model_result():
+        return {
+            "title_zh": "衰老组织的长读长测序研究",
+            "summary_zh": "研究使用长读长测序分析衰老组织，并报告相关分子变化。",
+            "main_finding": "发现与衰老相关的转录本变化。",
+            "innovation": "结合长读长数据分析转录本。",
+            "limitation": "摘要未报告独立验证。",
+            "study_object": "衰老组织",
+            "study_design": "观察性研究",
+            "disease": "",
+            "sample_size": "",
+            "sequencing_generation": "二代/短读长",
+            "sequencing_assays": ["RNA测序"],
+            "platforms": ["Illumina"],
+            "aging_topics": ["生理性衰老"],
+            "species": ["小鼠"],
+            "tissues": ["脑组织"],
+            "relevance_score": 90,
+            "classification_evidence": ["aging"],
+        }
+
+    def test_missing_required_chinese_summary_raises(self):
+        model_result = self._valid_model_result()
+        model_result.pop("summary_zh")
+
+        with self.assertRaisesRegex(ValueError, "summary_zh 为空"):
+            summarize_papers._normalize_result(model_result, {})
+
+    def test_deterministic_generation_cannot_be_overridden_by_model(self):
+        record = {
+            "sequencing_generation": "三代/长读长",
+            "sequencing_assays": ["Iso-Seq"],
+            "platforms": ["PacBio"],
+            "aging_topics": ["生理性衰老"],
+            "species": ["小鼠"],
+            "tissues": [],
+            "classification_evidence": ["PacBio"],
+            "relevance_score": 100,
+        }
+        model_result = self._valid_model_result()
+        model_result["sequencing_generation"] = "二代/短读长"
+
+        normalized = summarize_papers._normalize_result(model_result, record)
+
+        self.assertEqual(normalized["sequencing_generation"], "三代/长读长")
+        self.assertIn("PacBio", normalized["platforms"])
+
+    def test_total_retry_cap_marks_record_terminal_without_calling_llm(self):
+        record = {
+            "pmid": "123",
+            "title": "Aging sequencing study",
+            "abstract": "A usable abstract.",
+            "ai_status": "error",
+            "ai_attempts": 2,
+            "ai_done": False,
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "records.json"
+            path.write_text(json.dumps([record], ensure_ascii=False), encoding="utf-8")
+            with (
+                mock.patch.object(summarize_papers, "LLM_MAX_TOTAL_ATTEMPTS", 2),
+                mock.patch.object(summarize_papers, "call_llm") as call,
+            ):
+                stats = summarize_papers.process_file(path)
+            updated = json.loads(path.read_text(encoding="utf-8"))[0]
+
+        call.assert_not_called()
+        self.assertEqual(stats["skipped"], 1)
+        self.assertEqual(updated["ai_status"], "failed_terminal")
+        self.assertFalse(updated["ai_done"])
+
+
+if __name__ == "__main__":
+    unittest.main()

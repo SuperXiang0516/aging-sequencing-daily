@@ -1,1699 +1,1248 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>宏基因组领域文献</title>
-  <meta name="description" content="宏基因组/微生物组领域最新文献追踪，每日自动更新，AI生成中文摘要，含期刊影响因子、JCR分区、中科院分区等信息。" />
-  <meta property="og:title" content="宏基因组领域文献追踪" />
-  <meta property="og:description" content="每日自动更新宏基因组/微生物组最新文献，AI中文摘要，影响因子、分区一键查询。" />
-  <meta property="og:type" content="website" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="每日追踪二代、三代测序与衰老研究文献，提供可筛选的 AI 中文结构化解读。">
+  <meta name="theme-color" content="#173d35">
+  <meta property="og:title" content="衰老测序文献雷达">
+  <meta property="og:description" content="二代、三代测序与衰老研究的每日文献追踪。">
+  <meta property="og:type" content="website">
+  <title>衰老测序文献雷达</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23176b5b'/%3E%3Cpath d='M18 14c18 8 10 28 28 36M46 14C28 22 36 42 18 50M22 21h20M21 32h22M22 43h20' fill='none' stroke='%23d9f4eb' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
   <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:       #fafafa;
-      --surface:  #ffffff;
-      --border:   #e5e7eb;
-      --text:     #111827;
-      --muted:    #6b7280;
-      --accent:   #2563eb;
-      --accent-l: #eff6ff;
-      --green:    #059669;
-      --yellow:   #d97706;
-      --red:      #dc2626;
-      --radius:   6px;
-      --shadow:   0 1px 4px rgba(0,0,0,.08);
+      color-scheme: light;
+      --ink: #18312c;
+      --muted: #64736f;
+      --paper: #fbfcf9;
+      --surface: #ffffff;
+      --line: #dfe7e2;
+      --brand: #176b5b;
+      --brand-dark: #124d43;
+      --brand-soft: #e8f4ef;
+      --violet: #6750a4;
+      --violet-soft: #f0ecfa;
+      --amber: #956300;
+      --amber-soft: #fff4d8;
+      --red: #a83e3e;
+      --red-soft: #fff0ee;
+      --shadow: 0 14px 40px rgba(22, 54, 47, 0.08);
+      --radius: 18px;
     }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(54, 145, 124, 0.10), transparent 30rem),
+        var(--paper);
+      color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-                   "Microsoft YaHei", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.6;
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible {
-      outline: 2px solid var(--accent);
+    button, input, select { font: inherit; }
+
+    a { color: var(--brand); }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid rgba(23, 107, 91, 0.28);
       outline-offset: 2px;
     }
 
-    /* ── Header ── */
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 28px 32px 20px;
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 30;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      transform: translateY(-150%);
+      transition: transform 0.15s ease;
     }
 
-    .header-inner {
-      max-width: 1600px;
+    .skip-link:focus { transform: translateY(0); }
+
+    .shell {
+      width: min(1240px, calc(100% - 40px));
       margin: 0 auto;
     }
 
-    header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: .02em;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .header-body {
-      display: flex;
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    .intro {
-      flex:1;
-      min-width: 0;
-    }
-
-    .intro p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.75;
-      max-width: 820px;
-    }
-
-    /* Stats chips */
-    .stats-chips {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    .chip {
-      background: var(--accent-l);
-      color: var(--accent);
-      border-radius: 20px;
-      padding: 3px 12px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    /* Donate card */
-    .donate-card {
-      flex-shrink: 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      text-align: center;
-      width: 140px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-top: -28px;
-    }
-
-    .donate-card img {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      border-radius: 4px;
-    }
-
-    .donate-card p {
-      font-size: 12px;
-      color: var(--muted);
-      margin:0;
-      white-space: nowrap;
-      line-height: 1.4;
-    }
-
-    /* ── Toolbar ── */
-    .toolbar {
-      max-width: 1600px;
-      margin: 16px auto 0;
-      padding: 0 32px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .search-box {
-      flex: 1;
-      min-width: 200px;
-      max-width: 380px;
+    .hero {
       position: relative;
+      overflow: hidden;
+      padding: 54px 0 44px;
+      background: linear-gradient(128deg, #143f36 0%, #176b5b 62%, #298471 100%);
+      color: #fff;
     }
 
-    .search-box input {
-      width: 100%;
-      padding: 7px 32px 7px 12px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--surface);
-      font-size: 13px;
-      outline: none;
-      transition: border-color .2s;
-    }
-
-    .search-box input:focus { border-color: var(--accent); }
-
-    .if-filter {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .if-filter label {
-      font-size: 13px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .if-filter input {
-      width: 64px;
-      padding: 7px 8px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--surface);
-      font-size: 13px;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .if-filter input:focus { border-color: var(--accent); }
-
-    .search-box svg {
+    .hero::before,
+    .hero::after {
       position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-    }
-
-    select {
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--surface);
-      font-size: 13px;
-      outline: none;
-      cursor: pointer;
-      color: var(--text);
-    }
-
-    select:focus { border-color: var(--accent); }
-
-    .btn {
-      padding: 7px 14px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      font-size: 13px;
-      cursor: pointer;
-      color: var(--text);
-      transition: background .15s;
-      white-space: nowrap;
-    }
-
-    .btn:hover { background: var(--bg); }
-    .btn:active { transform: scale(0.97); }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    .btn-primary:hover { background: #1d4ed8; }
-
-    .btn-sm {
-      padding: 4px 10px;
-      font-size: 12px;
-    }
-
-    .result-count {
-      margin-left: auto;
-      color: var(--muted);
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    /* ── View Toggle ── */
-    .view-toggle {
-      display: flex;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .view-toggle .btn {
-      border: none;
-      border-radius: 0;
-      padding: 6px 10px;
-      font-size: 12px;
-    }
-
-    .view-toggle .btn.active {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* ── Skeleton Screen ── */
-    .skeleton-table {
-      display: none;
-      width: 100%;
-      min-width: 1400px;
-    }
-
-    .skeleton-table.open { display: table; }
-
-    .skeleton-table th {
-      padding: 10px 12px;
-      text-align: left;
-    }
-
-    .skeleton-table th .skel { height: 12px; width: 60%; background: #e5e7eb; border-radius: 4px; animation: pulse 1.5s ease-in-out infinite; }
-
-    .skeleton-table td {
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .skeleton-table td .skel { height: 14px; background: #f3f4f6; border-radius: 4px; animation: pulse 1.5s ease-in-out infinite; }
-    .skeleton-table td .skel.short { width: 40%; }
-    .skeleton-table td .skel.medium { width: 70%; }
-    .skeleton-table td .skel.long { width: 90%; }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    /* ── Table wrapper ── */
-    .table-wrap {
-      max-width: 1600px;
-      margin: 12px auto 40px;
-      padding: 0 32px;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      min-width: 1400px;
-      border-collapse: collapse;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    thead tr {
-      background: #f9fafb;
-      border-bottom: 2px solid var(--border);
-    }
-
-    th {
-      text-align: left;
-      padding: 10px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      user-select: none;
-      cursor: pointer;
-      white-space: nowrap;
-      position: relative;
-    }
-
-    th:hover { color: var(--accent); }
-    th[scope="col"] { border-bottom: 2px solid var(--accent); }
-
-    th .sort-icon { margin-left: 4px; opacity: .4; }
-    th.sorted-asc .sort-icon::after  { content: " ↑"; opacity: 1; }
-    th.sorted-desc .sort-icon::after { content: " ↓"; opacity: 1; }
-
-    /* ── Table zebra striping (P0-1) ── */
-    tbody tr:nth-child(odd) td { background: #fafbfc; }
-    tbody tr:nth-child(even) td { background: #ffffff; }
-    tbody tr:hover td { background: #f0f7ff !important; }
-
-    /* ── High-quality paper marker (P0-3) ── */
-    .high-quality td { background: #fffbeb !important; }
-    .high-quality td:first-child { border-left: 3px solid #f59e0b; }
-
-    /* ── NEW tag (P0-4) ── */
-    .new-tag {
-      display: inline-block;
-      background: #059669;
-      color: #fff;
-      padding: 1px 6px;
-      border-radius: 3px;
-      font-size: 10px;
-      font-weight: 500;
-      margin-left: 6px;
-      vertical-align: middle;
-    }
-
-    td {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-      font-size: 13px;
-    }
-
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: #f9fafb; }
-    tr:focus { outline: 2px solid var(--accent); outline-offset: -2px; }
-
-    /* Column widths */
-    .col-date    { width: 90px; white-space: nowrap; }
-    .col-title   { width: 220px; font-weight: 600; }  /* P1-7: 标题加粗 */
-    .col-doi     { width: 120px; }
-    .col-pmid    { width: 80px; }
-    .col-journal { width: 110px; word-wrap: break-word; }
-    .col-type    { width: 90px; }
-    .col-summary { width: 200px; }
-    .col-innov   { width: 160px; }
-    .col-limit   { width: 140px; }
-    .col-object  { width: 130px; }
-    .col-disease { width: 110px; }
-    .col-sample  { width: 100px; }
-    /* P0-5: 期刊质量列（合并 IF/JCR/CAS） */
-    .col-journal-quality { width: 180px; font-size: 12px; }
-
-    /* P0-5: 期刊质量标签样式 */
-    .jq-tag {
-      display: inline-block;
-      padding: 1px 6px;
-      border-radius: 3px;
-      font-size: 11px;
-      font-weight: 500;
-      margin-right: 4px;
-      color: #fff;
-    }
-    .jq-if { background: #6b7280; }
-    .jq-q1 { background: #059669; }
-    .jq-q2 { background: #2563eb; }
-    .jq-q3 { background: #d97706; }
-    .jq-q4 { background: #dc2626; }
-    .jq-cas1 { background: #dc2626; }
-    .jq-cas2 { background: #ea580c; }
-    .jq-cas3 { background: #2563eb; }
-    .jq-cas4 { background: #6b7280; }
-
-    /* ── Search Highlight ── */
-    .search-hl {
-      background: #fef08a;
-      border-radius: 2px;
-      padding: 0 1px;
-    }
-
-    /* ── Card View ── */
-    .cards-wrap {
-      display: none;
-      max-width: 1600px;
-      margin: 12px auto 40px;
-      padding: 0 32px;
-    }
-
-    .cards-wrap.open { display: block; }
-
-    .paper-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: var(--shadow);
-      transition: box-shadow .2s;
-    }
-
-    .paper-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
-
-    .paper-card-title {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      line-height: 1.5;
-    }
-
-    .paper-card-title a { color: var(--text); }
-    .paper-card-title a:hover { color: var(--accent); }
-
-    .paper-card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    .paper-card-meta .meta-item { display: flex; align-items: center; gap: 4px; }
-
-    .paper-card-body {
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text);
-    }
-
-    .paper-card-body .section {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
-    }
-
-    .paper-card-body .section-title {
-      font-weight: 600;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-
-    /* ── Memory Section ── */
-    .memory-section {
-      max-width: 1600px;
-      margin: 32px auto 0;
-      padding: 0 32px 40px;
-    }
-    .memory-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      padding: 10px 0;
-      border-bottom: 2px solid var(--border);
-      margin-bottom: 12px;
-      user-select: none;
-    }
-    .memory-header:hover { color: var(--accent); }
-    #memoryToggle { transition: transform .2s; display: inline-block; }
-    #memoryToggle.open { transform: rotate(90deg); }
-    .memory-content {
-      display: none;
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--muted);
-      max-height: 500px;
-      overflow-y: auto;
-    }
-    .memory-content.open { display: block; }
-    .memory-entry { margin-bottom: 20px; }
-    .memory-entry-title {
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 6px;
-      font-size: 13px;
-    }
-    .memory-entry-body {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px 16px;
-      white-space: pre-wrap;
-      font-size: 12.5px;
-      line-height: 1.6;
-      overflow-x: auto;
-    }
-
-    /* cell helpers */
-    .text-clamp {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .text-clamp.expanded {
-      -webkit-line-clamp: unset;
-    }
-
-    /* P2-10: 摘要悬停展开 */
-    .col-summary .text-clamp:hover {
-      -webkit-line-clamp: unset;
-      overflow: visible;
-      position: relative;
-      z-index: 10;
-      background: var(--surface);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      border-radius: var(--radius);
-      padding: 8px 12px;
-      margin: -8px -12px;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .tag-review   { background: #fef3c7; color: #92400e; }
-    .tag-research { background: #d1fae5; color: #065f46; }
-    .tag-bench    { background: #ede9fe; color: #5b21b6; }
-    .tag-meta     { background: #fee2e2; color: #991b1b; }
-    .tag-other    { background: #f3f4f6; color: #374151; }
-    .tag-clinical { background: #dbeafe; color: #1e40af; }
-
-    .ai-pending { color: #9ca3af; font-style: italic; }
-
-    /* Loading */
-    #loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--muted);
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 28px;
-      height: 28px;
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 50%;
-      animation: spin .8s linear infinite;
-      margin-bottom: 12px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero::before {
+      right: -120px;
+      top: -210px;
+      width: 520px;
+      height: 520px;
+    }
+
+    .hero::after {
+      right: 70px;
+      top: -95px;
+      width: 280px;
+      height: 280px;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 40px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #bce7dc;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy {
+      max-width: 770px;
+      margin: 18px 0 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(15px, 2vw, 18px);
+    }
+
+    .source-mark {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .source-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #8ce0c9;
+      box-shadow: 0 0 0 5px rgba(140, 224, 201, 0.13);
+    }
+
+    main { padding: 28px 0 64px; }
+
+    .notice {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding: 13px 16px;
+      border: 1px solid #ead9a6;
+      border-radius: 13px;
+      background: #fff9e9;
+      color: #6e551a;
+      font-size: 13px;
+    }
+
+    .notice strong { color: #59430f; }
+
+    .filter-panel {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: var(--shadow);
+    }
+
+    .filter-grid {
+      display: grid;
+      grid-template-columns: minmax(250px, 2fr) repeat(3, minmax(145px, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 43px;
+      padding: 9px 11px;
+      border: 1px solid #cfdad4;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .field input:hover,
+    .field select:hover { border-color: #a9bcb4; }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(23, 107, 91, 0.10);
+      outline: none;
+    }
+
+    .filter-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .result-meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .button {
+      min-height: 38px;
+      padding: 8px 15px;
+      border: 1px solid #cfdad4;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .button:hover:not(:disabled) {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.42;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .stat {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .stat-label {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .loading,
+    .empty-state {
+      padding: 68px 24px;
+      border: 1px dashed #bdcbc5;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.68);
+      text-align: center;
+    }
+
+    .loading[hidden],
+    .empty-state[hidden],
+    .stats[hidden],
+    .pagination[hidden] { display: none; }
+
+    .loader {
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 14px;
+      border: 3px solid #dbe7e2;
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Empty state */
-    #empty {
-      display: none;
-      text-align: center;
-      padding: 60px 20px;
+    .empty-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--brand-soft);
+      color: var(--brand);
+      font-size: 23px;
+    }
+
+    .empty-state h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .empty-state p {
+      max-width: 580px;
+      margin: 8px auto 0;
       color: var(--muted);
     }
 
-    /* Pagination */
-    .pagination {
+    .paper-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .paper-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 5px 22px rgba(22, 54, 47, 0.05);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .paper-card:hover {
+      border-color: #b6cbc2;
+      box-shadow: 0 12px 34px rgba(22, 54, 47, 0.09);
+      transform: translateY(-2px);
+    }
+
+    .paper-card-inner { padding: 22px; }
+
+    .paper-topline {
       display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: 16px;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #eef2ef;
+      color: #53625e;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .badge.generation-second { background: var(--brand-soft); color: var(--brand-dark); }
+    .badge.generation-third { background: var(--violet-soft); color: var(--violet); }
+    .badge.generation-hybrid { background: var(--amber-soft); color: var(--amber); }
+    .badge.generation-unknown { background: #f0f2f1; color: #69736f; }
+    .badge.score-high { background: #e8f4ef; color: #125d4f; }
+    .badge.score-mid { background: #fff4d8; color: #7c5708; }
+
+    .paper-date {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .paper-title {
+      margin: 0;
+      font-size: clamp(19px, 2.4vw, 24px);
+      line-height: 1.38;
+      letter-spacing: -0.015em;
+    }
+
+    .paper-title a {
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .paper-title a:hover { color: var(--brand); }
+
+    .original-title {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .bibliography {
+      display: flex;
+      gap: 8px 18px;
+      flex-wrap: wrap;
+      margin: 13px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .bibliography strong { color: #40534e; }
+
+    .tag-groups {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 17px;
+    }
+
+    .tag-group {
+      min-width: 0;
+      padding: 10px 11px;
+      border-radius: 12px;
+      background: #f7f9f7;
+    }
+
+    .tag-group-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tags {
+      display: flex;
+      gap: 5px;
       flex-wrap: wrap;
     }
 
-    .page-btn {
-      min-width: 32px;
-      padding: 5px 10px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--surface);
-      cursor: pointer;
-      font-size: 13px;
-      color: var(--text);
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border: 1px solid #dce5e1;
+      border-radius: 7px;
+      background: #fff;
+      color: #42534f;
+      font-size: 11px;
     }
 
-    .page-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
+    .summary {
+      margin: 18px 0 0;
+      padding: 15px 17px;
+      border-left: 4px solid var(--brand);
+      border-radius: 0 12px 12px 0;
+      background: var(--brand-soft);
+      color: #24483f;
     }
 
-    .page-btn:hover:not(.active) { background: var(--bg); }
-
-    /* Tooltip on hover for long text */
-    [title] { cursor: help; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      header { padding: 20px 16px 16px; }
-      .header-body { flex-direction: column; }
-      .toolbar { padding: 0 16px; }
-      .table-wrap { padding: 0 8px; }
-      .cards-wrap { padding: 0 16px; }
-      .donate-card { width: 100%; display: flex; gap: 12px; align-items: center; text-align: left; }
-      .paper-card-meta { flex-direction: column; gap: 4px; }
+    .summary-label,
+    .detail-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--brand-dark);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
     }
 
-    @media (max-width: 480px) {
-      .toolbar { gap: 6px; }
-      .btn { padding: 5px 10px; font-size: 12px; }
-    }
+    .summary p { margin: 0; }
 
-    /* ── Visitor Map Section ── */
-    .visitor-section {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 0 32px 40px;
-    }
-
-    .visitor-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .visitor-title .globe-icon {
-      font-size: 18px;
-    }
-
-    .visitor-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .visitor-card-body {
-      display: flex;
-      min-height: 320px;
-    }
-
-    .map-container {
-      flex:1;
-      min-height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at 50% 38%, #143a63 0%, #0b2440 78%);
-      position: relative;
-    }
-
-    .map-container iframe {
-      border: none;
-      width: 100%;
-      height: 320px;
-    }
-
-    .visitor-sidebar {
-      width: 200px;
-      border-left: 1px solid var(--border);
-      padding: 20px 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 20px;
-      flex-shrink: 0;
-    }
-
-    .visitor-stat {
-      text-align: center;
-    }
-
-    .visitor-stat .stat-number {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1.2;
-    }
-
-    .visitor-stat .stat-desc {
-      font-size: 12px;
+    .summary.pending {
+      border-left-color: #b1bdb8;
+      background: #f4f6f5;
       color: var(--muted);
-      margin-top: 4px;
     }
 
-    .visitor-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 0;
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--line);
     }
 
-    @media (max-width: 768px) {
-      .visitor-section { padding: 0 16px 32px; }
-      .visitor-card-body { flex-direction: column; }
-      .visitor-sidebar {
-        width: 100%;
-        border-left: none;
-        border-top: 1px solid var(--border);
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 16px;
-        gap: 0;
+    .detail {
+      min-width: 0;
+      padding: 13px 14px;
+      background: #fff;
+      color: #43534f;
+      font-size: 13px;
+    }
+
+    .detail p { margin: 0; }
+
+    .study-meta {
+      display: flex;
+      gap: 8px 18px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .study-meta strong { color: #4d5f59; }
+
+    details.evidence {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    details.evidence summary {
+      width: fit-content;
+      cursor: pointer;
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    .evidence-text { margin: 7px 0 0; }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      align-items: center;
+      margin-top: 26px;
+    }
+
+    .page-indicator {
+      min-width: 90px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: #f4f7f4;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+      padding: 25px 0 30px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-inner p { margin: 0; }
+
+    .footer-inner a { font-weight: 700; }
+
+    @media (max-width: 980px) {
+      .filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .search-field { grid-column: span 2; }
+      .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .tag-groups, .detail-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 24px, 1240px); }
+      .hero { padding: 38px 0 32px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 22px; }
+      .source-mark { width: fit-content; }
+      main { padding-top: 18px; }
+      .filter-panel { padding: 15px; }
+      .filter-grid { grid-template-columns: 1fr; }
+      .search-field { grid-column: auto; }
+      .filter-actions { align-items: flex-start; flex-direction: column; }
+      .button.reset { width: 100%; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stat:first-child { grid-column: span 2; }
+      .paper-card-inner { padding: 17px; }
+      .paper-date { width: 100%; margin-left: 0; }
+      .bibliography { flex-direction: column; gap: 3px; }
+      .detail-grid { display: block; border: 0; background: transparent; }
+      .detail { margin-top: 8px; border: 1px solid var(--line); border-radius: 10px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
-      .visitor-divider { display: none; }
-      .map-container { min-height: 240px; }
-      /* P1-8: 移动端强制卡片视图 */
-      .view-toggle { display: none !important; }
-      #tableContainer { display: none !important; }
-      .cards-wrap { display: block !important; }
-    }
-
-    /* ── Visitor Map (self-contained SVG, no external dependency) ── */
-    #worldMap { width: 100%; height: 100%; display: block; }
-    .wm-dot { fill: rgba(130, 200, 255, 0.42); }
-    .wm-core { fill: #ffd166; }
-    .wm-pulse {
-      fill: rgba(255, 209, 102, 0.55);
-      transform-box: fill-box; transform-origin: center;
-      animation: wmPulse 2.8s ease-out infinite;
-    }
-    @keyframes wmPulse {
-      0%   { transform: scale(1);   opacity: 0.75; }
-      70%  { transform: scale(7);   opacity: 0; }
-      100% { transform: scale(7);   opacity: 0; }
-    }
-    .map-note {
-      position: absolute; right: 12px; bottom: 10px;
-      font-size: 11px; color: rgba(255,255,255,0.6);
-      letter-spacing: 0.3px;
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#papers">跳到文献列表</a>
 
-<!-- ════════════════════ HEADER ═════════════════════ -->
-<header>
-  <div class="header-inner">
-    <h1>宏基因组领域文献</h1>
-
-    <div class="header-body">
-      <div class="intro">
-        <p>
-          该数据库通过收集和整理最新科研文献信息，用来了解领域前沿进展。数据源自
-          <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed</a>，
-          每日自动更新（使用关键词 <code>['metagenome', 'metagenomic', 'microbiom']</code> 过滤），
-          已收录文献数量参见统计表格。<br>
-          表格内容由 AI 自动整理，可能存在错误或遗漏，请使用时务必注意核实！<br>
-          如有建议或合作意向，欢迎联系
-          <a href="mailto:yinhm17@126.com">yinhm17@126.com</a>
-          &nbsp;微信 <strong>yinhm1999</strong>。
+  <header class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <p class="eyebrow">Aging × Sequencing Literature Radar</p>
+        <h1>衰老测序文献雷达</h1>
+        <p class="hero-copy">
+          聚焦二代与三代测序在衰老、细胞衰老、长寿与年龄相关疾病研究中的应用，
+          每日整理 PubMed 新文献并生成中文结构化解读。
         </p>
-        <div class="stats-chips" id="statsChips">
-          <span class="chip" id="chipTotal">加载中…</span>
+      </div>
+      <div class="source-mark"><span class="source-dot" aria-hidden="true"></span> 数据源：PubMed</div>
+    </div>
+  </header>
+
+  <main class="shell" id="mainContent">
+    <aside class="notice" aria-label="使用提示">
+      <span aria-hidden="true">ⓘ</span>
+      <div><strong>请核验原文：</strong>中文内容由 AI 根据题目和摘要自动整理，可能存在错误或遗漏；本站仅用于科研信息筛选，不构成医疗建议。</div>
+    </aside>
+
+    <section class="filter-panel" aria-labelledby="filterTitle">
+      <h2 id="filterTitle" hidden>筛选文献</h2>
+      <div class="filter-grid">
+        <div class="field search-field">
+          <label for="searchInput">全文搜索</label>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="题目、摘要、平台、物种、组织……">
+        </div>
+        <div class="field">
+          <label for="generationFilter">测序代际</label>
+          <select id="generationFilter"><option value="">全部代际</option></select>
+        </div>
+        <div class="field">
+          <label for="technologyFilter">技术 / 平台</label>
+          <select id="technologyFilter"><option value="">全部技术</option></select>
+        </div>
+        <div class="field">
+          <label for="topicFilter">衰老主题</label>
+          <select id="topicFilter"><option value="">全部主题</option></select>
+        </div>
+        <div class="field">
+          <label for="speciesFilter">物种</label>
+          <select id="speciesFilter"><option value="">全部物种</option></select>
+        </div>
+        <div class="field">
+          <label for="yearFilter">发表年份</label>
+          <select id="yearFilter"><option value="">全部年份</option></select>
+        </div>
+        <div class="field">
+          <label for="typeFilter">文献类型</label>
+          <select id="typeFilter"><option value="">全部类型</option></select>
+        </div>
+        <div class="field">
+          <label for="sortSelect">排序</label>
+          <select id="sortSelect">
+            <option value="date-desc">最新发表</option>
+            <option value="date-asc">最早发表</option>
+            <option value="score-desc">相关性优先</option>
+          </select>
         </div>
       </div>
-
-      <!-- 收款码 -->
-      <div class="donate-card">
-        <img src="png/wechat_pay.jpg" alt="微信收款码" />
-        <p>覆盖模型成本，谢谢老板</p>
+      <div class="filter-actions">
+        <div class="result-meta" id="resultMeta" aria-live="polite">正在读取文献数据……</div>
+        <button class="button reset" id="resetButton" type="button">重置筛选</button>
       </div>
+    </section>
+
+    <section class="stats" id="stats" aria-label="文献统计" hidden></section>
+
+    <div class="loading" id="loading" role="status">
+      <div class="loader" aria-hidden="true"></div>
+      <div>正在加载年度文献数据……</div>
     </div>
-  </div>
-</header>
 
-<!-- ════════════════════ TOOLBAR ═════════════════════ -->
-<div class="toolbar">
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="搜索题目、摘要、疾病… (按 / 键聚焦)" oninput="onSearch()" />
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-    </svg>
-  </div>
+    <section class="empty-state" id="emptyState" hidden>
+      <div class="empty-icon" aria-hidden="true">⌁</div>
+      <h2 id="emptyTitle">暂无文献</h2>
+      <p id="emptyText">首次运行抓取任务后，文献会自动出现在这里。</p>
+    </section>
 
-  <select id="typeFilter" onchange="onFilter()">
-    <option value="">全部类型</option>
-    <option value="研究论文">研究论文</option>
-    <option value="综述">综述</option>
-    <option value="系统综述">系统综述/Meta分析</option>
-    <option value="Benchmark">Benchmark</option>
-    <option value="临床试验">临床试验</option>
-  </select>
+    <section class="paper-list" id="papers" aria-label="文献列表"></section>
 
-  <select id="yearFilter" onchange="onYearChange()">
-    <option value="">全部年份</option>
-  </select>
+    <nav class="pagination" id="pagination" aria-label="文献分页" hidden>
+      <button class="button" id="firstPage" type="button">首页</button>
+      <button class="button" id="previousPage" type="button">上一页</button>
+      <span class="page-indicator" id="pageIndicator"></span>
+      <button class="button" id="nextPage" type="button">下一页</button>
+      <button class="button" id="lastPage" type="button">末页</button>
+    </nav>
+  </main>
 
-  <div class="if-filter">
-    <label for="ifFilter">IF &gt;</label>
-    <input type="number" id="ifFilter" placeholder="如 10" min="0" step="0.1" oninput="onFilter()" />
-  </div>
+  <footer>
+    <div class="shell footer-inner">
+      <p>AI 辅助整理 · 仅供科研信息筛选 · 不构成医疗建议</p>
+      <p>
+        感谢上游开源项目
+        <a href="https://github.com/yin-huamin/meta.seubiomed.com" target="_blank" rel="noopener noreferrer">Meta-SeuBiomed</a>，
+        本项目依照 MIT License 改造。
+      </p>
+    </div>
+  </footer>
 
-  <div class="view-toggle" id="viewToggle">
-    <button class="btn active" onclick="setView('table')" title="表格视图">☰ 表格</button>
-    <button class="btn" onclick="setView('card')" title="卡片视图">▦ 卡片</button>
-  </div>
+  <script>
+    "use strict";
 
-  <select id="pageSizeSelect" onchange="onPageSizeChange()">
-    <option value="50">每页 50</option>
-    <option value="100">每页 100</option>
-    <option value="200">每页 200</option>
-  </select>
+    const PAGE_SIZE = 24;
+    const GENERATION_ORDER = ["二代/短读长", "三代/长读长", "二代+三代", "平台未报告"];
+    const state = {
+      records: [],
+      filtered: [],
+      years: [],
+      page: 1,
+      failedYears: [],
+      ready: false,
+    };
 
-  <button class="btn" onclick="clearFilters()">重置</button>
+    const elements = {
+      search: document.getElementById("searchInput"),
+      generation: document.getElementById("generationFilter"),
+      technology: document.getElementById("technologyFilter"),
+      topic: document.getElementById("topicFilter"),
+      species: document.getElementById("speciesFilter"),
+      year: document.getElementById("yearFilter"),
+      type: document.getElementById("typeFilter"),
+      sort: document.getElementById("sortSelect"),
+      reset: document.getElementById("resetButton"),
+      resultMeta: document.getElementById("resultMeta"),
+      stats: document.getElementById("stats"),
+      loading: document.getElementById("loading"),
+      empty: document.getElementById("emptyState"),
+      emptyTitle: document.getElementById("emptyTitle"),
+      emptyText: document.getElementById("emptyText"),
+      papers: document.getElementById("papers"),
+      pagination: document.getElementById("pagination"),
+      firstPage: document.getElementById("firstPage"),
+      previousPage: document.getElementById("previousPage"),
+      nextPage: document.getElementById("nextPage"),
+      lastPage: document.getElementById("lastPage"),
+      pageIndicator: document.getElementById("pageIndicator"),
+    };
 
-  <span class="result-count" id="resultCount"></span>
-</div>
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-<!-- ════════════════════ TABLE (Skeleton + Real) ═════════════════════ -->
-<div class="table-wrap" id="tableWrap">
-  <!-- Skeleton Screen -->
-  <table class="skeleton-table" id="skeletonTable">
-    <thead>
-      <tr>
-        <th><div class="skel" style="width:60px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:80px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:50px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:70px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:30px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:40px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:40px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:60px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:80px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:70px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:70px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:70px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:60px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-        <th><div class="skel" style="width:50px;height:12px;background:#e5e7eb;border-radius:4px;animation:pulse 1.5s ease-in-out infinite;"></div></th>
-      </tr>
-    </thead>
-    <tbody id="skeletonBody">
-      <!-- 8 rows of skeleton -->
-    </tbody>
-  </table>
+    function cleanText(value) {
+      if (value === null || value === undefined) return "";
+      return String(value).trim();
+    }
 
-  <div id="loading">
-    <div class="spinner"></div>
-    <p>正在加载文献数据…</p>
-  </div>
+    function cleanGeneratedText(value) {
+      const text = cleanText(value);
+      return ["（待生成）", "待生成"].includes(text) ? "" : text;
+    }
 
-  <div id="empty">
-    <p>🔍 未找到匹配的文献</p>
-  </div>
+    function toList(value) {
+      const values = Array.isArray(value)
+        ? value
+        : typeof value === "string"
+          ? value.split(/\s*[|；;、,，]\s*/)
+          : [];
+      return [...new Set(values.map(cleanText).filter(Boolean))];
+    }
 
-  <div id="tableContainer" style="display:none;">
-    <table id="mainTable">
-      <thead>
-        <tr>
-          <th class="col-date" onclick="sortBy('pub_date')" scope="col">发表日期<span class="sort-icon"></span></th>
-          <th class="col-title">题目</th>
-          <th class="col-pmid" onclick="sortBy('pmid')" scope="col">PMID<span class="sort-icon"></span></th>
-          <th class="col-journal" scope="col">期刊</th>
-          <!-- P0-5: 合并为1列 -->
-          <th class="col-journal-quality" scope="col">期刊质量<span class="sort-icon"></span></th>
-          <th class="col-type" onclick="sortBy('article_type')" scope="col">类型<span class="sort-icon"></span></th>
-          <th class="col-summary">中文摘要</th>
-          <th class="col-innov">创新点</th>
-          <th class="col-limit">不足</th>
-          <th class="col-object">研究对象</th>
-          <th class="col-disease">疾病</th>
-          <th class="col-sample">样本量</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+    function mergeLists(...values) {
+      return [...new Set(values.flatMap(toList))];
+    }
 
-    <div class="pagination" id="pagination"></div>
-  </div>
-</div>
+    function normalizeGeneration(value) {
+      const raw = cleanText(value).toLowerCase();
+      if (["二代/短读长", "二代测序", "second", "short-read", "short read"].includes(raw)) return "二代/短读长";
+      if (["三代/长读长", "三代测序", "third", "long-read", "long read"].includes(raw)) return "三代/长读长";
+      if (["二代+三代", "二代与三代", "hybrid", "mixed"].includes(raw)) return "二代+三代";
+      return "平台未报告";
+    }
 
-<!-- ════════════════════ CARD VIEW ═════════════════════ -->
-<div class="cards-wrap" id="cardsWrap">
-  <div id="cardsContainer"></div>
-  <div class="pagination" id="cardsPagination"></div>
-</div>
+    function normalizeRecord(raw) {
+      const sequencingAssays = mergeLists(raw.sequencing_assays, raw.assay_type, raw.assays);
+      const platforms = mergeLists(raw.platforms, raw.sequencing_platform, raw.platform);
+      const agingTopics = mergeLists(raw.aging_topics, raw.aging_topic);
+      const species = mergeLists(raw.species, raw.organism, raw.organisms);
+      const tissues = mergeLists(raw.tissues, raw.tissue);
+      const evidence = mergeLists(raw.classification_evidence);
+      const scoreValue = Number(raw.relevance_score);
+      const relevanceScore = Number.isFinite(scoreValue)
+        ? Math.max(0, Math.min(100, Math.round(scoreValue)))
+        : 0;
+      const pubDate = cleanText(raw.pub_date || raw.publication_date);
 
-<!-- ════════════════════ CARD VIEW ═════════════════════ -->
-<script>
-// ═══════════════════════ DATA LAYER ═══════════════════════
-let allData       = [];
-let filteredData  = [];
-let currentPage   = 1;
-let pageSize      = 50;
-let sortKey       = "pub_date";
-let sortDir       = "desc";
-let currentView   = window.innerWidth < 768 ? "card" : "table"; // P1-8: 移动端默认卡片视图
-let searchQuery   = "";
-let loadingYear   = null; // 正在加载的年份
+      return {
+        pmid: cleanText(raw.pmid),
+        doi: cleanText(raw.doi),
+        title: cleanText(raw.title),
+        titleZh: cleanGeneratedText(raw.title_zh),
+        journal: cleanText(raw.journal),
+        pubDate,
+        year: /^\d{4}/.test(pubDate) ? pubDate.slice(0, 4) : "",
+        authors: cleanText(raw.authors),
+        articleType: cleanText(raw.article_type) || "其他",
+        generation: normalizeGeneration(raw.sequencing_generation),
+        sequencingAssays,
+        platforms,
+        agingTopics,
+        species,
+        tissues,
+        relevanceScore,
+        evidence,
+        summary: cleanGeneratedText(raw.summary_zh),
+        mainFinding: cleanGeneratedText(raw.main_finding),
+        innovation: cleanGeneratedText(raw.innovation),
+        limitation: cleanGeneratedText(raw.limitation),
+        studyObject: cleanGeneratedText(raw.study_object),
+        studyDesign: cleanGeneratedText(raw.study_design),
+        disease: cleanGeneratedText(raw.disease),
+        sampleSize: cleanGeneratedText(raw.sample_size),
+        aiStatus: cleanText(raw.ai_status),
+      };
+    }
 
-// 日期解析函数：支持多种格式
-function parseDate(dateStr) {
-  if (!dateStr) return null;
-  let d = new Date(dateStr);
-  if (!isNaN(d.getTime())) return d.getTime();
-  return null;
-}
+    function recordKey(record) {
+      if (record.pmid) return `pmid:${record.pmid}`;
+      if (record.doi) return `doi:${record.doi.toLowerCase()}`;
+      return `title:${record.title.toLowerCase()}|${record.pubDate}`;
+    }
 
-// ═══════════════════════ YEARLY DATA LOADING ═══════════════════════
-async function loadYearData(year) {
-  if (loadingYear === year) return;
-  loadingYear = year;
-  try {
-    const res = await fetch(`data/${year}.json?t=${Date.now()}`);
-    if (!res.ok) throw new Error(`Failed to load data/${year}.json`);
-    const yearData = await res.json();
-    // 去重合并（按pmid）
-    const existingIds = new Set(allData.map(r => r.pmid));
-    for (const r of yearData) {
-      if (!existingIds.has(r.pmid)) {
-        allData.push(r);
-        existingIds.add(r.pmid);
+    function recordCompleteness(record) {
+      return [record.titleZh, record.summary, record.mainFinding, record.innovation,
+        record.limitation, record.platforms.length, record.sequencingAssays.length]
+        .reduce((score, value) => score + (value ? 1 : 0), 0);
+    }
+
+    function deduplicate(records) {
+      const unique = new Map();
+      records.forEach((record) => {
+        const key = recordKey(record);
+        const existing = unique.get(key);
+        if (!existing || recordCompleteness(record) > recordCompleteness(existing)) {
+          unique.set(key, record);
+        }
+      });
+      return [...unique.values()];
+    }
+
+    function setSelectOptions(select, label, values, order = null) {
+      const previous = select.value;
+      select.replaceChildren();
+      const all = document.createElement("option");
+      all.value = "";
+      all.textContent = label;
+      select.appendChild(all);
+
+      let sorted = [...new Set(values.filter(Boolean))];
+      if (order) {
+        sorted = order.filter((item) => sorted.includes(item));
+      } else {
+        sorted.sort((a, b) => a.localeCompare(b, "zh-CN", { numeric: true }));
+      }
+      sorted.forEach((value) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+      if (sorted.includes(previous)) select.value = previous;
+    }
+
+    function populateFilters() {
+      const technologies = state.records.flatMap((record) => [...record.sequencingAssays, ...record.platforms]);
+      const topics = state.records.flatMap((record) => record.agingTopics);
+      const species = state.records.flatMap((record) => record.species);
+      const years = [...new Set([...state.years, ...state.records.map((record) => record.year).filter(Boolean)])]
+        .sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
+      const types = state.records.map((record) => record.articleType);
+      setSelectOptions(elements.generation, "全部代际", GENERATION_ORDER, GENERATION_ORDER);
+      setSelectOptions(elements.technology, "全部技术", technologies);
+      setSelectOptions(elements.topic, "全部主题", topics);
+      setSelectOptions(elements.species, "全部物种", species);
+      setSelectOptions(elements.year, "全部年份", years);
+      setSelectOptions(elements.type, "全部类型", types);
+    }
+
+    function readUrlState() {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get("q");
+      if (query !== null) elements.search.value = query;
+      const mappings = [
+        [elements.generation, "generation"],
+        [elements.technology, "technology"],
+        [elements.topic, "topic"],
+        [elements.species, "species"],
+        [elements.year, "year"],
+        [elements.type, "type"],
+        [elements.sort, "sort"],
+      ];
+      mappings.forEach(([element, key]) => {
+        const value = params.get(key);
+        if (value !== null && [...element.options].some((option) => option.value === value)) {
+          element.value = value;
+        }
+      });
+      const page = Number.parseInt(params.get("page") || "1", 10);
+      state.page = Number.isFinite(page) && page > 0 ? page : 1;
+    }
+
+    function writeUrlState() {
+      const params = new URLSearchParams();
+      const mappings = [
+        [elements.search, "q"],
+        [elements.generation, "generation"],
+        [elements.technology, "technology"],
+        [elements.topic, "topic"],
+        [elements.species, "species"],
+        [elements.year, "year"],
+        [elements.type, "type"],
+      ];
+      mappings.forEach(([element, key]) => {
+        if (element.value) params.set(key, element.value);
+      });
+      if (elements.sort.value !== "date-desc") params.set("sort", elements.sort.value);
+      if (state.page > 1) params.set("page", String(state.page));
+      const query = params.toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
+    }
+
+    function matchesSearch(record, query) {
+      if (!query) return true;
+      const haystack = [
+        record.title, record.titleZh, record.journal, record.authors, record.articleType,
+        record.generation, ...record.sequencingAssays, ...record.platforms,
+        ...record.agingTopics, ...record.species, ...record.tissues,
+        record.summary, record.mainFinding, record.innovation, record.limitation,
+        record.studyObject, record.studyDesign, record.disease, record.sampleSize,
+      ].join(" ").toLocaleLowerCase("zh-CN");
+      return haystack.includes(query);
+    }
+
+    function applyFilters({ resetPage = false, updateUrl = true } = {}) {
+      if (!state.ready) return;
+      if (resetPage) state.page = 1;
+      const query = elements.search.value.trim().toLocaleLowerCase("zh-CN");
+      const generation = elements.generation.value;
+      const technology = elements.technology.value;
+      const topic = elements.topic.value;
+      const species = elements.species.value;
+      const year = elements.year.value;
+      const type = elements.type.value;
+
+      state.filtered = state.records.filter((record) => {
+        if (!matchesSearch(record, query)) return false;
+        if (generation && record.generation !== generation) return false;
+        if (technology && !record.sequencingAssays.includes(technology) && !record.platforms.includes(technology)) return false;
+        if (topic && !record.agingTopics.includes(topic)) return false;
+        if (species && !record.species.includes(species)) return false;
+        if (year && record.year !== year) return false;
+        if (type && record.articleType !== type) return false;
+        return true;
+      });
+
+      const sortMode = elements.sort.value;
+      state.filtered.sort((a, b) => {
+        if (sortMode === "score-desc") {
+          return b.relevanceScore - a.relevanceScore || b.pubDate.localeCompare(a.pubDate);
+        }
+        return sortMode === "date-asc"
+          ? a.pubDate.localeCompare(b.pubDate)
+          : b.pubDate.localeCompare(a.pubDate);
+      });
+
+      const totalPages = Math.max(1, Math.ceil(state.filtered.length / PAGE_SIZE));
+      state.page = Math.min(state.page, totalPages);
+      render();
+      if (updateUrl) writeUrlState();
+    }
+
+    function generationClass(generation) {
+      if (generation === "二代/短读长") return "generation-second";
+      if (generation === "三代/长读长") return "generation-third";
+      if (generation === "二代+三代") return "generation-hybrid";
+      return "generation-unknown";
+    }
+
+    function renderTags(items, emptyText = "未报告") {
+      if (!items.length) return `<span class="tag">${escapeHtml(emptyText)}</span>`;
+      return items.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join("");
+    }
+
+    function tagGroup(label, items, emptyText) {
+      return `
+        <div class="tag-group">
+          <span class="tag-group-label">${escapeHtml(label)}</span>
+          <div class="tags">${renderTags(items, emptyText)}</div>
+        </div>`;
+    }
+
+    function optionalDetail(label, text) {
+      if (!text) return "";
+      return `
+        <div class="detail">
+          <span class="detail-label">${escapeHtml(label)}</span>
+          <p>${escapeHtml(text)}</p>
+        </div>`;
+    }
+
+    function renderPaper(record) {
+      const safePmid = /^\d+$/.test(record.pmid) ? record.pmid : "";
+      const pubmedUrl = safePmid ? `https://pubmed.ncbi.nlm.nih.gov/${encodeURIComponent(safePmid)}/` : "";
+      const primaryTitle = record.titleZh || record.title || "无题名记录";
+      const secondaryTitle = record.titleZh && record.title && record.titleZh !== record.title ? record.title : "";
+      const titleContent = pubmedUrl
+        ? `<a href="${pubmedUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(primaryTitle)}</a>`
+        : escapeHtml(primaryTitle);
+      const scoreClass = record.relevanceScore >= 80 ? "score-high" : record.relevanceScore >= 60 ? "score-mid" : "";
+      const summaryPending = !record.summary || record.summary === "（待生成）";
+      const summaryText = summaryPending ? "AI 中文解读尚未生成，请先查看 PubMed 原文。" : record.summary;
+      const details = [
+        optionalDetail("主要发现", record.mainFinding),
+        optionalDetail("创新点", record.innovation),
+        optionalDetail("局限性", record.limitation),
+      ].filter(Boolean).join("");
+      const metadata = [
+        record.studyObject ? `<span><strong>研究对象：</strong>${escapeHtml(record.studyObject)}</span>` : "",
+        record.studyDesign ? `<span><strong>研究设计：</strong>${escapeHtml(record.studyDesign)}</span>` : "",
+        record.sampleSize ? `<span><strong>样本量：</strong>${escapeHtml(record.sampleSize)}</span>` : "",
+        record.disease ? `<span><strong>疾病/状态：</strong>${escapeHtml(record.disease)}</span>` : "",
+      ].filter(Boolean).join("");
+      const evidence = record.evidence.length
+        ? `<details class="evidence"><summary>查看分类依据</summary><p class="evidence-text">${escapeHtml(record.evidence.join(" · "))}</p></details>`
+        : "";
+
+      return `
+        <article class="paper-card">
+          <div class="paper-card-inner">
+            <div class="paper-topline">
+              <span class="badge ${generationClass(record.generation)}">${escapeHtml(record.generation)}</span>
+              <span class="badge">${escapeHtml(record.articleType)}</span>
+              ${record.relevanceScore ? `<span class="badge ${scoreClass}">相关性 ${escapeHtml(record.relevanceScore)}</span>` : ""}
+              <time class="paper-date" datetime="${escapeHtml(record.pubDate)}">${escapeHtml(record.pubDate || "日期未报告")}</time>
+            </div>
+            <h2 class="paper-title">${titleContent}</h2>
+            ${secondaryTitle ? `<p class="original-title">${escapeHtml(secondaryTitle)}</p>` : ""}
+            <div class="bibliography">
+              ${record.journal ? `<span><strong>期刊</strong> ${escapeHtml(record.journal)}</span>` : ""}
+              ${safePmid ? `<span><strong>PMID</strong> ${escapeHtml(safePmid)}</span>` : ""}
+              ${record.authors ? `<span><strong>作者</strong> ${escapeHtml(record.authors)}</span>` : ""}
+            </div>
+            <div class="tag-groups">
+              ${tagGroup("测序技术 / 平台", [...record.sequencingAssays, ...record.platforms], "未报告具体技术")}
+              ${tagGroup("衰老主题", record.agingTopics, "未分类")}
+              ${tagGroup("物种 / 组织", [...record.species, ...record.tissues], "未报告")}
+            </div>
+            <div class="summary${summaryPending ? " pending" : ""}">
+              <span class="summary-label">AI 中文解读</span>
+              <p>${escapeHtml(summaryText)}</p>
+            </div>
+            ${details ? `<div class="detail-grid">${details}</div>` : ""}
+            ${metadata ? `<div class="study-meta">${metadata}</div>` : ""}
+            ${evidence}
+          </div>
+        </article>`;
+    }
+
+    function renderStats() {
+      const counts = Object.fromEntries(GENERATION_ORDER.map((key) => [key, 0]));
+      state.records.forEach((record) => { counts[record.generation] = (counts[record.generation] || 0) + 1; });
+      const items = [
+        [state.records.length, "收录文献"],
+        [counts["二代/短读长"], "二代 / 短读长"],
+        [counts["三代/长读长"], "三代 / 长读长"],
+        [counts["二代+三代"], "联合测序"],
+        [counts["平台未报告"], "平台未报告"],
+      ];
+      elements.stats.innerHTML = items.map(([value, label]) => `
+        <div class="stat"><span class="stat-value">${escapeHtml(value)}</span><span class="stat-label">${escapeHtml(label)}</span></div>
+      `).join("");
+      elements.stats.hidden = state.records.length === 0;
+    }
+
+    function renderPagination() {
+      const totalPages = Math.max(1, Math.ceil(state.filtered.length / PAGE_SIZE));
+      elements.pagination.hidden = state.filtered.length <= PAGE_SIZE;
+      elements.pageIndicator.textContent = `${state.page} / ${totalPages}`;
+      elements.firstPage.disabled = state.page <= 1;
+      elements.previousPage.disabled = state.page <= 1;
+      elements.nextPage.disabled = state.page >= totalPages;
+      elements.lastPage.disabled = state.page >= totalPages;
+    }
+
+    function render() {
+      elements.loading.hidden = true;
+      const start = (state.page - 1) * PAGE_SIZE;
+      const pageRecords = state.filtered.slice(start, start + PAGE_SIZE);
+      elements.papers.innerHTML = pageRecords.map(renderPaper).join("");
+
+      const warning = state.failedYears.length
+        ? `；${state.failedYears.length} 个年份暂时加载失败`
+        : "";
+      elements.resultMeta.textContent = `显示 ${state.filtered.length} / ${state.records.length} 篇${warning}`;
+
+      if (state.records.length === 0) {
+        showEmpty("尚无文献数据", "首次运行抓取与构建任务后，文献会自动出现在这里。");
+      } else if (state.filtered.length === 0) {
+        showEmpty("没有符合条件的文献", "请放宽筛选条件或重置筛选后再试。");
+      } else {
+        elements.empty.hidden = true;
+      }
+      renderPagination();
+    }
+
+    function showEmpty(title, text) {
+      elements.emptyTitle.textContent = title;
+      elements.emptyText.textContent = text;
+      elements.empty.hidden = false;
+      elements.pagination.hidden = true;
+    }
+
+    function goToPage(page) {
+      const totalPages = Math.max(1, Math.ceil(state.filtered.length / PAGE_SIZE));
+      state.page = Math.max(1, Math.min(page, totalPages));
+      render();
+      writeUrlState();
+      elements.papers.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetFilters() {
+      elements.search.value = "";
+      elements.generation.value = "";
+      elements.technology.value = "";
+      elements.topic.value = "";
+      elements.species.value = "";
+      elements.year.value = "";
+      elements.type.value = "";
+      elements.sort.value = "date-desc";
+      applyFilters({ resetPage: true });
+    }
+
+    async function fetchJson(path) {
+      const response = await fetch(path, { cache: "no-cache" });
+      if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
+      return response.json();
+    }
+
+    async function loadData() {
+      try {
+        const indexData = await fetchJson("data/index.json");
+        const entries = Array.isArray(indexData)
+          ? indexData
+          : Array.isArray(indexData?.years)
+            ? indexData.years
+            : [];
+        const shards = entries.map((entry) => {
+          const year = cleanText(typeof entry === "object" ? entry.year : entry);
+          const declaredFile = cleanText(typeof entry === "object" ? entry.file : "");
+          const fallbackFile = /^\d{4}$/.test(year) ? `data/${year}.json` : "";
+          const file = declaredFile || fallbackFile;
+          return { year, file };
+        }).filter((entry) => /^data\/[A-Za-z0-9._-]+\.json$/.test(entry.file));
+        state.years = [...new Set(shards.map((entry) => entry.year).filter((year) => /^\d{4}$/.test(year)))]
+          .sort((a, b) => b.localeCompare(a));
+
+        if (shards.length === 0) {
+          state.records = [];
+          state.filtered = [];
+          state.ready = true;
+          elements.loading.hidden = true;
+          elements.resultMeta.textContent = "当前没有可加载的年度数据";
+          renderStats();
+          showEmpty("尚无文献数据", "data/index.json 中还没有年度记录；首次构建后页面会自动更新。");
+          return;
+        }
+
+        const results = await Promise.allSettled(
+          shards.map(async (entry) => ({
+            year: entry.year,
+            records: await fetchJson(entry.file),
+          }))
+        );
+        const records = [];
+        results.forEach((result, index) => {
+          if (result.status === "fulfilled" && Array.isArray(result.value.records)) {
+            result.value.records.forEach((raw) => {
+              if (raw && typeof raw === "object") records.push(normalizeRecord(raw));
+            });
+          } else {
+            state.failedYears.push(shards[index].year || shards[index].file);
+          }
+        });
+
+        state.records = deduplicate(records);
+        state.ready = true;
+        populateFilters();
+        readUrlState();
+        renderStats();
+        applyFilters({ updateUrl: false });
+      } catch (error) {
+        console.error("加载文献数据失败", error);
+        state.ready = true;
+        elements.loading.hidden = true;
+        elements.resultMeta.textContent = "数据加载失败";
+        showEmpty("暂时无法读取文献数据", "请确认 data/index.json 已生成并与网页一起发布，然后刷新页面重试。");
       }
     }
-    console.log(`Loaded ${yearData.length} papers for ${year}, total: ${allData.length}`);
-  } catch(e) {
-    console.error(`Error loading year ${year}:`, e);
-  } finally {
-    loadingYear = null;
-  }
-}
 
-async function loadAllYearIndex() {
-  try {
-    const res = await fetch(`data/index.json?t=${Date.now()}`);
-    if (!res.ok) throw new Error("index.json not found");
-    return await res.json(); // [{year, count, file}, ...]
-  } catch(e) {
-    console.error("Failed to load index.json:", e);
-    return null;
-  }
-}
-
-async function loadData() {
-  showSkeleton(true);
-  try {
-    // 加载年份索引
-    const index = await loadAllYearIndex();
-    if (!index) throw new Error("No index.json found");
-
-    // 填充年份筛选器
-    populateYearFilter(index);
-
-    // 默认加载所有年份
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlYear = urlParams.get('year');
-    const yearsToLoad = new Set();
-
-    index.forEach(item => yearsToLoad.add(item.year));
-
-    // URL指定的年份也需加载
-    if (urlYear && !yearsToLoad.has(urlYear)) {
-      yearsToLoad.add(urlYear);
-    }
-
-    // 并行加载所有年份
-    await Promise.all([...yearsToLoad].map(y => loadYearData(y)));
-
-    // 设置URL参数
-    applyUrlParams();
-
-    showSkeleton(false);
-    init();
-    loadMemory();
-  } catch(e) {
-    console.error("Failed to load data:", e);
-    document.getElementById("loading").innerHTML = '<p style="color:var(--red)">加载数据失败：' + e.message + '</p>';
-  }
-}
-
-// ═══════════════════════ SKELETON ═══════════════════════
-function showSkeleton(show) {
-  const skeleton = document.getElementById("skeletonTable");
-  const loading = document.getElementById("loading");
-  if (show) {
-    skeleton.classList.add("open");
-    loading.style.display = "none";
-    document.getElementById("tableContainer").style.display = "none";
-    document.getElementById("cardsWrap").classList.remove("open");
-    // 生成8行骨架
-    const skelBody = document.getElementById("skeletonBody");
-    let html = "";
-    for (let i = 0; i < 8; i++) {
-      html += `<tr>
-        <td><div class="skel short"></div></td>
-        <td><div class="skel medium"></div></td>
-        <td><div class="skel" style="width:50px"></div></td>
-        <td><div class="skel medium"></div></td>
-        <td><div class="skel" style="width:30px"></div></td>
-        <td><div class="skel" style="width:30px"></div></td>
-        <td><div class="skel" style="width:30px"></div></td>
-        <td><div class="skel" style="width:50px"></div></td>
-        <td><div class="skel long"></div></td>
-        <td><div class="skel medium"></div></td>
-        <td><div class="skel medium"></div></td>
-        <td><div class="skel medium"></div></td>
-        <td><div class="skel short"></div></td>
-        <td><div class="skel short"></div></td>
-      </tr>`;
-    }
-    skelBody.innerHTML = html;
-  } else {
-    skeleton.classList.remove("open");
-  }
-}
-
-// ═══════════════════════ URL PARAMS ═══════════════════════
-function getUrlParams() {
-  const params = new URLSearchParams(window.location.search);
-  return {
-    q: params.get('q') || "",
-    type: params.get('type') || "",
-    year: params.get('year') || "",
-    if_min: parseFloat(params.get('if_min')) || 0,
-    page: parseInt(params.get('page')) || 1,
-    size: parseInt(params.get('size')) || 50,
-    sort: params.get('sort') || "pub_date",
-    dir: params.get('dir') || "desc",
-    view: params.get('view') || "table"
-  };
-}
-
-function updateUrl() {
-  const params = new URLSearchParams();
-  if (searchQuery) params.set('q', searchQuery);
-  if (document.getElementById("typeFilter").value) params.set('type', document.getElementById("typeFilter").value);
-  if (document.getElementById("yearFilter").value) params.set('year', document.getElementById("yearFilter").value);
-  const ifMin = parseFloat(document.getElementById("ifFilter").value) || 0;
-  if (ifMin > 0) params.set('if_min', ifMin);
-  if (currentPage > 1) params.set('page', currentPage);
-  if (pageSize !== 50) params.set('size', pageSize);
-  if (sortKey !== 'pub_date') params.set('sort', sortKey);
-  if (sortDir !== 'desc') params.set('dir', sortDir);
-  if (currentView !== 'table') params.set('view', currentView);
-
-  const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
-  window.history.replaceState(null, '', newUrl);
-}
-
-function applyUrlParams() {
-  const p = getUrlParams();
-  if (p.q) {
-    searchQuery = p.q;
-    document.getElementById("searchInput").value = p.q;
-  }
-  if (p.type) document.getElementById("typeFilter").value = p.type;
-  if (p.year) document.getElementById("yearFilter").value = p.year;
-  if (p.if_min > 0) document.getElementById("ifFilter").value = p.if_min;
-  if (p.size) {
-    pageSize = p.size;
-    document.getElementById("pageSizeSelect").value = p.size;
-  }
-  if (p.sort) sortKey = p.sort;
-  if (p.dir) sortDir = p.dir;
-  if (p.view) setView(p.view, false);
-
-  // 触发对应年份数据加载
-  if (p.year && !allData.some(r => (r.pub_date||"").startsWith(p.year))) {
-    loadYearData(p.year);
-  }
-}
-
-// ═══════════════════════ INIT ═══════════════════════
-function init() {
-  console.log("init() called, allData.length =", allData.length);
-  updateStatsChips();
-  applyFiltersAndSort();
-  updateSortHeaders();
-}
-
-function populateYearFilter(index) {
-  const sel = document.getElementById("yearFilter");
-  // 清空现有选项（保留"全部年份"）
-  while (sel.options.length > 1) sel.remove(1);
-
-  if (index) {
-    index.forEach(entry => {
-      const opt = document.createElement("option");
-      opt.value = entry.year;
-      opt.textContent = entry.year + " 年 (" + entry.count + "篇)";
-      sel.appendChild(opt);
+    let searchTimer = null;
+    elements.search.addEventListener("input", () => {
+      window.clearTimeout(searchTimer);
+      searchTimer = window.setTimeout(() => applyFilters({ resetPage: true }), 180);
     });
-  } else {
-    // fallback：从数据中获取
-    const years = new Set();
-    allData.forEach(r => {
-      const y = (r.pub_date || "").slice(0, 4);
-      if (y && y.length === 4) years.add(y);
+    [elements.generation, elements.technology, elements.topic, elements.species,
+      elements.year, elements.type, elements.sort].forEach((element) => {
+      element.addEventListener("change", () => applyFilters({ resetPage: true }));
     });
-    [...years].sort((a,b)=>b-a).forEach(y => {
-      const opt = document.createElement("option");
-      opt.value = y;
-      opt.textContent = y + " 年";
-      sel.appendChild(opt);
-    });
-  }
-}
+    elements.reset.addEventListener("click", resetFilters);
+    elements.firstPage.addEventListener("click", () => goToPage(1));
+    elements.previousPage.addEventListener("click", () => goToPage(state.page - 1));
+    elements.nextPage.addEventListener("click", () => goToPage(state.page + 1));
+    elements.lastPage.addEventListener("click", () => goToPage(Math.ceil(state.filtered.length / PAGE_SIZE)));
 
-function updateStatsChips() {
-  const chipsEl = document.getElementById("statsChips");
-  const counts  = {};
-  allData.forEach(r => {
-    const t = r.article_type || "其他";
-    counts[t] = (counts[t] || 0) + 1;
-  });
-  const total = allData.length;
-  let html = `<span class="chip">共 ${total} 篇</span>`;
-  Object.entries(counts).sort((a,b)=>b[1]-a[1]).forEach(([t, n]) => {
-    html += `<span class="chip">${t}: ${n}</span>`;
-  });
-  chipsEl.innerHTML = html;
-  const chipTotal = document.getElementById("chipTotal");
-  if (chipTotal) chipTotal.remove();
-}
-
-// ═══════════════════════ VIEW TOGGLE ═══════════════════════
-function setView(view, updateUrlFlag = true) {
-  currentView = view;
-  const btns = document.querySelectorAll("#viewToggle .btn");
-  btns.forEach(b => b.classList.remove("active"));
-  if (view === "table") {
-    btns[0].classList.add("active");
-    document.getElementById("tableWrap").style.display = "";
-    document.getElementById("cardsWrap").classList.remove("open");
-  } else {
-    btns[1].classList.add("active");
-    document.getElementById("tableWrap").style.display = "none";
-    document.getElementById("cardsWrap").classList.add("open");
-    renderCards();
-  }
-  if (updateUrlFlag) updateUrl();
-}
-
-// ═══════════════════════ YEAR FILTER (lazy load) ═══════════════════════
-async function onYearChange() {
-  const year = document.getElementById("yearFilter").value;
-  currentPage = 1;
-
-  if (year) {
-    // 检查数据是否已加载
-    const hasYear = allData.some(r => (r.pub_date||"").startsWith(year));
-    if (!hasYear) {
-      showSkeleton(true);
-      await loadYearData(year);
-      showSkeleton(false);
-    }
-  }
-  applyFiltersAndSort();
-  updateUrl();
-}
-
-// ═══════════════════════ FILTER & SORT ═══════════════════════
-function onSearch() {
-  searchQuery = document.getElementById("searchInput").value.toLowerCase().trim();
-  currentPage = 1;
-  applyFiltersAndSort();
-  updateUrl();
-}
-
-function onFilter() {
-  currentPage = 1;
-  applyFiltersAndSort();
-  updateUrl();
-}
-
-function onPageSizeChange() {
-  pageSize = parseInt(document.getElementById("pageSizeSelect").value);
-  currentPage = 1;
-  if (currentView === "table") renderTable(); else renderCards();
-  updateUrl();
-}
-
-function clearFilters() {
-  document.getElementById("searchInput").value = "";
-  searchQuery = "";
-  document.getElementById("typeFilter").value  = "";
-  document.getElementById("yearFilter").value  = "";
-  document.getElementById("ifFilter").value    = "";
-  currentPage = 1;
-  applyFiltersAndSort();
-  updateUrl();
-}
-
-function applyFiltersAndSort() {
-  const q     = searchQuery;
-  const type  = document.getElementById("typeFilter").value;
-  const year  = document.getElementById("yearFilter").value;
-  const ifMin = parseFloat(document.getElementById("ifFilter").value) || 0;
-
-  filteredData = allData.filter(r => {
-    if (type && !(r.article_type || "").includes(type)) return false;
-    if (year && !(r.pub_date || "").startsWith(year))    return false;
-    if (ifMin > 0) {
-      const ifVal = parseFloat(r.journal_if);
-      if (isNaN(ifVal) || ifVal < ifMin) return false;
-    }
-    if (q) {
-      const haystack = [
-        r.title, r.summary_zh, r.disease, r.study_object,
-        r.journal, r.authors, r.innovation
-      ].join(" ").toLowerCase();
-      if (!haystack.includes(q)) return false;
-    }
-    return true;
-  });
-
-  // sort
-  filteredData.sort((a, b) => {
-    const va = (a[sortKey] || "").toString();
-    const vb = (b[sortKey] || "").toString();
-
-    if (sortKey === "pub_date") {
-      const da = parseDate(va);
-      const db = parseDate(vb);
-      if (da && db) return sortDir === "asc" ? da - db : db - da;
-    }
-
-    if (sortKey === "pmid") {
-      const na = parseInt(va, 10) || 0;
-      const nb = parseInt(vb, 10) || 0;
-      return sortDir === "asc" ? na - nb : nb - na;
-    }
-
-    return sortDir === "asc" ? va.localeCompare(vb) : vb.localeCompare(va);
-  });
-
-  document.getElementById("resultCount").textContent =
-    `显示 ${filteredData.length} / ${allData.length} 篇`;
-
-  const empty = document.getElementById("empty");
-  const tc    = document.getElementById("tableContainer");
-  if (filteredData.length === 0) {
-    empty.style.display = "block";
-    tc.style.display    = "none";
-    document.getElementById("cardsWrap").classList.remove("open");
-  } else {
-    empty.style.display = "none";
-    if (currentView === "table") {
-      tc.style.display    = "block";
-      renderTable();
-    } else {
-      document.getElementById("cardsWrap").classList.add("open");
-      renderCards();
-    }
-  }
-}
-
-// ═══════════════════════ SORT ═══════════════════════
-function sortBy(key) {
-  if (sortKey === key) {
-    sortDir = sortDir === "asc" ? "desc" : "asc";
-  } else {
-    sortKey = key;
-    sortDir = "desc";
-  }
-  currentPage = 1;
-  applyFiltersAndSort();
-  updateUrl();
-  updateSortHeaders();
-}
-
-function updateSortHeaders() {
-  document.querySelectorAll("th").forEach(th => {
-    th.classList.remove("sorted-asc", "sorted-desc");
-  });
-  const ths = document.querySelectorAll("th");
-  ths.forEach(th => {
-    const onclick = th.getAttribute("onclick");
-    if (onclick && onclick.includes(sortKey)) {
-      th.classList.add(sortDir === "asc" ? "sorted-asc" : "sorted-desc");
-    }
-  });
-}
-
-// ═══════════════════════ RENDER TABLE ═══════════════════════
-function typeTag(t) {
-  const map = {
-    "研究论文":       "tag-research",
-    "综述":          "tag-review",
-    "系统综述/Meta分析":"tag-meta",
-    "Benchmark":     "tag-bench",
-    "临床试验":      "tag-clinical",
-  };
-  const cls = map[t] || "tag-other";
-  return `<span class="tag ${cls}">${t || "其他"}</span>`;
-}
-
-function esc(s) {
-  if (!s) return "";
-  return String(s)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
-}
-
-function highlightText(text, query) {
-  if (!query || !text) return esc(text);
-  const escaped = esc(text);
-  const escQuery = esc(query);
-  const regex = new RegExp(`(${escQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-  return escaped.replace(regex, '<span class="search-hl">$1</span>');
-}
-
-function cellText(s, pending = false, query = "") {
-  if (!s || s === "（待生成）") {
-    return `<span class="ai-pending">AI 待生成</span>`;
-  }
-  const highlighted = highlightText(s, query);
-  if (highlighted.length > 80) {
-    return `<div class="text-clamp" onclick="this.classList.toggle('expanded')" title="点击展开/折叠">${highlighted}</div>`;
-  }
-  return highlighted;
-}
-
-// ═══════════════════════ HELPER FUNCTIONS (P0 optimizations) ═══════════════════════
-function isHighQuality(r) {
-  // P0-3: Q1 + IF > 10
-  return r.journal_jcr === 'Q1' && parseFloat(r.journal_if) > 10;
-}
-
-function isNewPaper(r) {
-  // P0-4: 近7天内的论文
-  if (!r.pub_date) return false;
-  const pubDate = new Date(r.pub_date);
-  const now = new Date();
-  const diffTime = now - pubDate;
-  const diffDays = diffTime / (1000 * 60 * 60 * 24);
-  return diffDays >= 0 && diffDays <= 7;
-}
-
-function renderJournalQuality(r) {
-  // P0-5: 合并 IF/JCR/CAS 为紧凑标签
-  let html = '';
-  // IF 标签
-  if (r.journal_if) {
-    html += `<span class="jq-tag jq-if">IF:${r.journal_if}</span>`;
-  }
-  // JCR 标签
-  if (r.journal_jcr) {
-    const jcrClass = `jq-q${r.journal_jcr.toLowerCase().replace('q', '')}`;
-    html += `<span class="jq-tag ${jcrClass}">${r.journal_jcr}</span>`;
-  }
-  // CAS 标签
-  if (r.journal_cas) {
-    const casClass = `jq-cas${r.journal_cas}`;
-    html += `<span class="jq-tag ${casClass}">CAS:${r.journal_cas}</span>`;
-  }
-  return html || '—';
-}
-
-function renderTable() {
-  const tbody = document.getElementById("tableBody");
-  const start = (currentPage - 1) * pageSize;
-  const page  = filteredData.slice(start, start + pageSize);
-
-  tbody.innerHTML = page.map(r => {
-    const pmidLink = r.pmid
-      ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${esc(r.pmid)}/" target="_blank">${esc(r.pmid)}</a>`
-      : "—";
-    const titleLink = r.pmid
-      ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${esc(r.pmid)}/" target="_blank">${highlightText(r.title, searchQuery)}</a>`
-      : highlightText(r.title, searchQuery);
-
-    const isHQ = isHighQuality(r);
-    const isNew = isNewPaper(r);
-
-    return `<tr tabindex="0" class="${isHQ ? 'high-quality' : ''}">
-      <td class="col-date">${esc(r.pub_date) || "—"}</td>
-      <td class="col-title"><div class="text-clamp" onclick="this.classList.toggle('expanded')">${titleLink}${isNew ? '<span class="new-tag">NEW</span>' : ''}</div></td>
-      <td class="col-pmid" style="font-size:11px;">${pmidLink}</td>
-      <td class="col-journal">${highlightText(r.journal, searchQuery)}</td>
-      <td class="col-journal-quality">${renderJournalQuality(r)}</td>
-      <td class="col-type">${typeTag(r.article_type)}</td>
-      <td class="col-summary">${cellText(r.summary_zh, false, searchQuery)}</td>
-      <td class="col-innov">${cellText(r.innovation, false, searchQuery)}</td>
-      <td class="col-limit">${cellText(r.limitation, false, searchQuery)}</td>
-      <td class="col-object">${cellText(r.study_object, false, searchQuery)}</td>
-      <td class="col-disease">${cellText(r.disease, false, searchQuery)}</td>
-      <td class="col-sample">${cellText(r.sample_size, false, searchQuery)}</td>
-    </tr>`;
-  }).join("");
-
-  renderPagination();
-}
-
-// ═══════════════════════ RENDER CARDS ═══════════════════════
-function renderCards() {
-  const container = document.getElementById("cardsContainer");
-  const start = (currentPage - 1) * pageSize;
-  const page  = filteredData.slice(start, start + pageSize);
-
-  container.innerHTML = page.map(r => {
-    const jcrIcon = getJcrIcon(r.journal_jcr);
-    const casIcon = getCasIcon(r.journal_cas);
-    return `<div class="paper-card">
-      <div class="paper-card-title">
-        <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(r.pmid || '')}/" target="_blank">${highlightText(r.title, searchQuery)}</a>
-      </div>
-      <div class="paper-card-meta">
-        <span class="meta-item">📅 ${esc(r.pub_date) || "—"}</span>
-        <span class="meta-item">PMID: ${esc(r.pmid) || "—"}</span>
-        <span class="meta-item">📖 ${highlightText(r.journal, searchQuery)}</span>
-        <span class="meta-item">IF: ${esc(r.journal_if) || "—"}</span>
-        <span class="meta-item">JCR: ${jcrIcon} ${esc(r.journal_jcr) || "—"}</span>
-        <span class="meta-item">中科院: ${casIcon} ${esc(r.journal_cas) || "—"}</span>
-        <span class="meta-item">${typeTag(r.article_type)}</span>
-      </div>
-      <div class="paper-card-body">
-        <div class="section">
-          <div class="section-title">中文摘要</div>
-          <div>${cellText(r.summary_zh, false, searchQuery)}</div>
-        </div>
-        <div class="section">
-          <div class="section-title">创新点</div>
-          <div>${cellText(r.innovation, false, searchQuery)}</div>
-        </div>
-        <div class="section">
-          <div class="section-title">不足</div>
-          <div>${cellText(r.limitation, false, searchQuery)}</div>
-        </div>
-      </div>
-    </div>`;
-  }).join("");
-
-  renderCardsPagination();
-}
-
-// ═══════════════════════ JCR/CAS ICON HELPERS ═══════════════════════
-function getJcrIcon(jcr) {
-  if (!jcr) return "⚪";
-  const cls = (jcr || "").toLowerCase();
-  if (cls === "q1") return "🟢";
-  if (cls === "q2") return "🔵";
-  if (cls === "q3") return "🟡";
-  if (cls === "q4") return "🔴";
-  return "⚪";
-}
-
-function getCasIcon(cas) {
-  if (!cas) return "⚪";
-  const c = (cas || "").trim();
-  if (c === "1") return "🔴";
-  if (c === "2") return "🟠";
-  if (c === "3") return "🔵";
-  if (c === "4") return "⚪";
-  return "⚪";
-}
-
-// ═══════════════════════ JOURNAL FORMATTERS ═══════════════════════
-function formatJcr(jcr) {
-  if (!jcr) return "—";
-  const cls = (jcr || "").toLowerCase();
-  return `<span class="jcr-` + cls + `">${getJcrIcon(jcr)} ${esc(jcr)}</span>`;
-}
-
-function formatCas(cas) {
-  if (!cas) return "—";
-  const c = (cas || "").trim();
-  return `<span class="cas-` + c + `">${getCasIcon(cas)} ${esc(c)}</span>`;
-}
-
-// ═══════════════════════ PAGINATION ═══════════════════════
-function renderPagination() {
-  const total = Math.ceil(filteredData.length / pageSize);
-  const el    = document.getElementById("pagination");
-  if (total <= 1) { el.innerHTML = ""; return; }
-
-  let html = "";
-  html += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?"disabled":""}>‹</button>`;
-
-  const range = getPageRange(currentPage, total);
-  range.forEach(p => {
-    if (p === "…") {
-      html += `<span class="page-btn" style="cursor:default;color:var(--muted)">…</span>`;
-    } else {
-      html += `<button class="page-btn${p===currentPage?" active":""}" onclick="goPage(${p})">${p}</button>`;
-    }
-  });
-
-  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===total?"disabled":""}>›</button>`;
-  el.innerHTML = html;
-}
-
-function renderCardsPagination() {
-  const total = Math.ceil(filteredData.length / pageSize);
-  const el    = document.getElementById("cardsPagination");
-  if (total <= 1) { el.innerHTML = ""; return; }
-
-  let html = "";
-  html += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?"disabled":""}>‹</button>`;
-
-  const range = getPageRange(currentPage, total);
-  range.forEach(p => {
-    if (p === "…") {
-      html += `<span class="page-btn" style="cursor:default;color:var(--muted)">…</span>`;
-    } else {
-      html += `<button class="page-btn${p===currentPage?" active":""}" onclick="goPage(${p})">${p}</button>`;
-    }
-  });
-
-  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===total?"disabled":""}>›</button>`;
-  el.innerHTML = html;
-}
-
-function getPageRange(cur, total) {
-  if (total <= 7) return Array.from({length: total}, (_, i) => i+1);
-  const pages = [1];
-  if (cur > 3) pages.push("…");
-  for (let i = Math.max(2, cur-1); i <= Math.min(total-1, cur+1); i++) pages.push(i);
-  if (cur < total - 2) pages.push("…");
-  pages.push(total);
-  return pages;
-}
-
-function goPage(p) {
-  const total = Math.ceil(filteredData.length / pageSize);
-  if (p < 1 || p > total) return;
-  currentPage = p;
-  if (currentView === "table") renderTable(); else renderCards();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  updateUrl();
-}
-
-// ═══════════════════════ MEMORY / LOG SECTION ═══════════════════════
-async function loadMemory() {
-  try {
-    const res = await fetch("logs/daily.log?t=" + Date.now());
-    if (!res.ok) { document.getElementById("memorySection").style.display = "none"; return; }
-    const text = await res.text();
-    const section = document.getElementById("memorySection");
-    const content = document.getElementById("memoryContent");
-    if (!text.trim()) { section.style.display = "none"; return; }
-    section.style.display = "block";
-    content.innerHTML = `<pre class="log-content">${esc(text)}</pre>`;
-  } catch(e) { console.error("Failed to load log:", e); }
-}
-
-function toggleMemory() {
-  const c = document.getElementById("memoryContent");
-  const t = document.getElementById("memoryToggle");
-  c.classList.toggle("open");
-  t.classList.toggle("open");
-}
-
-// ═══════════════════════ BOOT ═══════════════════════
-loadData();
-</script>
-
-<!-- ══════════════════════ MEMORY SECTION ══════════════════════ -->
-<div class="memory-section" id="memorySection" style="display:none;">
-  <div class="memory-header" onclick="toggleMemory()">
-    <span>📋 爬取日志</span>
-    <span id="memoryToggle">▸</span>
-  </div>
- <div id="memoryContent" class="memory-content"></div>
-</div>
-
-<!-- ══════════════════════ VISITOR MAP ══════════════════════ -->
-<div class="visitor-section">
-  <div class="visitor-title">
-    <span class="globe-icon">🌍</span>
-    <span>全球访客分布</span>
-  </div>
-  <div class="visitor-card">
-    <div class="visitor-card-body">
-      <div class="map-container" id="visitorMap">
-        <svg id="worldMap" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" role="img" aria-label="全球访客分布示意图"></svg>
-        <div class="map-note">访客分布</div>
-      </div>
-      <div class="visitor-sidebar">
-        <div class="visitor-stat">
-          <div class="stat-number"><span id="busuanzi_value_site_pv">--</span></div>
-          <div class="stat-desc">👁 总访问量 (PV)</div>
-        </div>
-        <hr class="visitor-divider">
-        <div class="visitor-stat">
-          <div class="stat-number"><span id="busuanzi_value_site_uv">--</span></div>
-          <div class="stat-desc">👤 总访客数 (UV)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 不蒜子统计脚本（异步加载，不影响页面速度） -->
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <script>
-  (function () {
-    var svg = document.getElementById('worldMap');
-    if (!svg) return;
-    var NS = 'http://www.w3.org/2000/svg';
-
-    function proj(lon, lat) {
-      return [ (lon + 180) / 360 * 1000, (90 - lat) / 180 * 500 ];
-    }
-
-    // 无真实数据时的装饰性回退点（主要城市），保证地图不空白
-    var FALLBACK = [[116.4,39.9],[-74,40.7],[-0.1,51.5],[151,-33.8],[31.2,30],
-                    [37.6,55.7],[-122.4,37.8],[139.7,35.7],[103.8,1.35],[-46.6,-23.5]];
-
-    function renderReal(points) {
-      if (!points || !points.length) return false;
-      var max = points.reduce(function (m, p) { return Math.max(m, p.count); }, 1);
-      var frag = document.createDocumentFragment();
-      points.forEach(function (p) {
-        var xy = proj(p.lon, p.lat);
-        var r = 2.2 + Math.sqrt(p.count / max) * 9;
-        var intensity = 0.35 + 0.55 * Math.sqrt(p.count / max);
-        var c = document.createElementNS(NS, 'circle');
-        c.setAttribute('cx', xy[0].toFixed(1));
-        c.setAttribute('cy', xy[1].toFixed(1));
-        c.setAttribute('r', r.toFixed(2));
-        c.setAttribute('class', 'wm-dot');
-        c.style.fill = 'rgba(130,200,255,' + intensity.toFixed(2) + ')';
-        c.setAttribute('tabindex', '0');
-        var label = (p.city ? p.city + ' ' : '') + (p.country || '') + ' · ' + p.count + ' 次访问';
-        var t = document.createElementNS(NS, 'title');
-        t.textContent = label;
-        c.appendChild(t);
-        frag.appendChild(c);
-      });
-      svg.appendChild(frag);
-      return true;
-    }
-
-    function renderFallback() {
-      FALLBACK.forEach(function (d) {
-        var xy = proj(d[0], d[1]);
-        var p = document.createElementNS(NS, 'circle');
-        p.setAttribute('cx', xy[0].toFixed(1));
-        p.setAttribute('cy', xy[1].toFixed(1));
-        p.setAttribute('r', 3);
-        p.setAttribute('class', 'wm-pulse');
-        svg.appendChild(p);
-        var core = document.createElementNS(NS, 'circle');
-        core.setAttribute('cx', xy[0].toFixed(1));
-        core.setAttribute('cy', xy[1].toFixed(1));
-        core.setAttribute('r', 2.4);
-        core.setAttribute('class', 'wm-core');
-        svg.appendChild(core);
-      });
-    }
-
-    fetch('visitors.json?t=' + Date.now())
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-      .then(function (data) {
-        var ok = renderReal(data.points);
-        var note = document.querySelector('.map-note');
-        if (ok) {
-          if (note) {
-            if (data.source === 'sample') note.textContent = '访客分布（示例数据）';
-            else note.textContent = '访客分布（基于访问日志）';
-          }
-        } else {
-          renderFallback();
-          if (note) note.textContent = '访客分布（暂无数据）';
-        }
-      })
-      .catch(function () { renderFallback(); });
-  })();
+    loadData();
   </script>
 </body>
 </html>

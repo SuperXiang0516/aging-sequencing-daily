@@ -1,341 +1,223 @@
-# 宏基因组文献追踪系统 (Meta-SeuBiomed)
+# 衰老测序文献雷达
 
-> 每日自动从 PubMed 抓取宏基因组/微生物组相关文献，AI 生成中文摘要，静态网页展示。
+一个面向衰老研究的自动化文献网站：每天从 PubMed 检索与二代/短读长、三代/长读长测序相关的新收录论文，生成中文结构化解读，并发布为静态网页。
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)]()
+本项目由 [Meta-SeuBiomed](https://github.com/yin-huamin/meta.seubiomed.com) 改造而来，沿用 MIT 许可证。
 
-## 目录
+## 能做什么
 
-- [项目简介](#项目简介)
-- [功能特性](#功能特性)
-- [项目结构](#项目结构)
-- [安装配置](#安装配置)
-- [设置搜索关键词](#设置搜索关键词)
-- [Quick Start](#quick-start)
-- [使用方法](#使用方法)
-- [本地预览](#本地预览)
-- [自动化部署](#自动化部署)
-- [高级用法](#高级用法)
-- [许可证](#许可证)
+- 使用“衰老概念 **AND** 测序概念”的分组查询检索 PubMed，而不是把所有关键词简单地用 `OR` 连接。
+- 以 PubMed 创建日期为默认增量日期，降低晚收录论文被漏掉的概率。
+- 对明确报告的平台区分“二代/短读长”“三代/长读长”“二代+三代”；摘要没有平台证据时标为“平台未报告”。
+- 识别 RNA-seq、单细胞/单核 RNA-seq、ATAC-seq、ChIP-seq、WGS、WES、甲基化测序、空间转录组、Iso-Seq 和直接 RNA 测序等实验类型。
+- 从标题和摘要生成中文标题、研究设计、主要发现、创新点、局限性、物种、组织、样本量等结构化字段。
+- 每天北京时间 **08:17** 自动更新，并由 GitHub Actions 发布到 GitHub Pages。
 
----
+## 研究范围
 
-## 项目简介
+默认查询聚焦以下交集：
 
-Meta-SeuBiomed 是一个自动化的宏基因组/微生物组文献追踪系统。它能够：
+- 衰老主题：自然衰老、细胞衰老、寿命与健康寿命、长寿、衰弱、炎症性衰老、生物学年龄、表观遗传时钟和年轻化干预等。
+- 测序技术：Illumina、MGI/DNBSEQ/BGISEQ 等短读长平台，Oxford Nanopore、PacBio/SMRT/HiFi/Iso-Seq 等长读长平台，以及常见组学测序实验。
+- 研究对象：不预先限定人或某一种模式生物；具体物种和组织依据摘要提取。
+- 数据源：当前只使用 PubMed 的题录和摘要，不下载或镜像论文全文。
 
-- 每日自动从 PubMed 搜索最新的宏基因组/微生物组相关文献
-- 使用 AI（支持 OpenAI / DeepSeek / 本地 Ollama）生成中文摘要
-- 将文献数据整合为静态 JSON 文件，供前端展示
-- 提供简洁的 Web 界面，支持搜索、筛选、排序等功能
+`RNA-seq`、`scRNA-seq` 等名称本身不能证明使用了二代平台。网站只有在题目或摘要出现明确平台、短读长或长读长证据时才判断测序代际。
 
-本项目纯 Python 标准库实现，**无任何第三方依赖**，轻量、易部署。
+## Fork 以后，本地和网页端分别做什么
 
-## 功能特性
+GitHub Desktop 和 GitHub 网页端都需要，但用途不同：
 
-- **自动抓取**：基于 PubMed E-utilities API，支持按日期、日期范围、PMID 抓取
-- **AI 摘要**：调用 LLM 生成中文摘要、创新点、局限性等字段
-- **期刊过滤**：基于期刊影响因子（IF）、JCR 分区、中科院分区自动过滤低质量期刊
-- **内容过滤**：自动排除家畜、家禽、食品发酵、环境工程等非医学相关文献
-- **关键词自定义**：通过命令行快速修改搜索关键词，无需编辑代码
-- **静态前端**：纯 HTML+CSS+JS 实现，无框架依赖，可直接部署到任何 Web 服务器
-- **双视图**：支持表格视图（桌面端）和卡片视图（移动端）
-- **搜索高亮**：搜索关键词在结果中高亮显示
+| 位置 | 主要用途 |
+| --- | --- |
+| GitHub Desktop / 本地文件夹 | 查看修改、提交、推送、拉取自动生成的数据，以及本地预览网站 |
+| GitHub 网页端 | 保存 API Secrets、启用 Actions、手动运行工作流、配置 GitHub Pages |
+
+如果已经 Fork 并 Clone 成功，就不需要再次 Clone。GitHub Desktop 中显示的仓库如果位于同名的两层文件夹内，请以含有 `metaweb.py`、`scripts/` 和 `.github/` 的内层文件夹为项目根目录。
+
+## 第一次上线：网页端操作
+
+### 1. 添加 GitHub Actions Secrets
+
+打开自己的仓库，进入：
+
+`Settings → Secrets and variables → Actions → New repository secret`
+
+逐项添加以下名称。Secret 名必须完全一致，值不要发到 Issue、聊天记录或提交到仓库。
+
+| Secret 名 | 是否必需 | 填写内容 |
+| --- | ---: | --- |
+| `LLM_API_URL` | 必需 | OpenAI 兼容的 Chat Completions 地址，例如服务商提供的 `/v1/chat/completions` 地址 |
+| `LLM_API_KEY` | 必需 | 你的 LLM API 密钥 |
+| `LLM_MODEL` | 必需 | 服务商支持的模型名称 |
+| `NCBI_EMAIL` | 必需 | 你自己的真实联系邮箱，供 NCBI 在请求异常时联系 |
+| `NCBI_API_KEY` | 推荐 | NCBI 账户中申请的 API Key；不填也能运行，但请求额度较低 |
+
+不要创建 `SEARCH_KEYWORDS` Secret。项目已经内置正确分组的“衰老 AND 测序”查询；如需高级定制，请先在本地测试 `PUBMED_BASE_QUERY`。
+
+### 2. 允许工作流写入仓库
+
+进入：
+
+`Settings → Actions → General → Workflow permissions`
+
+选择 **Read and write permissions** 并保存。每日工作流需要把不含原始摘要的网页 JSON 提交回 `main`。
+
+Fork 的仓库可能默认停用 Actions。如果 Actions 页面出现启用提示，请确认这是自己的 Fork 后点击启用。
+
+### 3. 启用 GitHub Pages
+
+进入：
+
+`Settings → Pages → Build and deployment → Source`
+
+选择 **GitHub Actions**。不需要选择 `docs/` 文件夹，也不需要 `gh-pages` 分支。
+
+### 4. 首次手动运行
+
+进入：
+
+`Actions → 每日更新与部署 → Run workflow`
+
+选择 `main` 并运行。工作流会依次抓取文献、生成中文报告、构建网页数据、提交生成文件并部署网站。首次运行成功后，后续会在北京时间每天 08:17 自动执行；GitHub 的定时任务可能有几分钟排队延迟。
+
+当前 Fork 的默认网站地址是：
+
+<https://superxiang0516.github.io/aging-sequencing-daily/>
+
+通用格式为：
+
+```text
+https://你的GitHub用户名.github.io/仓库名/
+```
+
+如以后修改用户名或仓库名，网站地址也会相应改变。自定义域名是可选项，不影响先使用免费 Pages 地址。
+
+## 本地操作
+
+本地只用于开发和预览；云端每日任务不依赖电脑开机。
+
+### 环境
+
+- Python 3.9 或更高版本，推荐 Python 3.11。
+- 核心脚本只使用 Python 标准库，不需要安装额外依赖。
+
+### 本地配置
+
+在含有 `metaweb.py` 的仓库根目录执行：
+
+```bash
+cp config.env.example config.env
+```
+
+然后编辑 `config.env`，填写自己的值。该文件已被 `.gitignore` 忽略。请在提交前仍检查 GitHub Desktop 的变更列表，确保 `config.env` 没有出现。
+
+本地 `config.env` 和 GitHub Secrets 是两套独立配置：前者供你的电脑使用，后者供 GitHub Actions 使用。本地配置不会自动上传到 GitHub。
+
+### 运行与预览
+
+```bash
+# 完整执行最近 7 天：抓取、AI 摘要、构建网页数据
+python3 metaweb.py auto --days 7
+
+# 只执行每日更新逻辑
+python3 metaweb.py daily
+
+# 启动静态网站预览
+python3 serve.py
+```
+
+浏览器打开 <http://localhost:8089>。
+
+如果本地使用 Ollama，只有本地运行能访问 `localhost`。GitHub 托管的 Runner 无法连接你电脑上的 Ollama，因此云端自动更新需要可从互联网访问的 API 服务。
+
+### 可选：回填历史文献
+
+首次每日任务只追踪最近 7 个 PubMed 创建日。如果希望网站一开始就有历史数据，建议按年份在本地分批执行，便于控制 PubMed 返回量和 LLM 费用：
+
+```bash
+python3 metaweb.py auto --start-date 2025-01-01 --end-date 2025-12-31
+python3 metaweb.py auto --start-date 2024-01-01 --end-date 2024-12-31
+```
+
+每完成一年先检查结果和 API 账单，再继续更早年份。如果任务提示命中数超过 `PUBMED_MAX_RESULTS`，它会停止而不会静默截断；请改为按月回填或谨慎调高上限。原始摘要只留在被忽略的 `data/aging_daily/`；可提交的结构化结果位于 `web/data.json`、`web/data/` 和 `web/stats.json`。确认无误后可在 GitHub Desktop 中提交并推送这些网页数据。
+
+## 日常维护
+
+- `.github/workflows/daily.yml`：北京时间每天 08:17 运行完整流水线，并直接部署 `web/`。
+- `.github/workflows/pages.yml`：当有提交推送到 `main`，或在 Actions 页面手动触发时，单独重新发布 Pages。
+- `data/aging_daily/` 是被 Git 忽略的本地/Runner 工作缓存；原始 PubMed 摘要不会提交到公开仓库，累计站点数据来自已脱敏的 `web/data.json`。
+- GitHub Actions 每天可能自动向 `main` 增加一个数据提交。在本地开始修改前，先在 GitHub Desktop 点击 **Fetch origin**，有更新时再点击 **Pull origin**，可减少冲突。
+- 如需立即刷新，使用 Actions 页面的 **Run workflow**，不必等待第二天。
+- 定期检查 LLM 账单、Actions 运行记录和失败通知。API 调用费用由所选服务商收取。
+
+## 可选配置
+
+本地配置模板还提供以下参数：
+
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| `LLM_TIMEOUT` | `90` | 单次 LLM 请求超时秒数 |
+| `LLM_DELAY` | `1.5` | 论文之间的调用间隔秒数 |
+| `LLM_RETRIES` | `3` | 失败重试次数 |
+| `LLM_MAX_TOTAL_ATTEMPTS` | `7` | 单篇论文跨运行的自动尝试上限，防止无限计费 |
+| `PUBMED_DATE_FIELD` | `crdt` | PubMed 增量日期字段 |
+| `PUBMED_MAX_RESULTS` | `2000` | 单次查询最多读取记录数 |
+| `PUBMED_PAGE_SIZE` | `200` | PubMed 分页大小 |
+| `NCBI_REQUEST_DELAY` | 无 Key 时 `0.34` | 相邻 NCBI 请求的最小等待秒数 |
+| `PUBMED_BASE_QUERY` | 空 | 完整覆盖内置主题查询；仅建议熟悉 PubMed 语法的用户使用 |
+| `DAILY_LOOKBACK_DAYS` | `7` | 每日重复检索的 PubMed 创建日期窗口（1–30 天） |
+| `NO_ABSTRACT_RETRY_DAYS` | `30` | 无摘要记录重新向 PubMed 检查的间隔 |
+
+这些可选参数目前不需要配置为 GitHub Secrets；工作流会使用代码中的安全默认值。如果确需在云端覆盖，可先修改工作流的 `env`，不要把私密值直接写进 YAML。
 
 ## 项目结构
 
-```
-meta-seubiomed/
-├── metaweb.py              # 统一命令行工具
+```text
+.
+├── .github/workflows/
+│   ├── daily.yml            # 每日抓取、构建、提交和部署
+│   └── pages.yml            # push main / 手动发布 Pages
+├── data/aging_daily/        # 本地临时缓存（Git 忽略，不公开原始摘要）
 ├── scripts/
-│   ├── fetch_pubmed.py      # PubMed 搜索（核心）
-│   ├── summarize_papers.py  # AI 摘要生成（核心）
-│   ├── build_data.py        # 数据整合（核心）
-│   ├── daily_update.py      # 每日更新入口
-│   └── auto_build_listener.py # 自动构建监听器
-├── web/
-│   ├── index.html           # 前端页面
-│   └── assets/             # 资源目录（微信支付二维码等）
-├── serve.py                 # 本地预览服务器
-├── journal_info.tsv         # 期刊信息表（IF/JCR/中科院分区）
-├── config.env.example       # 配置文件模板
-├── requirements.txt         # Python 依赖（无第三方依赖）
-├── README.md                # 项目文档
-└── LICENSE                  # MIT 许可证
+│   ├── fetch_pubmed.py      # PubMed 检索、分页、解析与初步分类
+│   ├── summarize_papers.py  # 中文结构化摘要
+│   ├── daily_update.py      # 每日任务编排
+│   └── build_data.py        # 生成前端 JSON
+├── web/                     # GitHub Pages 发布目录
+├── config.env.example       # 不含真实密钥的本地配置模板
+├── metaweb.py               # 命令行入口
+└── serve.py                 # 本地预览服务器
 ```
 
-## 安装配置
+## 常见问题
 
-### 1. 环境要求
+### Actions 报“缺少 GitHub Actions Secret”
 
-- Python 3.8+（推荐 3.11+）
-- 无需安装任何第三方 Python 库
+回到仓库的 Actions Secrets 页面，核对报错中的名称。Secret 名区分字符，不能多空格，也不要把 Secret 只填在本地 `config.env`。
 
-### 2. 克隆项目
+### 工作流抓取成功，但 `git push` 返回 403
 
-```bash
-git clone https://github.com/yin-huamin/meta.seubiomed.com.git
-cd meta-seubiomed
-```
+检查 `Settings → Actions → General → Workflow permissions` 是否为 **Read and write permissions**。如 `main` 有分支保护，还需允许 GitHub Actions 写入，或调整保护规则。
 
-### 3. 配置 API Key
+### Pages 没有生成网址
 
-```bash
-# 复制配置模板
-cp config.env.example config.env
+确认 Pages 的 Source 已选择 **GitHub Actions**，再查看 `发布 GitHub Pages` 或 `每日更新与部署` 的 `deploy` 作业是否成功。
 
-# 编辑 config.env，填写你的 API Key
-# 必填：LLM_API_URL、LLM_API_KEY、LLM_MODEL
-# 可选：NCBI_API_KEY（加速 PubMed 抓取）
-vim config.env
-```
+### GitHub Desktop 提示本地落后
 
-#### LLM 配置示例
+这是每日工作流提交新数据后的正常现象。先 **Fetch origin**，再 **Pull origin**；不要用强制覆盖或重置来处理。
 
-| 服务商 | API URL | 模型 | 备注 |
-|--------|---------|------|------|
-| OpenAI | `https://api.openai.com/v1/chat/completions` | `gpt-4o-mini` | 默认 |
-| DeepSeek | `https://api.deepseek.com/v1/chat/completions` | `deepseek-chat` | 更便宜 |
-| 本地 Ollama | `http://localhost:11434/v1/chat/completions` | `qwen2.5:7b` | 免费 |
+## 重要免责声明
 
-## 设置搜索关键词
+- 网站中的中文内容由 AI 根据 PubMed 标题和摘要自动生成，可能存在遗漏、误译或分类错误。
+- “创新点”“局限性”“测序代际”等字段不替代阅读原论文；平台未在摘要中明确报告时，网站不会推测。
+- 本站仅用于科研信息筛选，不构成医学建议、诊断、治疗建议、系统综述结论或临床决策依据。
+- 收录不代表论文质量背书。发表状态、勘误和撤稿信息应以 PubMed、期刊和出版商页面为准。
+- 本站不托管论文全文。题录、摘要和外部链接的权利归各自作者、数据库及出版商所有。
 
-使用 `metaweb set` 命令管理搜索关键词，无需编辑代码。
+## 许可证与致谢
 
-### 查看当前关键词
+代码依照 [MIT License](LICENSE) 发布。改造和再发布时请保留原项目的许可证与版权声明。
 
-```bash
-python metaweb.py set --check
-```
-
-### 设置新关键词
-
-```bash
-# 设置关键词（空格分隔多个）
-python metaweb.py set --term metagenome metagenomic microbiome
-
-# 添加益生菌相关
-python metaweb.py set --term metagenome metagenomic microbiome probiotics
-```
-
-关键词保存在 `config.env` 的 `SEARCH_KEYWORDS` 字段中，也可直接编辑该文件。
-
-默认关键词：`metagenome`, `metagenomic`, `microbiome`
-
-## Quick Start
-
-配置好 `config.env` 后，即可一键运行：
-
-### 自动抓取最近 7 天并整合
-
-```bash
-python metaweb.py auto --days 7
-```
-
-这条命令自动完成三件事：
-1. **抓取**：从 PubMed 搜索最近 7 天的文献
-2. **摘要**：调用 AI 为每篇论文生成中文摘要
-3. **整合**：将数据合并到 `web/data.json`，供前端展示
-
-### 按 PMID 抓取指定论文
-
-```bash
-python metaweb.py auto --pmid 38912345 38967890
-```
-
-### 本地预览
-
-```bash
-python serve.py
-# 打开浏览器访问 http://localhost:8089
-```
-
-## 使用方法
-
-本项目提供统一的命令行工具 `metaweb.py`，支持以下子命令：
-
-### `python metaweb.py set` - 设置/查看关键词
-
-```bash
-python metaweb.py set --term keyword1 keyword2 ...   # 设置搜索关键词
-python metaweb.py set --check                        # 查看当前关键词
-```
-
-### `python metaweb.py fetch` - 抓取文献
-
-支持三种模式：按日期、按日期范围、按 PMID 号。
-
-#### 按日期抓取
-
-```bash
-python metaweb.py fetch                    # 默认：抓取今天到昨天（1天）
-python metaweb.py fetch --days 7           # 抓取最近 7 天
-python metaweb.py fetch --date 2026-05-05  # 抓取指定日期往回 1 天
-python metaweb.py fetch --date 2026-05-05 --days-back 14  # 指定日期往前 14 天
-```
-
-#### 按日期范围抓取
-
-```bash
-python metaweb.py fetch --start-date 2026-04-01 --end-date 2026-04-30  # 指定范围
-python metaweb.py fetch --start-date 2026-04-01                        # 从指定日期到今天
-```
-
-#### 按 PMID 号抓取
-
-```bash
-python metaweb.py fetch --pmid 38912345                            # 抓取单篇
-python metaweb.py fetch --pmid 38912345 38967890 38911111          # 抓取多篇
-python metaweb.py fetch --pmid 38912345 --date 2026-05-01          # 保存到指定日期
-```
-
-#### fetch 参数一览
-
-| 参数 | 说明 | 示例 |
-|------|------|------|
-| `--days N` | 从今天往前搜索 N 天 | `--days 7` |
-| `--date YYYY-MM-DD` | 指定目标日期（默认今天） | `--date 2026-05-05` |
-| `--days-back N` | 从目标日期往前搜索天数（默认 1） | `--days-back 14` |
-| `--start-date YYYY-MM-DD` | 日期范围起始 | `--start-date 2026-04-01` |
-| `--end-date YYYY-MM-DD` | 日期范围结束（默认今天） | `--end-date 2026-04-30` |
-| `--pmid PMID [...]` | 按 PMID 号直接抓取（可多个） | `--pmid 38912345` |
-
-> **优先级**：`--pmid` > `--start-date/--end-date` > `--date/--days-back` > `--days`
-
-### `python metaweb.py summarize` - 生成 AI 摘要
-
-```bash
-python metaweb.py summarize                     # 为所有未生成摘要的论文生成摘要
-python metaweb.py summarize --date 2026-05-05   # 为指定日期的论文生成摘要
-python metaweb.py summarize --all               # 处理所有 daily JSON 文件
-python metaweb.py summarize --all --force       # 强制重新生成所有摘要
-```
-
-### `python metaweb.py build` - 整合数据
-
-```bash
-python metaweb.py build    # 整合所有 daily JSON 到 web/data.json
-```
-
-### `python metaweb.py auto` - 自动运行（抓取 + 摘要 + 整合）
-
-`auto` 命令支持与 `fetch` 相同的所有参数，自动执行完整流水线：
-
-```bash
-python metaweb.py auto --days 7                                          # 最近 7 天完整流程
-python metaweb.py auto --start-date 2026-04-01 --end-date 2026-04-30    # 日期范围完整流程
-python metaweb.py auto --pmid 38912345 38967890                          # 按 PMID 完整流程
-python metaweb.py auto --days 7 --force                                  # 强制重新生成摘要
-```
-
-### `python metaweb.py daily` - 每日自动化运行
-
-```bash
-python metaweb.py daily    # 执行每日更新（自动检测缺失的日期并补全）
-```
-
-## 本地预览
-
-```bash
-# 启动本地预览服务器（端口 8089）
-python serve.py
-
-# 在浏览器中打开
-# http://localhost:8089
-```
-
-## 自动化部署
-
-### Linux/macOS - 使用 crontab
-
-```bash
-# 编辑 crontab
-crontab -e
-
-# 添加以下行（每天早 8:00 运行）
-0 8 * * * cd /path/to/meta-seubiomed && python metaweb.py daily >> logs/daily.log 2>&1
-```
-
-### Windows - 使用任务计划程序
-
-```powershell
-$action = New-ScheduledTaskAction `
-    -Execute "python" `
-    -Argument "d:\project\meta-seubiomed\metaweb.py daily" `
-    -WorkingDirectory "d:\project\meta-seubiomed"
-
-$trigger = New-ScheduledTaskTrigger -Daily -At "08:00"
-
-Register-ScheduledTask -TaskName "MetaLitDaily" -Action $action -Trigger $trigger
-```
-
-### 部署到 Web 服务器
-
-1. 将 `web/` 目录部署到 Web 服务器（如 Nginx）
-2. 配置 `metaweb.py daily` 为定时任务
-3. 每次定时任务运行后，`web/data.json` 会自动更新
-
-#### Nginx 配置示例
-
-```nginx
-server {
-    listen 80;
-    server_name meta.seubiomed.com;
-
-    root /home/yinhm/web/meta.seubiomed.com/web;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-```
-
-## 高级用法
-
-### 修改搜索关键词
-
-```bash
-# 推荐方式：使用命令行
-python metaweb.py set --term keyword1 keyword2 keyword3
-
-# 或直接编辑 config.env 中的 SEARCH_KEYWORDS 字段
-# SEARCH_KEYWORDS=metagenome,metagenomic,microbiome
-```
-
-### 修改排除关键词
-
-编辑 `scripts/fetch_pubmed.py` 中的 `EXCLUDE_KEYWORDS` 和 `SAFE_WORDS` 列表。
-
-### 手动抓取历史数据
-
-```bash
-# 抓取指定月份的数据（用于补录历史数据）
-python scripts/fetch_history_months.py --months 2026-01 2026-02
-```
-
-### 清理不匹配的期刊
-
-```bash
-# 删除期刊信息表中不存在的期刊的论文
-python scripts/clean_unmatched_journals.py
-```
-
-## 许可证
-
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
-
-## 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-## 联系方式
-
-- 作者：yin-huamin
-- 邮箱：yinhm17@126.com
-- GitHub：https://github.com/yin-huamin/meta.seubiomed.com
-
----
-
-**注意**：本项目的 `.gitignore` 已配置为不上传敏感信息（API Key 等）。Fork 或 Clone 后，请先创建自己的 `config.env` 文件。
+感谢原项目 [yin-huamin/meta.seubiomed.com](https://github.com/yin-huamin/meta.seubiomed.com) 提供自动抓取、摘要和静态网站的基础实现。

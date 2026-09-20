@@ -1,10 +1,8 @@
-# Meta-SeuBiomed 依赖清单
-# 本项目纯 Python 标准库实现，无第三方依赖
-# Python 版本要求：3.8+
+# 衰老测序文献雷达依赖清单
+# 核心流水线仅使用 Python 标准库，无需安装第三方 Python 包。
+# Python 版本要求：3.9+
 
 # 如果需要使用本地 Ollama 作为 LLM 后端，需单独安装 Ollama：
 # https://ollama.com/
 
-# 如果需要部署到 Web 服务器，需要：
-# - Nginx（推荐）
-# - Python（用于本地预览 serve.py）
+# GitHub Pages 部署不需要自建服务器；本地预览只需运行 serve.py。

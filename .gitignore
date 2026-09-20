@@ -22,10 +22,8 @@ apikey.txt
 
 # ─── 数据文件（可重新生成）──
 data/daily/
-web/data.json
-web/data/
+data/aging_daily/
 web/memory.json
-web/stats.json
 
 # ─── 工作文件 ───
 .workbuddy/

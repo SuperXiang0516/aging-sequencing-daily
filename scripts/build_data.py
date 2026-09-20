@@ -1,29 +1,31 @@
 #!/usr/bin/env python3
-"""
-数据整合脚本（增量模式）
-以已有 web/data.json 为累积数据库，合并 data/daily/*.json 中的新增文献。
-以 pmid 去重，优先保留 ai_done=True 的版本。
-生成 web/data.json、web/data/YYYY.json、web/stats.json 和 web/memory.json。
+"""Build the public, copyright-conscious dataset for the static website.
 
-daily JSON 在 build 完成后即可安全删除，不影响后续运行。
+Only records produced by the aging-sequencing pipeline are accepted. Raw
+PubMed abstracts remain in the ignored ``data/aging_daily`` working cache and
+are never copied into the public web bundle. The sanitized web dataset is also
+used as the cumulative index, so GitHub Actions need not commit raw abstracts.
 """
 
+import csv
 import json
 import logging
 import os
 import re
-from pathlib import Path
 from collections import defaultdict
-import csv
+from pathlib import Path
 
-BASE_DIR   = Path(__file__).resolve().parent.parent
-DAILY_DIR  = BASE_DIR / "data" / "daily"
-WEB_DIR    = BASE_DIR / "web"
-OUT_FILE   = WEB_DIR / "data.json"
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DAILY_DIR = BASE_DIR / "data" / "aging_daily"
+WEB_DIR = BASE_DIR / "web"
+DATA_DIR = WEB_DIR / "data"
+OUT_FILE = WEB_DIR / "data.json"
 STATS_FILE = WEB_DIR / "stats.json"
-MEMORY_DIR = BASE_DIR / ".workbuddy" / "memory"
-MEMORY_OUT = WEB_DIR / "memory.json"
-TSV_PATH   = BASE_DIR / "journal_info.tsv"
+TSV_PATH = BASE_DIR / "journal_info.tsv"
+
+DATASET_ID = "aging-sequencing-v1"
+SCHEMA_VERSION = 2
 
 logging.basicConfig(
     level=logging.INFO,
@@ -33,429 +35,354 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
-# ── PubMed full name → TSV standard name aliases ─────────────────
-# These are journals where PubMed uses a longer/different name than
-# what appears in journal_info.tsv. The normalize function alone
-# cannot resolve these because of too-short or ambiguous cores.
-PUBMED_ALIASES = {
-    # --- High-frequency (≥5 papers) ---
-    "medrxiv : the preprint server for health sciences": None,  # preprint, no IF
-    "advanced science (weinheim, baden-wurttemberg, germany)": "ADVANCED SCIENCE",
-    "journal of computational biology : a journal of computational molecular cell biology": "JOURNAL OF COMPUTATIONAL BIOLOGY",
-    "proceedings. biological sciences": "PROCEEDINGS OF THE ROYAL SOCIETY B: BIOLOGICAL SCIENCES",
-    "journal of infection and chemotherapy : official journal of the japan society of chemotherapy": "JOURNAL OF INFECTION AND CHEMOTHERAPY",
-    "philosophical transactions of the royal society of london. series b, biological sciences": "PHILOSOPHICAL TRANSACTIONS OF THE ROYAL SOCIETY B: BIOLOGICAL SCIENCES",
-    "genome biology and evolution": "Genome Biology and Evolution",
-    "biochemical and biophysical research communications": "BIOCHEMICAL AND BIOPHYSICAL RESEARCH COMMUNICATIONS",
-    "digestive diseases and sciences": "DIGESTIVE DISEASES AND SCIENCES",
-    "water science and technology : a journal of the international association on water pollution research": "WATER SCIENCE AND TECHNOLOGY",
-    "journal of pediatric gastroenterology and nutrition": "JOURNAL OF PEDIATRIC GASTROENTEROLOGY AND NUTRITION",
-    "brain sciences": "Brain Sciences",
-    "nature aging": "Nature Aging",
-    "briefings in functional genomics": "Briefings in Functional Genomics",
-    "nature computational science": "Nature Computational Science",
-    "cancer epidemiology, biomarkers & prevention : a publication of the american association for cancer research, cosponsored by the american society of preventive oncology": "CANCER EPIDEMIOLOGY, BIOMARKERS & PREVENTION",
-    "bioscience, biotechnology, and biochemistry": "BIOSCIENCE BIOTECHNOLOGY AND BIOCHEMISTRY",
-    "journal of oral biosciences": "Journal of Oral Biosciences",
-    "journal of clinical and experimental hepatology": "Journal of Clinical and Experimental Hepatology",
-    "bioessays : news and reviews in molecular, cellular and developmental biology": "BIOESSAYS",
-    "gastroenterology research and practice": "GASTROENTEROLOGY RESEARCH AND PRACTICE",
-    # --- Medium-frequency (2-4 papers) ---
-    "cell & bioscience": "Cell & Bioscience",
-    "progress in molecular biology and translational science": None,  # book series
-    "medical science monitor : international medical journal of experimental and clinical research": "MEDICAL SCIENCE MONITOR",
-    "current opinion in gastroenterology": "CURRENT OPINION IN GASTROENTEROLOGY",
-    "current protein & peptide science": "CURRENT PROTEIN & PEPTIDE SCIENCE",
-    "jgh open : an open access journal of gastroenterology and hepatology": "JGH Open",
-    "royal society open science": "Royal Society Open Science",
-    "bioinformatics and biology insights": "Bioinformatics and Biology Insights",
-    "journal of integrative bioinformatics": "Journal of Integrative Bioinformatics",
-    "transplant immunology": "Transplant Immunology",
-    "biology letters": "Biology Letters",
-    "medical microbiology and immunology": "MEDICAL MICROBIOLOGY AND IMMUNOLOGY",
-    "nature biomedical engineering": "Nature Biomedical Engineering",
-    "philosophical transactions. series a, mathematical, physical, and engineering sciences": "PHILOSOPHICAL TRANSACTIONS OF THE ROYAL SOCIETY A: MATHEMATICAL, PHYSICAL AND ENGINEERING SCIENCES",
-    "journal of cancer research and clinical oncology": "JOURNAL OF CANCER RESEARCH AND CLINICAL ONCOLOGY",
-    "neurological sciences : official journal of the italian neurological society and of the italian society of clinical neurophysiology": "NEUROLOGICAL SCIENCES",
-    "journal of clinical gastroenterology": "JOURNAL OF CLINICAL GASTROENTEROLOGY",
-    "evolutionary bioinformatics online": "Evolutionary Bioinformatics",
-    "journal of bioinformatics and computational biology": "Journal of Bioinformatics and Computational Biology",
-    "clinical and translational gastroenterology": "Clinical and Translational Gastroenterology",
-    "journal of periodontal & implant science": "Journal of Periodontal & Implant Science",
-    "journal of diabetes investigation": "Journal of Diabetes Investigation",
-    "journal of obesity & metabolic syndrome": "Journal of Obesity & Metabolic Syndrome",
-    "life science alliance": "Life Science Alliance",
-    "marvelous life science & technology": "Marine Life Science & Technology",
-    "cellular physiology and biochemistry : international journal of experimental cellular physiology, biochemistry, and pharmacology": "CELLULAR PHYSIOLOGY AND BIOCHEMISTRY",
-    "infection and immunity": "INFECTION AND IMMUNITY",
-    "american journal of cancer research": "American Journal of Cancer Research",
-    "diabetes, metabolic syndrome and obesity : targets and therapy": "Diabetes, Metabolic Syndrome and Obesity: Targets and Therapy",
-    "journal of asthma and allergy": "Journal of Asthma and Allergy",
-    "expert review of gastroenterology & hepatology": "Expert Review of Gastroenterology & Hepatology",
-    "standards in genomic sciences": None,  # merged
-    "peerj. computer science": "PeerJ",
-    "journal of biosciences": "JOURNAL OF BIOSCIENCES",
-    "human microbiome journal": "Human Microbiome Journal",
-    # --- BMC journals mis-matched by substring rule ---
-    "bmc gastroenterology": None,  # no IF (BMC series, ~2.5)
-    "bmc pediatrics": None,  # no IF (BMC series, ~2.0)
-    "bmc ophthalmology": None,  # no IF (BMC series, ~2.5)
+FRONTEND_FIELDS = (
+    "schema_version", "tracking_domain", "source", "pmid", "doi", "title",
+    "title_zh", "journal", "journal_if", "journal_jcr", "journal_cas",
+    "pub_date", "created_date", "authors", "article_type", "summary_zh",
+    "main_finding", "innovation", "limitation", "study_object",
+    "study_design", "disease", "sample_size", "sequencing_generation",
+    "sequencing_assays", "platforms", "aging_topics", "species", "tissues",
+    "relevance_score", "classification_evidence", "ai_status", "ai_done",
+    "ai_attempts", "ai_prompt_version", "fetch_date",
+)
+
+LIST_FIELDS = {
+    "sequencing_assays", "platforms", "aging_topics", "species", "tissues",
+    "classification_evidence",
+}
+
+AI_FIELDS = {
+    "title_zh", "summary_zh", "main_finding", "innovation", "limitation",
+    "study_object", "study_design", "disease", "sample_size",
+    "sequencing_generation", "sequencing_assays", "platforms",
+    "aging_topics", "species", "tissues", "relevance_score",
+    "classification_evidence", "ai_status", "ai_error", "ai_attempts",
+    "ai_done", "ai_model", "ai_prompt_version", "ai_completed_at",
 }
 
 
-# ── Journal name normalization ───────────────────────────────────
+def _is_empty(value) -> bool:
+    return value is None or value == "" or value == [] or value == {}
+
+
+def _unique_strings(value) -> list:
+    if not isinstance(value, list):
+        return []
+    return list(dict.fromkeys(
+        item.strip() for item in value if isinstance(item, str) and item.strip()
+    ))
+
+
+def _atomic_write(path: Path, value, pretty: bool = False) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    with open(temporary, "w", encoding="utf-8") as handle:
+        if pretty:
+            json.dump(value, handle, ensure_ascii=False, indent=2)
+        else:
+            json.dump(value, handle, ensure_ascii=False, separators=(",", ":"))
+    os.replace(str(temporary), str(path))
+
+
 def normalize_journal_name(name: str) -> str:
-    """
-    Normalize a journal name for matching:
-    - lowercase
-    - remove leading 'the '
-    - remove common suffixes: (journal), : xxx, = xxx, edition info
-    - collapse whitespace
-    - remove punctuation except & and /
-    """
-    s = name.strip().lower()
-    # Remove leading "the "
-    if s.startswith("the "):
-        s = s[4:]
-    # Remove parenthetical location info: "(oxford, england)", "(weinheim, ...)"
-    s = re.sub(r"\([^)]*\)", "", s)
-    # Remove ": xxx" suffixes like ": cb", ": the preprint server..."
-    s = re.sub(r"\s*:\s*.*$", "", s)
-    # Remove "= xxx" suffixes like "= nihon chikusan..."
-    s = re.sub(r"\s*=\s*.*$", "", s)
-    # Remove trailing ". xxx" ONLY if it looks like an edition/volume note,
-    # e.g. ". a journal of...", ". vol. 12", ". edition 3"
-    # BUT preserve ". Life sciences", ". Biological sciences" etc.
-    # Strategy: only strip if the part after "." starts with a lowercase
-    # common pattern word like "a ", "an ", "the ", "vol", "ed", "ser"
-    dot_match = re.search(r"\.\s+(?=[a-z])", s)
-    if dot_match:
-        rest = s[dot_match.end():]
-        first_word = rest.split()[0] if rest.split() else ""
-        if first_word in ("a", "an", "the", "vol", "ed", "ser", "edition", "series",
-                          "rev", "journal", "official", "international"):
-            s = s[:dot_match.start()]
-    # Collapse whitespace
-    s = re.sub(r"\s+", " ", s).strip()
-    # Remove punctuation (keep & and /)
-    s = re.sub(r"[,.\-:;\"'()]", " ", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
+    """Normalize a PubMed journal title for best-effort TSV matching."""
+    text = (name or "").strip().lower()
+    if text.startswith("the "):
+        text = text[4:]
+    text = re.sub(r"\([^)]*\)", " ", text)
+    text = re.sub(r"\s*[:=]\s*.*$", "", text)
+    text = re.sub(r"[^a-z0-9&/]+", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
-# ── Journal info lookup ─────────────────────────────────────────
-def load_journal_lookup():
-    """
-    Load journal_info.tsv into multiple lookup structures.
-    Returns:
-      name_lut     = {normalized_name: {"if":.., "jcr":.., "cas":.., "raw":..}}
-      issn_lut     = {issn_no_dash:  info_dict}
-      norm_names   = set of all normalized names (for substring matching)
-    """
-    name_lut = {}
-    issn_lut = {}
-    norm_names = set()
+def load_journal_lookup() -> tuple:
+    """Load optional IF/JCR/CAS annotations; absence never excludes a paper."""
+    by_name = {}
+    by_issn = {}
+    if not TSV_PATH.exists():
+        log.warning("未找到 %s；继续构建，不添加期刊分区", TSV_PATH)
+        return by_name, by_issn
 
-    with open(TSV_PATH, "r", encoding="utf-8") as f:
-        reader = csv.reader(f, delimiter="\t")
-        next(reader)  # skip header
+    with open(TSV_PATH, encoding="utf-8") as handle:
+        reader = csv.reader(handle, delimiter="\t")
+        next(reader, None)
         for row in reader:
             if len(row) < 7:
                 continue
+            info = {
+                "if": row[1].strip(),
+                "jcr": row[2].strip(),
+                "cas": row[6].strip(),
+            }
             raw_name = row[0].strip()
-            if_val   = row[1].strip()
-            jcr      = row[2].strip()
-            cas      = row[6].strip()
-
-            info = {"if": if_val or "", "jcr": jcr or "", "cas": cas or "", "raw": raw_name}
+            normalized = normalize_journal_name(raw_name)
             if raw_name:
-                # Store by exact lowercase name
-                name_lut[raw_name.lower()] = info
-                # Also store by normalized name (if different)
-                norm = normalize_journal_name(raw_name)
-                if norm and norm != raw_name.lower():
-                    name_lut[norm] = info
-                norm_names.add(norm)
-
-            for issn_raw in (row[4].strip(), row[5].strip()):
-                if issn_raw and issn_raw != "N/A":
-                    issn_key = issn_raw.replace("-", "").lower()
-                    issn_lut[issn_key] = info
-
-    log.info(f"Journal lookup loaded: {len(name_lut)} names, {len(issn_lut)} ISSNs")
-    return name_lut, issn_lut, norm_names
+                by_name[raw_name.lower()] = info
+            if normalized:
+                by_name[normalized] = info
+            for raw_issn in (row[4].strip(), row[5].strip()):
+                if raw_issn and raw_issn.upper() != "N/A":
+                    by_issn[raw_issn.replace("-", "").lower()] = info
+    log.info("期刊注释表：%s 个名称，%s 个 ISSN", len(by_name), len(by_issn))
+    return by_name, by_issn
 
 
-def lookup_journal(article, name_lut, issn_lut, norm_names):
-    """
-    Return {"if", "jcr", "cas"} for a paper record.
-    Matching priority:
-      0) PubMed alias lookup (hardcoded mapping)
-      1) ISSN (if available)
-      2) Exact name match (case-insensitive)
-      3) Normalized name match
-      4) Strict substring match (≥60% length coverage, both names ≥10 chars)
-    """
-    jname = (article.get("journal") or "").strip()
-    if not jname:
-        return {"if": "", "jcr": "", "cas": ""}
-
-    jname_lower = jname.lower()
-    jname_norm  = normalize_journal_name(jname)
-
-    # 0) PubMed alias lookup
-    alias_target = PUBMED_ALIASES.get(jname_lower)
-    if alias_target is not None:
-        target_lower = alias_target.lower()
-        if target_lower in name_lut:
-            info = name_lut[target_lower]
-            return {"if": info["if"], "jcr": info["jcr"], "cas": info["cas"]}
-    elif jname_lower in PUBMED_ALIASES:
-        # alias maps to None = explicitly skip (preprint, no IF)
-        return {"if": "", "jcr": "", "cas": ""}
-
-    # 1) ISSN (if available in article data)
-    issn = (article.get("issn") or "").replace("-", "").strip().lower()
-    if issn and issn in issn_lut:
-        info = issn_lut[issn]
-        return {"if": info["if"], "jcr": info["jcr"], "cas": info["cas"]}
-
-    # 2) Exact name match (case-insensitive)
-    if jname_lower in name_lut:
-        info = name_lut[jname_lower]
-        return {"if": info["if"], "jcr": info["jcr"], "cas": info["cas"]}
-
-    # 3) Normalized name match
-    if jname_norm and jname_norm in name_lut:
-        info = name_lut[jname_norm]
-        return {"if": info["if"], "jcr": info["jcr"], "cas": info["cas"]}
-
-    # 4) Strict substring match
-    #    Only if normalized name is ≥10 chars
-    #    The shorter name must cover ≥60% of the longer name's length
-    if jname_norm and len(jname_norm) >= 10:
-        best_match = None
-        best_ratio = 0.0
-        for tnorm in norm_names:
-            if len(tnorm) < 10:
-                continue
-            if tnorm in jname_norm or jname_norm in tnorm:
-                shorter = min(len(tnorm), len(jname_norm))
-                longer  = max(len(tnorm), len(jname_norm))
-                ratio = shorter / longer
-                if ratio >= 0.6 and ratio > best_ratio:
-                    best_ratio = ratio
-                    best_match = tnorm
-        if best_match and best_match in name_lut:
-            info = name_lut[best_match]
-            return {"if": info["if"], "jcr": info["jcr"], "cas": info["cas"]}
-
-    return {"if": "", "jcr": "", "cas": ""}
+def lookup_journal(record: dict, by_name: dict, by_issn: dict) -> dict:
+    empty = {"if": "", "jcr": "", "cas": ""}
+    issn = str(record.get("issn") or "").replace("-", "").lower()
+    if issn and issn in by_issn:
+        return by_issn[issn]
+    name = str(record.get("journal") or "").strip()
+    if not name:
+        return empty
+    return by_name.get(name.lower(), by_name.get(normalize_journal_name(name), empty))
 
 
-# ── Merge: existing data.json + daily JSONs ──────────────────────
-def _load_existing_data() -> list:
-    """加载已有的 web/data.json 作为基础数据（累积数据库）。"""
+def _merge_group(records: list) -> dict:
+    """Merge duplicate PMIDs while keeping the best successful AI result."""
+    ordered = sorted(
+        records,
+        key=lambda item: (
+            str(item.get("fetch_date") or ""),
+            str(item.get("created_date") or ""),
+            str(item.get("pub_date") or ""),
+        ),
+    )
+    merged = dict(ordered[-1])
+
+    for record in ordered:
+        for key, value in record.items():
+            if key in LIST_FIELDS:
+                merged[key] = list(dict.fromkeys(
+                    _unique_strings(merged.get(key)) + _unique_strings(value)
+                ))
+            elif _is_empty(merged.get(key)) and not _is_empty(value):
+                merged[key] = value
+
+    successes = [
+        record for record in ordered
+        if record.get("ai_status") == "success" or record.get("ai_done") is True
+    ]
+    if successes:
+        successful = successes[-1]
+        for key in AI_FIELDS:
+            if key in successful:
+                merged[key] = successful[key]
+        merged["ai_status"] = "success"
+        merged["ai_done"] = True
+
+    merged["schema_version"] = SCHEMA_VERSION
+    merged["tracking_domain"] = DATASET_ID
+    merged["source"] = merged.get("source") or "PubMed"
+    return merged
+
+
+def _expected_previous_total():
+    """Return the last confirmed total for this dataset, if available."""
+    if not STATS_FILE.exists():
+        return None
+    try:
+        with open(STATS_FILE, encoding="utf-8") as handle:
+            stats = json.load(handle)
+        if not isinstance(stats, dict) or stats.get("tracking_domain") != DATASET_ID:
+            return None
+        return max(0, int(stats.get("total", 0)))
+    except (OSError, ValueError, TypeError, json.JSONDecodeError):
+        return None
+
+
+def _load_existing_public() -> list:
+    """Load only this project's sanitized records from the prior web build."""
+    expected_total = _expected_previous_total()
     if not OUT_FILE.exists():
+        if expected_total:
+            raise RuntimeError("累计网页数据缺失；为防止清空历史记录，已停止构建")
         return []
     try:
-        with open(OUT_FILE, encoding="utf-8") as fh:
-            return json.load(fh)
-    except Exception as exc:
-        log.warning(f"读取已有 {OUT_FILE} 失败，将从零开始: {exc}")
-        return []
+        with open(OUT_FILE, encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+        raise RuntimeError("累计网页数据无法解析；为防止清空历史记录，已停止构建") from exc
+    if not isinstance(payload, list):
+        raise RuntimeError("累计网页数据顶层必须是数组；已停止构建")
+    records = [
+        record for record in payload
+        if isinstance(record, dict)
+        and record.get("tracking_domain") == DATASET_ID
+        and str(record.get("pmid") or "").strip()
+    ]
+    if expected_total is not None and len(records) < expected_total:
+        raise RuntimeError(
+            "累计网页数据从 {0} 篇异常降至 {1} 篇；已停止构建".format(
+                expected_total, len(records)
+            )
+        )
+    return records
 
 
 def merge_all() -> list:
-    """
-    增量合并：以已有 data.json 为基础，整合新增的 daily JSON。
-    以 pmid 为唯一键去重，优先保留 ai_done=True 的版本。
-    不再依赖 data/daily/ 的完整历史，daily JSON 只需保留到 build 之后的下一次。
-    """
-    # 1) 加载累积数据库
-    seen = {}
-    for rec in _load_existing_data():
-        pmid = str(rec.get("pmid", ""))
-        if pmid:
-            seen[pmid] = rec
+    """Merge the sanitized cumulative index with the local raw working cache."""
+    grouped = defaultdict(list)
+    invalid_count = 0
+    existing_public = _load_existing_public()
+    for record in existing_public:
+        grouped[str(record["pmid"])].append(record)
 
-    base_count = len(seen)
-
-    # 2) 合并 daily JSON（新数据覆盖旧数据，ai_done 优先）
-    new_count = 0
-    for f in sorted(DAILY_DIR.glob("*.json")):
+    files = sorted(DAILY_DIR.glob("*.json"))
+    for path in files:
         try:
-            with open(f, encoding="utf-8") as fh:
-                records = json.load(fh)
-            for rec in records:
-                pmid = str(rec.get("pmid", ""))
-                if not pmid:
+            with open(path, encoding="utf-8") as handle:
+                payload = json.load(handle)
+            if not isinstance(payload, list):
+                raise ValueError("顶层不是数组")
+            for record in payload:
+                if not isinstance(record, dict):
+                    invalid_count += 1
                     continue
-                if pmid not in seen:
-                    seen[pmid] = rec
-                    new_count += 1
-                elif rec.get("ai_done") and not seen[pmid].get("ai_done"):
-                    seen[pmid] = rec
-                    new_count += 1
-        except Exception as exc:
-            log.warning(f"读取 {f} 失败: {exc}")
+                if record.get("tracking_domain") != DATASET_ID:
+                    invalid_count += 1
+                    continue
+                pmid = str(record.get("pmid") or "").strip()
+                if not pmid:
+                    invalid_count += 1
+                    continue
+                grouped[pmid].append(record)
+        except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+            log.warning("跳过无法读取的 %s：%s", path, exc)
 
-    all_records = list(seen.values())
-    all_records.sort(key=lambda r: r.get("pub_date", "") or "", reverse=True)
-    log.info(f"累积基础 {base_count} 篇 + 新增 {new_count} 篇 = 共 {len(all_records)} 篇")
-    return all_records
+    records = [_merge_group(group) for group in grouped.values()]
+    records.sort(
+        key=lambda record: (
+            str(record.get("pub_date") or ""),
+            str(record.get("created_date") or ""),
+            str(record.get("pmid") or ""),
+        ),
+        reverse=True,
+    )
+    if invalid_count:
+        log.warning("忽略 %s 条非本项目或无效记录", invalid_count)
+    log.info(
+        "读取已有网页 %s 篇和 %s 个本地缓存文件，合并为 %s 篇论文",
+        len(existing_public), len(files), len(records),
+    )
+    return records
 
 
-# ── Stats ───────────────────────────────────────────────────────
+def _count_tags(records: list, field: str, fallback: str = "未标注") -> dict:
+    counts = defaultdict(int)
+    for record in records:
+        values = record.get(field)
+        if not isinstance(values, list):
+            values = [values] if values else []
+        clean = list(dict.fromkeys(
+            str(value).strip() for value in values if str(value).strip()
+        ))
+        if not clean:
+            clean = [fallback]
+        for value in clean:
+            counts[value] += 1
+    return dict(sorted(counts.items(), key=lambda item: (-item[1], item[0])))
+
+
+def _count_values(records: list, field: str, fallback: str = "未标注") -> dict:
+    counts = defaultdict(int)
+    for record in records:
+        value = str(record.get(field) or fallback).strip() or fallback
+        counts[value] += 1
+    return dict(sorted(counts.items(), key=lambda item: (-item[1], item[0])))
+
+
 def build_stats(records: list) -> dict:
-    """生成统计摘要"""
-    type_counts   = defaultdict(int)
-    year_counts   = defaultdict(int)
-    journal_counts = defaultdict(int)
-    disease_counts = defaultdict(int)
-
-    for rec in records:
-        art_type = rec.get("article_type") or "其他"
-        type_counts[art_type] += 1
-
-        pub_date = rec.get("pub_date", "") or ""
-        year = pub_date[:4] if len(pub_date) >= 4 else "未知"
-        year_counts[year] += 1
-
-        journal = rec.get("journal", "") or "未知"
-        if journal:
-            journal_counts[journal] += 1
-
-        disease = (rec.get("disease") or "").strip()
-        if disease and disease not in ("无", "（待生成）", "未描述"):
-            disease_counts[disease] += 1
+    years = defaultdict(int)
+    journals = defaultdict(int)
+    for record in records:
+        pub_date = str(record.get("pub_date") or "")
+        year_match = re.match(r"^(19|20)\d{2}", pub_date)
+        years[year_match.group(0) if year_match else "未知"] += 1
+        journal = str(record.get("journal") or "未知期刊").strip() or "未知期刊"
+        journals[journal] += 1
 
     return {
-        "total":        len(records),
-        "by_type":      dict(sorted(type_counts.items(),   key=lambda x: -x[1])),
-        "by_year":      dict(sorted(year_counts.items(),   key=lambda x: x[0], reverse=True)),
-        "top_journals": dict(sorted(journal_counts.items(), key=lambda x: -x[1])[:20]),
-        "top_diseases": dict(sorted(disease_counts.items(), key=lambda x: -x[1])[:20]),
+        "schema_version": SCHEMA_VERSION,
+        "tracking_domain": DATASET_ID,
+        "total": len(records),
+        "by_generation": _count_values(records, "sequencing_generation", "平台未报告"),
+        "by_assay": _count_tags(records, "sequencing_assays"),
+        "by_aging_topic": _count_tags(records, "aging_topics"),
+        "by_species": _count_tags(records, "species"),
+        "by_ai_status": _count_values(records, "ai_status", "pending"),
+        "by_year": dict(sorted(years.items(), key=lambda item: item[0], reverse=True)),
+        "by_type": _count_values(records, "article_type", "其他"),
+        "top_journals": dict(sorted(journals.items(), key=lambda item: (-item[1], item[0]))[:20]),
     }
 
 
-# ── Split by year (for lazy loading) ───────────────────────────
-def split_by_year(records: list):
-    """将数据按 pub_date 年份拆分为 web/data/YYYY.json + index.json"""
-    by_year = defaultdict(list)
-    for rec in records:
-        y = (rec.get("pub_date") or "")[:4]
-        if y and len(y) == 4:
-            by_year[y].append(rec)
+def _frontend_record(record: dict) -> dict:
+    public = {}
+    for field in FRONTEND_FIELDS:
+        if field in LIST_FIELDS:
+            public[field] = _unique_strings(record.get(field))
+            if field == "classification_evidence":
+                public[field] = [item[:120] for item in public[field]][:12]
+        elif field in {"schema_version", "relevance_score"}:
+            try:
+                public[field] = int(record.get(field) or 0)
+            except (TypeError, ValueError):
+                public[field] = 0
+        elif field == "ai_done":
+            public[field] = bool(record.get(field))
+        else:
+            public[field] = record.get(field, "")
+    return public
 
-    data_dir = WEB_DIR / "data"
-    data_dir.mkdir(parents=True, exist_ok=True)
+
+def _year_for(record: dict) -> str:
+    match = re.match(r"^((?:19|20)\d{2})", str(record.get("pub_date") or ""))
+    return match.group(1) if match else "unknown"
+
+
+def write_web_data(records: list) -> None:
+    WEB_DIR.mkdir(parents=True, exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+    # These are generated files. Removing them prevents legacy years from the
+    # upstream metagenomics site appearing in the new index.
+    for stale in DATA_DIR.glob("*.json"):
+        stale.unlink()
+
+    public_records = [_frontend_record(record) for record in records]
+    _atomic_write(OUT_FILE, public_records)
+
+    by_year = defaultdict(list)
+    for record in public_records:
+        by_year[_year_for(record)].append(record)
 
     index = []
-    for y in sorted(by_year):
-        out_path = data_dir / f"{y}.json"
-        with open(out_path, "w", encoding="utf-8") as fh:
-            json.dump(by_year[y], fh, ensure_ascii=False, separators=(",", ":"))
-        index.append({"year": y, "count": len(by_year[y]), "file": f"data/{y}.json"})
-        log.info(f"  {y}: {len(by_year[y])} 篇 -> {out_path.name}")
-
-    index_path = data_dir / "index.json"
-    with open(index_path, "w", encoding="utf-8") as fh:
-        json.dump(index, fh, ensure_ascii=False, indent=2)
-    log.info(f"已写入 {index_path}（{len(index)} 个年份）")
-
-
-# ── Memory JSON ─────────────────────────────────────────────────
-def generate_memory_json():
-    """读取最新每日 memory 文件和 MEMORY.md，写入 web/memory.json。"""
-    entries = []
-
-    if MEMORY_DIR.exists():
-        md_files = sorted(MEMORY_DIR.glob("*.md"), reverse=True)
-        daily_files = [f for f in md_files if f.name != "MEMORY.md"]
-        if daily_files:
-            latest = daily_files[0]
-            with open(latest, encoding="utf-8") as f:
-                entries.append({"file": latest.name, "content": f.read().strip()})
-
-    memory_md = MEMORY_DIR / "MEMORY.md"
-    if memory_md.exists():
-        with open(memory_md, encoding="utf-8") as f:
-            entries.append({"file": "MEMORY.md", "content": f.read().strip()})
-
-    MEMORY_OUT.parent.mkdir(parents=True, exist_ok=True)
-    with open(MEMORY_OUT, "w", encoding="utf-8") as f:
-        json.dump(entries, f, ensure_ascii=False, indent=2)
-    log.info(f"已写入 {MEMORY_OUT}")
+    for year in sorted(by_year, reverse=True):
+        filename = "{0}.json".format(year)
+        _atomic_write(DATA_DIR / filename, by_year[year])
+        index.append({
+            "year": "未知" if year == "unknown" else year,
+            "count": len(by_year[year]),
+            "file": "data/{0}".format(filename),
+        })
+        log.info("网页分片 %s：%s 篇", filename, len(by_year[year]))
+    _atomic_write(DATA_DIR / "index.json", index, pretty=True)
 
 
-# ── Main ─────────────────────────────────────────────────────────
-def run():
-    WEB_DIR.mkdir(parents=True, exist_ok=True)
-    all_records = merge_all()
+def run() -> dict:
+    records = merge_all()
+    by_name, by_issn = load_journal_lookup()
+    for record in records:
+        journal = lookup_journal(record, by_name, by_issn)
+        record["journal_if"] = journal["if"]
+        record["journal_jcr"] = journal["jcr"]
+        record["journal_cas"] = journal["cas"]
 
-    # 注入期刊 IF / JCR / 中科院分区
-    name_lut, issn_lut, norm_names = load_journal_lookup()
-    for rec in all_records:
-        info = lookup_journal(rec, name_lut, issn_lut, norm_names)
-        rec["journal_if"]  = info["if"]
-        rec["journal_jcr"] = info["jcr"]
-        rec["journal_cas"] = info["cas"]
-
-    # ── 过滤：IF<5 / JCR Q3,Q4 / CAS 3,4 区期刊 ──
-    filtered = []
-    excluded_count = 0
-    for rec in all_records:
-        jcr = (rec.get("journal_jcr") or "").strip()
-        cas = (rec.get("journal_cas") or "").strip()
-        if_str = (rec.get("journal_if") or "").strip()
-        try:
-            if_val = float(if_str) if if_str else 0.0
-        except ValueError:
-            if_val = 0.0
-
-        if jcr in ("Q3", "Q4"):
-            excluded_count += 1
-            continue
-        if cas in ("3", "4"):
-            excluded_count += 1
-            continue
-        if if_val < 5.0 and if_str:
-            # 只有当 IF 有值且 <5 时才排除（无 IF 数据的不排除，由爬取阶段兜底）
-            excluded_count += 1
-            continue
-        filtered.append(rec)
-
-    log.info(f"分区过滤: 排除 {excluded_count} 篇（IF<5 或 JCR Q3/Q4 或 CAS 3/4区），保留 {len(filtered)} 篇")
-    all_records = filtered
-
-    # 写 data.json（仅保留前端需要的字段，缩减体积）
-    frontend_fields = [
-        "pmid", "title", "doi", "journal", "pub_date",
-        "journal_if", "journal_jcr", "journal_cas",
-        "authors", "article_type", "summary_zh",
-        "innovation", "limitation", "study_object",
-        "disease", "sample_size", "ai_done",
-    ]
-    frontend_data = [
-        {k: rec.get(k, "") for k in frontend_fields}
-        for rec in all_records
-    ]
-
-    with open(OUT_FILE, "w", encoding="utf-8") as fh:
-        json.dump(frontend_data, fh, ensure_ascii=False, separators=(",", ":"))
-    log.info(f"已写入 {OUT_FILE} ({OUT_FILE.stat().st_size // 1024} KB)")
-
-    # 按年份拆分，供前端懒加载
-    split_by_year(frontend_data)
-
-    stats = build_stats(all_records)
-    with open(STATS_FILE, "w", encoding="utf-8") as fh:
-        json.dump(stats, fh, ensure_ascii=False, indent=2)
-    log.info(f"已写入 {STATS_FILE}")
-
-    generate_memory_json()
-
+    write_web_data(records)
+    stats = build_stats(records)
+    _atomic_write(STATS_FILE, stats, pretty=True)
+    log.info("构建完成：%s 篇；未按期刊指标删除任何相关论文", len(records))
     return stats
 
 
