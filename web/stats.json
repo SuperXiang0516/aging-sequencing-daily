@@ -1,13 +1,71 @@
 {
   "schema_version": 2,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 0,
-  "by_generation": {},
-  "by_assay": {},
-  "by_aging_topic": {},
-  "by_species": {},
-  "by_ai_status": {},
-  "by_year": {},
-  "by_type": {},
-  "top_journals": {}
+  "total": 24,
+  "by_generation": {
+    "平台未报告": 21,
+    "二代/短读长": 2,
+    "三代/长读长": 1
+  },
+  "by_assay": {
+    "RNA测序": 18,
+    "未标注": 4,
+    "单核RNA测序": 3,
+    "DNA甲基化测序": 1,
+    "全基因组测序": 1,
+    "单细胞RNA测序": 1,
+    "宏基因组测序": 1
+  },
+  "by_aging_topic": {
+    "生理性衰老": 18,
+    "衰老研究": 4,
+    "细胞衰老": 3,
+    "长寿与寿命": 3,
+    "年龄相关疾病": 2,
+    "生物年龄与衰老时钟": 1,
+    "衰老干预与年轻化": 1
+  },
+  "by_species": {
+    "人": 12,
+    "小鼠": 12,
+    "未标注": 3,
+    "大鼠": 2,
+    "果蝇": 1,
+    "秀丽隐杆线虫": 1,
+    "线虫": 1
+  },
+  "by_ai_status": {
+    "error": 22,
+    "success": 2
+  },
+  "by_year": {
+    "2026": 24
+  },
+  "by_type": {
+    "研究论文": 21,
+    "综述": 2,
+    "Benchmark": 1
+  },
+  "top_journals": {
+    "Animals : an open access journal from MDPI": 2,
+    "Alzheimer's & dementia : the journal of the Alzheimer's Association": 1,
+    "Amino acids": 1,
+    "Archives of gerontology and geriatrics": 1,
+    "Arthritis & rheumatology (Hoboken, N.J.)": 1,
+    "Cell biochemistry and function": 1,
+    "Cell genomics": 1,
+    "Epigenomics": 1,
+    "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 1,
+    "Foods (Basel, Switzerland)": 1,
+    "Free radical biology & medicine": 1,
+    "Frontiers in aging": 1,
+    "GeroScience": 1,
+    "Investigative ophthalmology & visual science": 1,
+    "Journal of cellular and molecular medicine": 1,
+    "Journal of sport and health science": 1,
+    "Journal of the American Society of Nephrology : JASN": 1,
+    "MedComm": 1,
+    "Phenomics (Cham, Switzerland)": 1,
+    "Tissue & cell": 1
+  }
 }
