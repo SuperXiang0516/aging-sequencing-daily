@@ -1,5 +1,122 @@
 {
   "journals": {
+    "issn:00144835": {
+      "cas": "医学3区",
+      "if": "3.1",
+      "jcr": "Q2",
+      "query_name": "Experimental eye research",
+      "retrieved_at": "2026-09-20T13:41:59Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:00408166": {
+      "cas": "生物学3区",
+      "if": "3.1",
+      "jcr": "Q1",
+      "query_name": "Tissue & cell",
+      "retrieved_at": "2026-09-20T13:42:01Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:01674943": {
+      "cas": "医学3区",
+      "if": "4.7",
+      "jcr": "Q2",
+      "query_name": "Archives of gerontology and geriatrics",
+      "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:02636484": {
+      "cas": "生物学4区",
+      "if": "3.5",
+      "jcr": "Q2",
+      "query_name": "Cell biochemistry and function",
+      "retrieved_at": "2026-09-20T13:42:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:09394451": {
+      "cas": "生物学3区",
+      "if": "3.2",
+      "jcr": "Q3",
+      "query_name": "Amino acids",
+      "retrieved_at": "2026-09-20T13:42:06Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:10960007": {
+      "cas": "医学3区",
+      "if": "3.1",
+      "jcr": "Q2",
+      "query_name": "Experimental eye research",
+      "retrieved_at": "2026-09-20T13:41:59Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:10990844": {
+      "cas": "生物学4区",
+      "if": "3.5",
+      "jcr": "Q2",
+      "query_name": "Cell biochemistry and function",
+      "retrieved_at": "2026-09-20T13:42:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:14382199": {
+      "cas": "生物学3区",
+      "if": "3.2",
+      "jcr": "Q3",
+      "query_name": "Amino acids",
+      "retrieved_at": "2026-09-20T13:42:06Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:15323072": {
+      "cas": "生物学3区",
+      "if": "3.1",
+      "jcr": "Q1",
+      "query_name": "Tissue & cell",
+      "retrieved_at": "2026-09-20T13:42:01Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:18726976": {
+      "cas": "医学3区",
+      "if": "4.7",
+      "jcr": "Q2",
+      "query_name": "Archives of gerontology and geriatrics",
+      "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:26736217": {
+      "cas": "医学4区",
+      "if": "4.9",
+      "jcr": "",
+      "query_name": "Frontiers in aging",
+      "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:amino acids": {
+      "cas": "生物学3区",
+      "if": "3.2",
+      "jcr": "Q3",
+      "query_name": "Amino acids",
+      "retrieved_at": "2026-09-20T13:42:06Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:archives of gerontology and geriatrics": {
+      "cas": "医学3区",
+      "if": "4.7",
+      "jcr": "Q2",
+      "query_name": "Archives of gerontology and geriatrics",
+      "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:biorxiv the preprint server for biology": {
       "cas": "",
       "if": "",
@@ -8,6 +125,42 @@
       "retrieved_at": "2026-09-20T03:52:00Z",
       "source": "preprint",
       "status": "not_applicable"
+    },
+    "name:cell biochemistry and function": {
+      "cas": "生物学4区",
+      "if": "3.5",
+      "jcr": "Q2",
+      "query_name": "Cell biochemistry and function",
+      "retrieved_at": "2026-09-20T13:42:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:experimental eye research": {
+      "cas": "医学3区",
+      "if": "3.1",
+      "jcr": "Q2",
+      "query_name": "Experimental eye research",
+      "retrieved_at": "2026-09-20T13:41:59Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:frontiers in aging": {
+      "cas": "医学4区",
+      "if": "4.9",
+      "jcr": "",
+      "query_name": "Frontiers in aging",
+      "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:tissue & cell": {
+      "cas": "生物学3区",
+      "if": "3.1",
+      "jcr": "Q1",
+      "query_name": "Tissue & cell",
+      "retrieved_at": "2026-09-20T13:42:01Z",
+      "source": "EasyScholar",
+      "status": "matched"
     }
   },
   "schema_version": 1
