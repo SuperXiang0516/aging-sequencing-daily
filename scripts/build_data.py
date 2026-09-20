@@ -15,6 +15,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
+import journal_metrics
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DAILY_DIR = BASE_DIR / "data" / "aging_daily"
@@ -23,9 +25,10 @@ DATA_DIR = WEB_DIR / "data"
 OUT_FILE = WEB_DIR / "data.json"
 STATS_FILE = WEB_DIR / "stats.json"
 TSV_PATH = BASE_DIR / "journal_info.tsv"
+JOURNAL_CACHE_PATH = BASE_DIR / "data" / "journal_metrics_cache.json"
 
 DATASET_ID = "aging-sequencing-v1"
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 logging.basicConfig(
     level=logging.INFO,
@@ -37,11 +40,15 @@ log = logging.getLogger(__name__)
 
 FRONTEND_FIELDS = (
     "schema_version", "tracking_domain", "source", "pmid", "doi", "title",
-    "title_zh", "journal", "journal_if", "journal_jcr", "journal_cas",
+    "title_zh", "journal", "journal_abbr", "issn", "issn_linking",
+    "journal_if", "journal_jcr", "journal_cas",
+    "journal_metrics_status", "journal_metrics_source",
+    "journal_metrics_retrieved_at", "journal_metrics_query_name",
     "pub_date", "created_date", "authors", "article_type", "summary_zh",
     "main_finding", "innovation", "limitation", "study_object",
     "study_design", "disease", "sample_size", "sequencing_generation",
     "sequencing_assays", "platforms", "aging_topics", "species", "tissues",
+    "classification_version", "evidence_scope", "generation_evidence",
     "relevance_score", "classification_evidence", "ai_status", "ai_done",
     "ai_attempts", "ai_prompt_version", "fetch_date",
 )
@@ -54,10 +61,14 @@ LIST_FIELDS = {
 AI_FIELDS = {
     "title_zh", "summary_zh", "main_finding", "innovation", "limitation",
     "study_object", "study_design", "disease", "sample_size",
-    "sequencing_generation", "sequencing_assays", "platforms",
-    "aging_topics", "species", "tissues", "relevance_score",
-    "classification_evidence", "ai_status", "ai_error", "ai_attempts",
+    "aging_topics", "species", "tissues", "ai_status", "ai_error", "ai_attempts",
     "ai_done", "ai_model", "ai_prompt_version", "ai_completed_at",
+}
+
+DETERMINISTIC_CLASSIFICATION_FIELDS = {
+    "classification_version", "sequencing_generation", "sequencing_assays",
+    "platforms", "evidence_scope", "generation_evidence",
+    "classification_evidence", "relevance_score",
 }
 
 
@@ -71,6 +82,40 @@ def _unique_strings(value) -> list:
     return list(dict.fromkeys(
         item.strip() for item in value if isinstance(item, str) and item.strip()
     ))
+
+
+def _clean_generation_evidence(value) -> list:
+    """Return a bounded public projection of structured classifier evidence."""
+    if not isinstance(value, list):
+        return []
+    cleaned = []
+    seen = set()
+    allowed_sources = {"title", "abstract", "keywords", "mesh_terms"}
+    allowed_strengths = {"strong", "weak"}
+    for item in value:
+        if not isinstance(item, dict):
+            continue
+        label = str(item.get("label") or "").strip()[:80]
+        phrase = str(item.get("phrase") or "").strip()[:160]
+        source = str(item.get("source") or "").strip()
+        strength = str(item.get("strength") or "").strip()
+        if not label or not phrase or source not in allowed_sources:
+            continue
+        if strength not in allowed_strengths:
+            continue
+        key = (label, source, phrase.casefold(), strength)
+        if key in seen:
+            continue
+        seen.add(key)
+        cleaned.append({
+            "label": label,
+            "source": source,
+            "phrase": phrase,
+            "strength": strength,
+        })
+        if len(cleaned) >= 12:
+            break
+    return cleaned
 
 
 def _atomic_write(path: Path, value, pretty: bool = False) -> None:
@@ -95,10 +140,23 @@ def normalize_journal_name(name: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def _clean_journal_metric(value: object) -> str:
+    """Treat common spreadsheet placeholders as missing metric values."""
+    text = str(value or "").strip()
+    if text.casefold() in {
+        "", "n/a", "na", "none", "null", "undefined", "-", "--",
+        "未收录", "未标注", "暂无", "无",
+    }:
+        return ""
+    return text
+
+
 def load_journal_lookup() -> tuple:
     """Load optional IF/JCR/CAS annotations; absence never excludes a paper."""
     by_name = {}
     by_issn = {}
+    ambiguous_names = set()
+    ambiguous_issns = set()
     if not TSV_PATH.exists():
         log.warning("未找到 %s；继续构建，不添加期刊分区", TSV_PATH)
         return by_name, by_issn
@@ -110,32 +168,58 @@ def load_journal_lookup() -> tuple:
             if len(row) < 7:
                 continue
             info = {
-                "if": row[1].strip(),
-                "jcr": row[2].strip(),
-                "cas": row[6].strip(),
+                "if": _clean_journal_metric(row[1]),
+                "jcr": _clean_journal_metric(row[2]),
+                "cas": _clean_journal_metric(row[6]),
             }
             raw_name = row[0].strip()
             normalized = normalize_journal_name(raw_name)
-            if raw_name:
-                by_name[raw_name.lower()] = info
-            if normalized:
-                by_name[normalized] = info
+            for key in (
+                "exact:" + raw_name.lower() if raw_name else "",
+                "norm:" + normalized if normalized else "",
+            ):
+                if not key or key in ambiguous_names:
+                    continue
+                previous = by_name.get(key)
+                if previous is not None and previous != info:
+                    by_name.pop(key, None)
+                    ambiguous_names.add(key)
+                else:
+                    by_name[key] = info
             for raw_issn in (row[4].strip(), row[5].strip()):
                 if raw_issn and raw_issn.upper() != "N/A":
-                    by_issn[raw_issn.replace("-", "").lower()] = info
+                    key = raw_issn.replace("-", "").lower()
+                    if key in ambiguous_issns:
+                        continue
+                    previous = by_issn.get(key)
+                    if previous is not None and previous != info:
+                        by_issn.pop(key, None)
+                        ambiguous_issns.add(key)
+                    else:
+                        by_issn[key] = info
     log.info("期刊注释表：%s 个名称，%s 个 ISSN", len(by_name), len(by_issn))
+    if ambiguous_names or ambiguous_issns:
+        log.warning(
+            "期刊注释表中存在 %s 个名称冲突和 %s 个 ISSN 冲突；"
+            "已禁用这些模糊键，不做静默覆盖",
+            len(ambiguous_names), len(ambiguous_issns),
+        )
     return by_name, by_issn
 
 
 def lookup_journal(record: dict, by_name: dict, by_issn: dict) -> dict:
     empty = {"if": "", "jcr": "", "cas": ""}
-    issn = str(record.get("issn") or "").replace("-", "").lower()
-    if issn and issn in by_issn:
-        return by_issn[issn]
+    for field in ("issn", "issn_linking"):
+        issn = str(record.get(field) or "").replace("-", "").lower()
+        if issn and issn in by_issn:
+            return by_issn[issn]
     name = str(record.get("journal") or "").strip()
     if not name:
         return empty
-    return by_name.get(name.lower(), by_name.get(normalize_journal_name(name), empty))
+    return by_name.get(
+        "exact:" + name.lower(),
+        by_name.get("norm:" + normalize_journal_name(name), empty),
+    )
 
 
 def _merge_group(records: list) -> dict:
@@ -170,6 +254,17 @@ def _merge_group(records: list) -> dict:
                 merged[key] = successful[key]
         merged["ai_status"] = "success"
         merged["ai_done"] = True
+
+    # A successful historical AI summary may be reused, but it must never
+    # overwrite deterministic platform evidence produced by a newer classifier.
+    classified = [
+        record for record in ordered if record.get("classification_version")
+    ]
+    if classified:
+        latest_classification = classified[-1]
+        for key in DETERMINISTIC_CLASSIFICATION_FIELDS:
+            if key in latest_classification:
+                merged[key] = latest_classification[key]
 
     merged["schema_version"] = SCHEMA_VERSION
     merged["tracking_domain"] = DATASET_ID
@@ -311,6 +406,9 @@ def build_stats(records: list) -> dict:
         "by_aging_topic": _count_tags(records, "aging_topics"),
         "by_species": _count_tags(records, "species"),
         "by_ai_status": _count_values(records, "ai_status", "pending"),
+        "by_journal_metrics_status": _count_values(
+            records, "journal_metrics_status", "unknown",
+        ),
         "by_year": dict(sorted(years.items(), key=lambda item: item[0], reverse=True)),
         "by_type": _count_values(records, "article_type", "其他"),
         "top_journals": dict(sorted(journals.items(), key=lambda item: (-item[1], item[0]))[:20]),
@@ -320,7 +418,9 @@ def build_stats(records: list) -> dict:
 def _frontend_record(record: dict) -> dict:
     public = {}
     for field in FRONTEND_FIELDS:
-        if field in LIST_FIELDS:
+        if field == "generation_evidence":
+            public[field] = _clean_generation_evidence(record.get(field))
+        elif field in LIST_FIELDS:
             public[field] = _unique_strings(record.get(field))
             if field == "classification_evidence":
                 public[field] = [item[:120] for item in public[field]][:12]
@@ -372,17 +472,59 @@ def write_web_data(records: list) -> None:
 
 def run() -> dict:
     records = merge_all()
+    excluded_arrays = [
+        record for record in records
+        if record.get("sequencing_generation") == "非测序/芯片"
+        and record.get("evidence_scope") == "non_sequencing"
+    ]
+    if excluded_arrays:
+        excluded_pmids = ", ".join(
+            str(record.get("pmid") or "?") for record in excluded_arrays[:10]
+        )
+        log.info(
+            "排除 %s 篇仅芯片/非测序记录（PMID: %s%s）",
+            len(excluded_arrays),
+            excluded_pmids,
+            " ..." if len(excluded_arrays) > 10 else "",
+        )
+        excluded_ids = {id(record) for record in excluded_arrays}
+        records = [record for record in records if id(record) not in excluded_ids]
     by_name, by_issn = load_journal_lookup()
     for record in records:
         journal = lookup_journal(record, by_name, by_issn)
-        record["journal_if"] = journal["if"]
-        record["journal_jcr"] = journal["jcr"]
-        record["journal_cas"] = journal["cas"]
+        added_local_value = False
+        for source_field, record_field in (
+            ("if", "journal_if"),
+            ("jcr", "journal_jcr"),
+            ("cas", "journal_cas"),
+        ):
+            if not str(record.get(record_field) or "").strip() and journal[source_field]:
+                record[record_field] = journal[source_field]
+                added_local_value = True
+        if added_local_value or (
+            any(str(record.get(field) or "").strip() for field in (
+                "journal_if", "journal_jcr", "journal_cas",
+            ))
+            and not record.get("journal_metrics_source")
+        ):
+            record["journal_metrics_status"] = "matched"
+            record["journal_metrics_source"] = "local_tsv"
+            record["journal_metrics_retrieved_at"] = ""
+            record["journal_metrics_query_name"] = str(record.get("journal") or "")
+
+    records = journal_metrics.enrich_records(records, JOURNAL_CACHE_PATH)
 
     write_web_data(records)
     stats = build_stats(records)
     _atomic_write(STATS_FILE, stats, pretty=True)
-    log.info("构建完成：%s 篇；未按期刊指标删除任何相关论文", len(records))
+    annotated = sum(
+        1 for record in records
+        if record.get("journal_if") or record.get("journal_jcr")
+    )
+    log.info(
+        "构建完成：%s 篇；%s 篇带 IF/JCR；未按期刊指标删除任何相关论文",
+        len(records), annotated,
+    )
     return stats
 
 

@@ -26,6 +26,8 @@ jobs:
       LLM_MODEL: ${{ secrets.LLM_MODEL }}
       NCBI_EMAIL: ${{ secrets.NCBI_EMAIL }}
       NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+      # 可选。仅在 Runner 后端查询期刊指标，绝不会传给网页。
+      EASYSCHOLAR_SECRET_KEY: ${{ secrets.EASYSCHOLAR_SECRET_KEY }}
       PYTHONUNBUFFERED: "1"
     steps:
       - name: 检出 main
@@ -69,6 +71,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           generated_paths=(
+            data/journal_metrics_cache.json
             web/data.json
             web/data
             web/stats.json

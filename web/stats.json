@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
   "total": 24,
   "by_generation": {
@@ -59,6 +59,11 @@
   },
   "by_ai_status": {
     "success": 24
+  },
+  "by_journal_metrics_status": {
+    "matched": 15,
+    "unavailable_no_secret": 8,
+    "not_applicable": 1
   },
   "by_year": {
     "2026": 24

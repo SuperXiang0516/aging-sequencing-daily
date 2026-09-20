@@ -1,0 +1,14 @@
+{
+  "journals": {
+    "name:biorxiv the preprint server for biology": {
+      "cas": "",
+      "if": "",
+      "jcr": "",
+      "query_name": "bioRxiv : the preprint server for biology",
+      "retrieved_at": "2026-09-20T03:52:00Z",
+      "source": "preprint",
+      "status": "not_applicable"
+    }
+  },
+  "schema_version": 1
+}

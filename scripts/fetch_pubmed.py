@@ -23,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DAILY_DIR = BASE_DIR / "data" / "aging_daily"
 WEB_DATA_FILE = BASE_DIR / "web" / "data.json"
 DATASET_ID = "aging-sequencing-v1"
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
+CLASSIFICATION_VERSION = "sequencing-evidence-v2"
 
 
 def _load_env_file(path: Path) -> None:
@@ -53,6 +54,9 @@ REQUEST_DELAY = max(
 )
 NO_ABSTRACT_RETRY_DAYS = max(
     1, int(os.environ.get("NO_ABSTRACT_RETRY_DAYS", "30"))
+)
+RECLASSIFY_BATCH_SIZE = min(
+    500, max(1, int(os.environ.get("RECLASSIFY_BATCH_SIZE", "100")))
 )
 
 ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
@@ -113,7 +117,12 @@ SEQUENCING_TERMS = (
     '"bisulfite sequencing"[Title/Abstract]',
     '"methylome sequencing"[Title/Abstract]',
     '"spatial transcriptomics"[Title/Abstract]',
-    '"Illumina"[Title/Abstract]',
+    '"Illumina sequencing"[Title/Abstract]',
+    '"Illumina reads"[Title/Abstract]',
+    '"NovaSeq"[Title/Abstract]',
+    '"NextSeq"[Title/Abstract]',
+    '"HiSeq"[Title/Abstract]',
+    '"MiSeq"[Title/Abstract]',
     '"DNBSEQ"[Title/Abstract]',
     '"BGISEQ"[Title/Abstract]',
     '"Oxford Nanopore"[Title/Abstract]',
@@ -129,12 +138,85 @@ SEQUENCING_TERMS = (
 
 
 PLATFORM_RULES = (
-    ("Illumina", "二代/短读长", r"\billumina\b|\bnovaseq\b|\bnextseq\b|\bhiseq\b|\bmiseq\b"),
-    ("MGI/DNBSEQ", "二代/短读长", r"\bdnbseq\b|\bbgiseq\b|\bmgi[ -]seq\b"),
-    ("Oxford Nanopore", "三代/长读长", r"\boxford nanopore\b|\bnanopore sequencing\b|\bminion\b|\bgridion\b|\bpromethion\b|\bont (?:sequencing|reads?|platform)\b"),
-    ("PacBio", "三代/长读长", r"\bpacbio\b|\bpacific biosciences\b|\bsmrt sequencing\b|\bhifi sequencing\b|\bcircular consensus sequencing\b|\biso[ -]?seq\b"),
-    ("长读长平台未注明", "三代/长读长", r"\blong[ -]read sequencing\b|\bthird[ -]generation sequencing\b|\bdirect rna sequencing\b"),
-    ("短读长平台未注明", "二代/短读长", r"\bshort[ -]read sequencing\b"),
+    # ``Illumina`` by itself is deliberately not sufficient evidence. The
+    # company name also occurs in the names of EPIC/Infinium microarrays.
+    (
+        "Illumina",
+        "二代/短读长",
+        r"\b(?:novaseq|nextseq|hiseq|miseq|iseq|miniseq)(?:[ -]?[a-z0-9]+)*\b"
+        r"|\b(?:illumina\s+)?(?:genome analyzer(?:\s+ii[x]?)?|gaiix|solexa)\b"
+        r"|\billumina(?:[- ]based)?\s+(?:(?:paired|single)[ -]end\s+)?"
+        r"(?:sequencing|reads?|platform|sequencer|instrument)\b"
+        r"|\b(?:sequenc(?:ed|ing)|libraries?)\b[^.;]{0,60}"
+        r"\b(?:on|using|with)\b[^.;]{0,25}\billumina\b",
+    ),
+    (
+        "MGI/DNBSEQ",
+        "二代/短读长",
+        r"\b(?:dnbseq|bgiseq|mgiseq)(?:[ -]?[a-z0-9]+)*\b"
+        r"|\bmgi(?:[- ]based)?\s+(?:sequencing|reads?|platform|sequencer)\b",
+    ),
+    (
+        "Ion Torrent",
+        "二代/短读长",
+        r"\bion torrent\b|\bion (?:personal genome machine|pgm|proton|s5|genexus)\b"
+        r"|\b(?:pgm|proton|s5|genexus)\s+(?:sequencer|platform|system)\b",
+    ),
+    (
+        "SOLiD/454",
+        "二代/短读长",
+        r"\b(?:applied biosystems\s+)?solid(?:\s+\d+)?\s+"
+        r"(?:sequencing|platform|system|sequencer)\b"
+        r"|\b(?:roche\s+)?454\s+(?:pyro)?sequencing\b"
+        r"|\b(?:roche\s+)?gs flx\b",
+    ),
+    (
+        "Element/Ultima",
+        "二代/短读长",
+        r"\b(?:element biosciences\s+)?aviti\b|\bultima genomics\b|\bug\s*100\b",
+    ),
+    (
+        "Oxford Nanopore",
+        "三代/长读长",
+        r"\boxford nanopore(?: technologies)?\b|\bnanopore (?:sequencing|reads?|data)\b"
+        r"|\b(?:minion|gridion|promethion|flongle)\b"
+        r"|\bont (?:sequencing|reads?|data|platform)\b",
+    ),
+    (
+        "PacBio",
+        "三代/长读长",
+        r"\bpacbio\b|\bpacific biosciences\b"
+        r"|\b(?:sequel(?:\s+ii)?|revio|rs ii)\s+(?:system|platform|sequencer)\b"
+        r"|\b(?:smrt|single[ -]molecule real[ -]time) sequencing\b|\bsmrtbell\b"
+        r"|\b(?:hifi|ccs) (?:sequencing|reads?|data)\b"
+        r"|\bcircular consensus sequencing\b|\biso[ -]?seq\b",
+    ),
+    (
+        "长读长平台未注明",
+        "三代/长读长",
+        r"\blong[ -]read sequencing\b|\blong reads? (?:were )?(?:generated|sequenced)\b"
+        r"|\blong[ -]read data\b|\bthird[ -]generation sequencing\b"
+        r"|\bdirect rna sequencing\b",
+    ),
+    (
+        "短读长平台未注明",
+        "二代/短读长",
+        r"\bshort[ -]read sequencing\b|\bshort reads? (?:were )?(?:generated|sequenced)\b"
+        r"|\bshort[ -]read data\b",
+    ),
+)
+
+ARRAY_RULES = (
+    (
+        "Illumina EPIC/Infinium芯片",
+        r"\b(?:illumina\s+)?(?:infinium\s+)?(?:methylation)?epic(?:\s+v?2(?:\.0)?)?\b"
+        r"|\binfinium\b|\bhumanmethylation(?:450|850)k\b"
+        r"|\b(?:450k|850k)\b|\bbeadchip\b",
+    ),
+    (
+        "微阵列/芯片",
+        r"\bmicroarrays?\b|\bmethylation arrays?\b|\barray[ -]based profiling\b",
+    ),
 )
 
 ASSAY_RULES = (
@@ -329,21 +411,112 @@ def _article_text(record: dict) -> str:
     return " ".join(str(value) for value in values if value).lower()
 
 
+def _append_generation_evidence(
+    evidence: list,
+    seen: set,
+    label: str,
+    source: str,
+    phrase: str,
+    strength: str,
+) -> None:
+    """Add one normalized, de-duplicated piece of classification evidence."""
+    phrase = re.sub(r"\s+", " ", phrase or "").strip()
+    key = (label, source, phrase.casefold(), strength)
+    if not phrase or key in seen:
+        return
+    seen.add(key)
+    evidence.append({
+        "label": label,
+        "source": source,
+        "phrase": phrase,
+        "strength": strength,
+    })
+
+
+def _matched_rules(text: str, rules: tuple):
+    """Yield the first exact phrase matching each rule in ``text``."""
+    for rule in rules:
+        match = re.search(rule[-1], text or "", re.IGNORECASE)
+        if match:
+            yield rule, match.group(0)
+
+
 def classify_record(record: dict) -> dict:
-    """Apply conservative evidence-based sequencing and aging tags."""
+    """Apply conservative, source-aware sequencing and aging tags.
+
+    Only platform/method evidence in the title or abstract is allowed to set
+    ``sequencing_generation``. Platform-like terms found solely in author
+    keywords or MeSH headings are retained as weak topic evidence instead of
+    being treated as proof that the study used that technology.
+    """
     text = _article_text(record)
+    method_sources = (
+        ("title", str(record.get("title") or "")),
+        ("abstract", str(record.get("abstract") or "")),
+    )
+    metadata_sources = (
+        ("keywords", record.get("keywords") or []),
+        ("mesh_terms", record.get("mesh_terms") or []),
+    )
+
     platforms = []
     generations = set()
-    evidence = []
-    for platform, generation, pattern in PLATFORM_RULES:
-        if re.search(pattern, text, re.IGNORECASE):
+    generation_evidence = []
+    evidence_seen = set()
+
+    for source, source_text in method_sources:
+        for (platform, generation, _), phrase in _matched_rules(source_text, PLATFORM_RULES):
             platforms.append(platform)
             generations.add(generation)
-            evidence.append(platform)
+            _append_generation_evidence(
+                generation_evidence,
+                evidence_seen,
+                platform,
+                source,
+                phrase,
+                "strong",
+            )
+
+    # Metadata can describe a paper's topic without documenting its methods.
+    # Keep it visible, but never let it change the generation or platform list.
+    for source, values in metadata_sources:
+        for value in values:
+            value_text = str(value or "")
+            for (platform, _, _), phrase in _matched_rules(value_text, PLATFORM_RULES):
+                _append_generation_evidence(
+                    generation_evidence,
+                    evidence_seen,
+                    platform,
+                    source,
+                    phrase,
+                    "weak",
+                )
 
     assays = [label for label, pattern in ASSAY_RULES if re.search(pattern, text, re.IGNORECASE)]
+    method_text = " ".join(value for _, value in method_sources if value)
+    method_assays = [
+        label
+        for label, pattern in ASSAY_RULES
+        if re.search(pattern, method_text, re.IGNORECASE)
+    ]
     topics = [label for label, pattern in AGING_TOPIC_RULES if re.search(pattern, text, re.IGNORECASE)]
     species = [label for label, pattern in SPECIES_RULES if re.search(pattern, text, re.IGNORECASE)]
+
+    array_matches = []
+    for source, source_text in method_sources:
+        for (label, _), phrase in _matched_rules(source_text, ARRAY_RULES):
+            array_matches.append((label, source, phrase))
+
+    # Calling an EPIC/Infinium assay "sequencing" is a harmful false positive.
+    # Use a non-sequencing state only when no sequencing method is reported in
+    # the same title/abstract; mixed array + sequencing studies remain unknown
+    # unless a real platform or read length is stated.
+    mentions_sequencing_method = bool(
+        generations
+        or method_assays
+        or re.search(r"\bsequenc(?:e|ed|er|ers|ing)\b", method_text, re.IGNORECASE)
+    )
+    array_only = bool(array_matches) and not mentions_sequencing_method
 
     if "二代/短读长" in generations and "三代/长读长" in generations:
         generation = "二代+三代"
@@ -351,8 +524,28 @@ def classify_record(record: dict) -> dict:
         generation = "三代/长读长"
     elif "二代/短读长" in generations:
         generation = "二代/短读长"
+    elif array_only:
+        generation = "非测序/芯片"
+        for label, source, phrase in array_matches:
+            _append_generation_evidence(
+                generation_evidence,
+                evidence_seen,
+                label,
+                source,
+                phrase,
+                "strong",
+            )
     else:
         generation = "平台未报告"
+
+    if generations:
+        evidence_scope = "methods"
+    elif array_only:
+        evidence_scope = "non_sequencing"
+    elif any(item["strength"] == "weak" for item in generation_evidence):
+        evidence_scope = "topic"
+    else:
+        evidence_scope = "none"
 
     score = 40
     if topics:
@@ -362,7 +555,17 @@ def classify_record(record: dict) -> dict:
     if platforms:
         score += 20
 
+    compatibility_evidence = []
+    for item in generation_evidence:
+        label = item["label"]
+        if item["strength"] == "weak":
+            label += "（主题证据）"
+        compatibility_evidence.append(label)
+    compatibility_evidence.extend(assays)
+    compatibility_evidence.extend(topics)
+
     return {
+        "classification_version": CLASSIFICATION_VERSION,
         "sequencing_generation": generation,
         "sequencing_assays": list(dict.fromkeys(assays)),
         "platforms": list(dict.fromkeys(platforms)),
@@ -370,7 +573,9 @@ def classify_record(record: dict) -> dict:
         "species": list(dict.fromkeys(species)),
         "tissues": [],
         "relevance_score": min(score, 100),
-        "classification_evidence": list(dict.fromkeys(evidence + assays + topics)),
+        "generation_evidence": generation_evidence,
+        "evidence_scope": evidence_scope,
+        "classification_evidence": list(dict.fromkeys(compatibility_evidence)),
     }
 
 
@@ -446,7 +651,9 @@ def _extract_article(article) -> dict:
         "title": title,
         "title_zh": "",
         "journal": _get_text(art, "Journal/Title"),
+        "journal_abbr": _get_text(medline, "MedlineJournalInfo/MedlineTA"),
         "issn": _get_text(art, "Journal/ISSN"),
+        "issn_linking": _get_text(medline, "MedlineJournalInfo/ISSNLinking"),
         "pub_date": pub_date,
         "created_date": created_date,
         "authors": author_text,
@@ -551,6 +758,15 @@ def load_retry_pmids() -> list:
     ))
 
 
+def load_reclassification_pmids() -> list:
+    """Return public PMIDs produced by an older deterministic classifier."""
+    return list(dict.fromkeys(
+        str(record["pmid"])
+        for record in _load_public_records()
+        if record.get("classification_version") != CLASSIFICATION_VERSION
+    ))
+
+
 def _load_daily(path: Path) -> list:
     if not path.exists():
         return []
@@ -570,9 +786,18 @@ def _merge_record(old: dict, fresh: dict) -> dict:
         "ai_status", "ai_error", "ai_attempts", "ai_done", "ai_model",
         "ai_prompt_version", "ai_completed_at",
     }
+    deterministic_classification_keys = {
+        "classification_version", "sequencing_generation", "sequencing_assays",
+        "platforms", "evidence_scope", "generation_evidence",
+        "classification_evidence", "relevance_score",
+    }
     result = dict(old)
     for key, value in fresh.items():
-        if key not in ai_keys and value not in (None, "", []):
+        # A newer deterministic classifier must also be able to remove stale
+        # platform/assay evidence.  Empty lists are therefore meaningful here.
+        if key in deterministic_classification_keys:
+            result[key] = value
+        elif key not in ai_keys and value not in (None, "", []):
             result[key] = value
     if old.get("ai_status") != "success" and not old.get("ai_done"):
         for key in ai_keys:
@@ -609,8 +834,14 @@ def _save_daily(out_date: str, fresh_records: list) -> list:
 
 
 def _process_pmids(pmids: list, out_date: str, existing: set,
-                   manual: bool = False, retry: bool = False) -> list:
-    new_pmids = [pmid for pmid in pmids if str(pmid) not in existing]
+                   manual: bool = False, retry: bool = False,
+                   refresh_classification: bool = False) -> list:
+    requested = list(dict.fromkeys(str(pmid) for pmid in pmids if str(pmid)))
+    new_pmids = (
+        requested
+        if refresh_classification
+        else [pmid for pmid in requested if pmid not in existing]
+    )
     if not new_pmids:
         _save_daily(out_date, [])
         log.info("%s 无新增 PMID", out_date)
@@ -628,6 +859,7 @@ def _process_pmids(pmids: list, out_date: str, existing: set,
         record["fetch_date"] = out_date
         record["manual_import"] = bool(manual)
         record["retry_fetch"] = bool(retry)
+        record["classification_refresh"] = bool(refresh_classification)
         previous = public_by_pmid.get(str(record.get("pmid") or ""), {})
         if previous:
             try:
@@ -635,6 +867,10 @@ def _process_pmids(pmids: list, out_date: str, existing: set,
             except (TypeError, ValueError):
                 record["ai_attempts"] = 0
             record["ai_prompt_version"] = previous.get("ai_prompt_version", "")
+            if refresh_classification:
+                # Refresh deterministic evidence without paying to regenerate
+                # a Chinese summary that already succeeded.
+                record = _merge_record(previous, record)
         accepted.append(record)
         existing.add(str(record.get("pmid", "")))
     _save_daily(out_date, accepted)
@@ -654,6 +890,21 @@ def run(target_date: str = None, days_back: int = 1,
         return _process_pmids([str(item) for item in pmids], out_date, existing, manual=True)
 
     retry_date = target_date or datetime.date.today().strftime("%Y-%m-%d")
+    refresh_pmids = load_reclassification_pmids()[:RECLASSIFY_BATCH_SIZE]
+    refreshed = []
+    if refresh_pmids:
+        log.info(
+            "重新获取 %s 篇旧版分类记录（分类规则 %s）",
+            len(refresh_pmids), CLASSIFICATION_VERSION,
+        )
+        refreshed = _process_pmids(
+            refresh_pmids,
+            retry_date,
+            existing,
+            retry=True,
+            refresh_classification=True,
+        )
+
     retry_pmids = [pmid for pmid in load_retry_pmids() if pmid not in existing]
     retried = []
     if retry_pmids:
@@ -669,12 +920,14 @@ def run(target_date: str = None, days_back: int = 1,
         if end_dt < start_dt:
             raise ValueError("end_date 不能早于 start_date")
         query = build_query(start_dt.strftime("%Y/%m/%d"), end_dt.strftime("%Y/%m/%d"))
-        return retried + _process_pmids(search_pmids(query), end_dt.strftime("%Y-%m-%d"), existing)
+        return refreshed + retried + _process_pmids(
+            search_pmids(query), end_dt.strftime("%Y-%m-%d"), existing,
+        )
 
     if not target_date:
         target_date = datetime.date.today().strftime("%Y-%m-%d")
     base_date = datetime.datetime.strptime(target_date, "%Y-%m-%d").date()
-    all_new = list(retried)
+    all_new = list(refreshed) + list(retried)
     for offset in range(max(1, days_back)):
         day = base_date - datetime.timedelta(days=offset)
         search_date = day.strftime("%Y/%m/%d")

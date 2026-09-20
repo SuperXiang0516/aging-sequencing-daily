@@ -56,6 +56,44 @@ class NormalizeSummaryTests(unittest.TestCase):
         self.assertEqual(normalized["sequencing_generation"], "三代/长读长")
         self.assertIn("PacBio", normalized["platforms"])
 
+    def test_model_cannot_invent_a_platform_or_replace_evidence(self):
+        record = {
+            "sequencing_generation": "平台未报告",
+            "sequencing_assays": ["RNA测序"],
+            "platforms": [],
+            "aging_topics": ["生理性衰老"],
+            "species": [],
+            "tissues": [],
+            "classification_evidence": ["RNA测序"],
+            "relevance_score": 80,
+        }
+        model_result = self._valid_model_result()
+        model_result["platforms"] = ["Illumina"]
+        model_result["classification_evidence"] = ["guessed platform"]
+
+        normalized = summarize_papers._normalize_result(model_result, record)
+
+        self.assertEqual(normalized["platforms"], [])
+        self.assertEqual(normalized["classification_evidence"], ["RNA测序"])
+
+    def test_non_sequencing_array_state_is_preserved(self):
+        record = {
+            "sequencing_generation": "非测序/芯片",
+            "sequencing_assays": [],
+            "platforms": [],
+            "aging_topics": ["生物年龄与衰老时钟"],
+            "species": ["人"],
+            "tissues": [],
+            "classification_evidence": ["Illumina EPIC/Infinium芯片"],
+            "relevance_score": 60,
+        }
+
+        normalized = summarize_papers._normalize_result(
+            self._valid_model_result(), record,
+        )
+
+        self.assertEqual(normalized["sequencing_generation"], "非测序/芯片")
+
     def test_total_retry_cap_marks_record_terminal_without_calling_llm(self):
         record = {
             "pmid": "123",

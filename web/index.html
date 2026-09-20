@@ -269,7 +269,7 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
       gap: 12px;
       margin: 20px 0;
     }
@@ -389,6 +389,7 @@
     .badge.generation-second { background: var(--brand-soft); color: var(--brand-dark); }
     .badge.generation-third { background: var(--violet-soft); color: var(--violet); }
     .badge.generation-hybrid { background: var(--amber-soft); color: var(--amber); }
+    .badge.generation-non-sequencing { background: var(--red-soft); color: var(--red); }
     .badge.generation-unknown { background: #f0f2f1; color: #69736f; }
     .badge.score-high { background: #e8f4ef; color: #125d4f; }
     .badge.score-mid { background: #fff4d8; color: #7c5708; }
@@ -431,6 +432,37 @@
     }
 
     .bibliography strong { color: #40534e; }
+
+    .journal-metrics {
+      display: inline-flex;
+      gap: 5px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .metric-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 21px;
+      padding: 1px 7px;
+      border: 1px solid #d3e1db;
+      border-radius: 999px;
+      background: #f5faf7;
+      color: #31584e;
+      font-size: 10px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .metric-pill.jcr { background: var(--brand-soft); color: var(--brand-dark); }
+    .metric-pill.cas { background: var(--violet-soft); color: var(--violet); }
+
+    .metric-note {
+      color: #7a8682;
+      font-size: 11px;
+    }
+
+    .metric-note.not-applicable { color: #806629; }
 
     .tag-groups {
       display: grid;
@@ -673,6 +705,17 @@
           <select id="typeFilter"><option value="">全部类型</option></select>
         </div>
         <div class="field">
+          <label for="jcrFilter">JCR 分区</label>
+          <select id="jcrFilter">
+            <option value="">全部分区</option>
+            <option value="Q1">Q1</option>
+            <option value="Q2">Q2</option>
+            <option value="Q3">Q3</option>
+            <option value="Q4">Q4</option>
+            <option value="unlabeled">未标注</option>
+          </select>
+        </div>
+        <div class="field">
           <label for="sortSelect">排序</label>
           <select id="sortSelect">
             <option value="date-desc">最新发表</option>
@@ -726,7 +769,7 @@
     "use strict";
 
     const PAGE_SIZE = 24;
-    const GENERATION_ORDER = ["二代/短读长", "三代/长读长", "二代+三代", "平台未报告"];
+    const GENERATION_ORDER = ["二代/短读长", "三代/长读长", "二代+三代", "非测序/芯片", "平台未报告"];
     const state = {
       records: [],
       filtered: [],
@@ -744,6 +787,7 @@
       species: document.getElementById("speciesFilter"),
       year: document.getElementById("yearFilter"),
       type: document.getElementById("typeFilter"),
+      jcr: document.getElementById("jcrFilter"),
       sort: document.getElementById("sortSelect"),
       reset: document.getElementById("resetButton"),
       resultMeta: document.getElementById("resultMeta"),
@@ -793,11 +837,61 @@
       return [...new Set(values.flatMap(toList))];
     }
 
+    function cleanMetric(value) {
+      if (value === null || value === undefined) return "";
+      const text = Array.isArray(value)
+        ? value.map(cleanText).filter(Boolean).join(" / ")
+        : typeof value === "object"
+          ? ""
+          : cleanText(value);
+      return /^(?:n\/?a|none|null|undefined|未收录|未标注|-)$/i.test(text) ? "" : text;
+    }
+
+    function extractJcrQuartiles(value) {
+      const text = cleanMetric(value);
+      if (!text) return [];
+      const quartiles = [];
+      for (const match of text.matchAll(/\bQ\s*([1-4])\b/gi)) {
+        quartiles.push(`Q${match[1]}`);
+      }
+      if (!quartiles.length && /^[1-4]$/.test(text)) quartiles.push(`Q${text}`);
+      return [...new Set(quartiles)];
+    }
+
+    function generationLabel(generation) {
+      return generation === "平台未报告" ? "摘要未明确平台" : generation;
+    }
+
+    function normalizeGenerationEvidence(value) {
+      if (!Array.isArray(value)) return [];
+      const sourceLabels = {
+        title: "题目",
+        abstract: "摘要",
+        keywords: "作者关键词",
+        mesh_terms: "MeSH",
+      };
+      return value.slice(0, 12).flatMap((item) => {
+        if (!item || typeof item !== "object" || Array.isArray(item)) return [];
+        const label = cleanText(item.label);
+        const phrase = cleanText(item.phrase);
+        const source = cleanText(item.source);
+        const strength = cleanText(item.strength);
+        if (!label || !phrase || !sourceLabels[source]) return [];
+        return [{
+          label,
+          phrase,
+          sourceLabel: sourceLabels[source],
+          strength: strength === "weak" ? "主题证据" : "方法证据",
+        }];
+      });
+    }
+
     function normalizeGeneration(value) {
       const raw = cleanText(value).toLowerCase();
       if (["二代/短读长", "二代测序", "second", "short-read", "short read"].includes(raw)) return "二代/短读长";
       if (["三代/长读长", "三代测序", "third", "long-read", "long read"].includes(raw)) return "三代/长读长";
       if (["二代+三代", "二代与三代", "hybrid", "mixed"].includes(raw)) return "二代+三代";
+      if (["非测序/芯片", "非测序", "芯片", "microarray", "array"].includes(raw)) return "非测序/芯片";
       return "平台未报告";
     }
 
@@ -808,11 +902,13 @@
       const species = mergeLists(raw.species, raw.organism, raw.organisms);
       const tissues = mergeLists(raw.tissues, raw.tissue);
       const evidence = mergeLists(raw.classification_evidence);
+      const generationEvidence = normalizeGenerationEvidence(raw.generation_evidence);
       const scoreValue = Number(raw.relevance_score);
       const relevanceScore = Number.isFinite(scoreValue)
         ? Math.max(0, Math.min(100, Math.round(scoreValue)))
         : 0;
       const pubDate = cleanText(raw.pub_date || raw.publication_date);
+      const journalJcr = cleanMetric(raw.journal_jcr);
 
       return {
         pmid: cleanText(raw.pmid),
@@ -820,6 +916,13 @@
         title: cleanText(raw.title),
         titleZh: cleanGeneratedText(raw.title_zh),
         journal: cleanText(raw.journal),
+        journalIf: cleanMetric(raw.journal_if),
+        journalJcr,
+        journalJcrQuartiles: extractJcrQuartiles(journalJcr),
+        journalCas: cleanMetric(raw.journal_cas),
+        journalMetricsSource: cleanText(raw.journal_metrics_source),
+        journalMetricsRetrievedAt: cleanText(raw.journal_metrics_retrieved_at),
+        journalMetricsStatus: cleanText(raw.journal_metrics_status).toLowerCase(),
         pubDate,
         year: /^\d{4}/.test(pubDate) ? pubDate.slice(0, 4) : "",
         authors: cleanText(raw.authors),
@@ -832,6 +935,7 @@
         tissues,
         relevanceScore,
         evidence,
+        generationEvidence,
         summary: cleanGeneratedText(raw.summary_zh),
         mainFinding: cleanGeneratedText(raw.main_finding),
         innovation: cleanGeneratedText(raw.innovation),
@@ -852,7 +956,8 @@
 
     function recordCompleteness(record) {
       return [record.titleZh, record.summary, record.mainFinding, record.innovation,
-        record.limitation, record.platforms.length, record.sequencingAssays.length]
+        record.limitation, record.platforms.length, record.sequencingAssays.length,
+        record.journalIf, record.journalJcr, record.journalCas]
         .reduce((score, value) => score + (value ? 1 : 0), 0);
     }
 
@@ -899,6 +1004,9 @@
         .sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
       const types = state.records.map((record) => record.articleType);
       setSelectOptions(elements.generation, "全部代际", GENERATION_ORDER, GENERATION_ORDER);
+      [...elements.generation.options].forEach((option) => {
+        if (option.value) option.textContent = generationLabel(option.value);
+      });
       setSelectOptions(elements.technology, "全部技术", technologies);
       setSelectOptions(elements.topic, "全部主题", topics);
       setSelectOptions(elements.species, "全部物种", species);
@@ -917,6 +1025,7 @@
         [elements.species, "species"],
         [elements.year, "year"],
         [elements.type, "type"],
+        [elements.jcr, "jcr"],
         [elements.sort, "sort"],
       ];
       mappings.forEach(([element, key]) => {
@@ -939,6 +1048,7 @@
         [elements.species, "species"],
         [elements.year, "year"],
         [elements.type, "type"],
+        [elements.jcr, "jcr"],
       ];
       mappings.forEach(([element, key]) => {
         if (element.value) params.set(key, element.value);
@@ -957,6 +1067,7 @@
         ...record.agingTopics, ...record.species, ...record.tissues,
         record.summary, record.mainFinding, record.innovation, record.limitation,
         record.studyObject, record.studyDesign, record.disease, record.sampleSize,
+        record.journalIf, record.journalJcr, record.journalCas,
       ].join(" ").toLocaleLowerCase("zh-CN");
       return haystack.includes(query);
     }
@@ -971,6 +1082,7 @@
       const species = elements.species.value;
       const year = elements.year.value;
       const type = elements.type.value;
+      const jcr = elements.jcr.value;
 
       state.filtered = state.records.filter((record) => {
         if (!matchesSearch(record, query)) return false;
@@ -980,6 +1092,8 @@
         if (species && !record.species.includes(species)) return false;
         if (year && record.year !== year) return false;
         if (type && record.articleType !== type) return false;
+        if (jcr === "unlabeled" && record.journalJcrQuartiles.length) return false;
+        if (jcr && jcr !== "unlabeled" && !record.journalJcrQuartiles.includes(jcr)) return false;
         return true;
       });
 
@@ -1003,6 +1117,7 @@
       if (generation === "二代/短读长") return "generation-second";
       if (generation === "三代/长读长") return "generation-third";
       if (generation === "二代+三代") return "generation-hybrid";
+      if (generation === "非测序/芯片") return "generation-non-sequencing";
       return "generation-unknown";
     }
 
@@ -1028,6 +1143,51 @@
         </div>`;
     }
 
+    function formatCas(value) {
+      if (!value) return "";
+      if (/^[1-4]$/.test(value)) return `${value}区`;
+      return value;
+    }
+
+    function formatMetricsSource(value) {
+      const labels = {
+        local_tsv: "本地期刊表",
+        EasyScholar: "EasyScholar",
+        "local_tsv+EasyScholar": "本地期刊表 + EasyScholar",
+        preprint: "预印本",
+      };
+      return labels[value] || value;
+    }
+
+    function renderJournalMetrics(record) {
+      if (record.journalMetricsStatus === "not_applicable") {
+        return '<span class="metric-note not-applicable">预印本·指标不适用</span>';
+      }
+
+      const provenance = [
+        record.journalMetricsSource ? `来源：${formatMetricsSource(record.journalMetricsSource)}` : "",
+        record.journalMetricsRetrievedAt ? `查询日期：${record.journalMetricsRetrievedAt}` : "",
+      ].filter(Boolean).join(" · ");
+      const title = provenance ? ` title="${escapeHtml(provenance)}"` : "";
+      const metrics = [
+        record.journalIf ? `<span class="metric-pill">IF ${escapeHtml(record.journalIf)}</span>` : "",
+        record.journalJcr ? `<span class="metric-pill jcr">JCR ${escapeHtml(record.journalJcr)}</span>` : "",
+        record.journalCas ? `<span class="metric-pill cas">中科院 ${escapeHtml(formatCas(record.journalCas))}</span>` : "",
+      ].filter(Boolean).join("");
+      if (metrics) return `<span class="journal-metrics"${title}>${metrics}</span>`;
+      if (record.journalMetricsStatus === "not_found") {
+        return '<span class="metric-note">期刊指标暂未匹配</span>';
+      }
+      if (record.journalMetricsStatus === "unknown") {
+        return '<span class="metric-note">期刊指标未标注</span>';
+      }
+      if (["error", "unavailable_no_secret", "invalid_name", "missing_journal", "cache_miss"]
+        .includes(record.journalMetricsStatus)) {
+        return '<span class="metric-note">期刊指标暂未获取</span>';
+      }
+      return "";
+    }
+
     function renderPaper(record) {
       const safePmid = /^\d+$/.test(record.pmid) ? record.pmid : "";
       const pubmedUrl = safePmid ? `https://pubmed.ncbi.nlm.nih.gov/${encodeURIComponent(safePmid)}/` : "";
@@ -1050,15 +1210,20 @@
         record.sampleSize ? `<span><strong>样本量：</strong>${escapeHtml(record.sampleSize)}</span>` : "",
         record.disease ? `<span><strong>疾病/状态：</strong>${escapeHtml(record.disease)}</span>` : "",
       ].filter(Boolean).join("");
-      const evidence = record.evidence.length
-        ? `<details class="evidence"><summary>查看分类依据</summary><p class="evidence-text">${escapeHtml(record.evidence.join(" · "))}</p></details>`
+      const structuredEvidence = record.generationEvidence.map((item) =>
+        `${item.sourceLabel}：${item.phrase}（${item.strength}）`
+      );
+      const allEvidence = [...new Set([...structuredEvidence, ...record.evidence])];
+      const evidence = allEvidence.length
+        ? `<details class="evidence"><summary>查看分类依据</summary><p class="evidence-text">${escapeHtml(allEvidence.join(" · "))}</p></details>`
         : "";
+      const journalMetrics = renderJournalMetrics(record);
 
       return `
         <article class="paper-card">
           <div class="paper-card-inner">
             <div class="paper-topline">
-              <span class="badge ${generationClass(record.generation)}">${escapeHtml(record.generation)}</span>
+              <span class="badge ${generationClass(record.generation)}">${escapeHtml(generationLabel(record.generation))}</span>
               <span class="badge">${escapeHtml(record.articleType)}</span>
               ${record.relevanceScore ? `<span class="badge ${scoreClass}">相关性 ${escapeHtml(record.relevanceScore)}</span>` : ""}
               <time class="paper-date" datetime="${escapeHtml(record.pubDate)}">${escapeHtml(record.pubDate || "日期未报告")}</time>
@@ -1067,6 +1232,7 @@
             ${secondaryTitle ? `<p class="original-title">${escapeHtml(secondaryTitle)}</p>` : ""}
             <div class="bibliography">
               ${record.journal ? `<span><strong>期刊</strong> ${escapeHtml(record.journal)}</span>` : ""}
+              ${journalMetrics}
               ${safePmid ? `<span><strong>PMID</strong> ${escapeHtml(safePmid)}</span>` : ""}
               ${record.authors ? `<span><strong>作者</strong> ${escapeHtml(record.authors)}</span>` : ""}
             </div>
@@ -1094,7 +1260,8 @@
         [counts["二代/短读长"], "二代 / 短读长"],
         [counts["三代/长读长"], "三代 / 长读长"],
         [counts["二代+三代"], "联合测序"],
-        [counts["平台未报告"], "平台未报告"],
+        [counts["非测序/芯片"], "非测序 / 芯片"],
+        [counts["平台未报告"], "摘要未明确平台"],
       ];
       elements.stats.innerHTML = items.map(([value, label]) => `
         <div class="stat"><span class="stat-value">${escapeHtml(value)}</span><span class="stat-label">${escapeHtml(label)}</span></div>
@@ -1156,6 +1323,7 @@
       elements.species.value = "";
       elements.year.value = "";
       elements.type.value = "";
+      elements.jcr.value = "";
       elements.sort.value = "date-desc";
       applyFilters({ resetPage: true });
     }
@@ -1233,7 +1401,7 @@
       searchTimer = window.setTimeout(() => applyFilters({ resetPage: true }), 180);
     });
     [elements.generation, elements.technology, elements.topic, elements.species,
-      elements.year, elements.type, elements.sort].forEach((element) => {
+      elements.year, elements.type, elements.jcr, elements.sort].forEach((element) => {
       element.addEventListener("change", () => applyFilters({ resetPage: true }));
     });
     elements.reset.addEventListener("click", resetFilters);

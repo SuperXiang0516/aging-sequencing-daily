@@ -14,7 +14,7 @@ import build_data
 class BuildDataTests(unittest.TestCase):
     def _record(self, **overrides):
         record = {
-            "schema_version": 2,
+            "schema_version": build_data.SCHEMA_VERSION,
             "tracking_domain": build_data.DATASET_ID,
             "source": "PubMed",
             "pmid": "123",
@@ -22,6 +22,7 @@ class BuildDataTests(unittest.TestCase):
             "abstract": "Raw abstract must stay private to the build bundle.",
             "pub_date": "2026-09-01",
             "journal": "Example Journal",
+            "classification_version": "sequencing-evidence-v2",
             "sequencing_generation": "二代/短读长",
             "sequencing_assays": ["RNA测序"],
             "platforms": ["Illumina"],
@@ -29,6 +30,13 @@ class BuildDataTests(unittest.TestCase):
             "species": ["人"],
             "tissues": [],
             "classification_evidence": ["Illumina"],
+            "generation_evidence": [{
+                "label": "Illumina",
+                "source": "abstract",
+                "phrase": "Illumina NovaSeq",
+                "strength": "strong",
+            }],
+            "evidence_scope": "methods",
             "ai_status": "pending",
             "ai_done": False,
         }
@@ -39,6 +47,9 @@ class BuildDataTests(unittest.TestCase):
         public = build_data._frontend_record(self._record())
         self.assertNotIn("abstract", public)
         self.assertEqual(public["pmid"], "123")
+        self.assertEqual(
+            public["generation_evidence"][0]["phrase"], "Illumina NovaSeq",
+        )
 
     def test_stats_cover_generation_assay_topic_species_and_status(self):
         stats = build_data.build_stats([self._record()])
@@ -70,6 +81,91 @@ class BuildDataTests(unittest.TestCase):
         self.assertEqual(merged["summary_zh"], "已验证的中文摘要。")
         self.assertEqual(merged["ai_status"], "success")
         self.assertTrue(merged["ai_done"])
+
+    def test_new_deterministic_classification_wins_over_old_ai_record(self):
+        successful = self._record(
+            fetch_date="2026-09-01",
+            classification_version="sequencing-evidence-v1",
+            sequencing_generation="二代/短读长",
+            platforms=["Illumina"],
+            title_zh="已保留的中文标题",
+            summary_zh="已保留的中文摘要。",
+            ai_status="success",
+            ai_done=True,
+        )
+        refreshed = self._record(
+            fetch_date="2026-09-02",
+            classification_version="sequencing-evidence-v2",
+            sequencing_generation="非测序/芯片",
+            sequencing_assays=[],
+            platforms=[],
+            evidence_scope="non_sequencing",
+            classification_evidence=["Illumina EPIC/Infinium芯片"],
+            generation_evidence=[{
+                "label": "Illumina EPIC/Infinium芯片",
+                "source": "abstract",
+                "phrase": "MethylationEPIC BeadChip",
+                "strength": "strong",
+            }],
+            title_zh="",
+            summary_zh="",
+            ai_status="pending",
+            ai_done=False,
+        )
+
+        merged = build_data._merge_group([successful, refreshed])
+
+        self.assertEqual(merged["sequencing_generation"], "非测序/芯片")
+        self.assertEqual(merged["platforms"], [])
+        self.assertEqual(merged["evidence_scope"], "non_sequencing")
+        self.assertEqual(merged["summary_zh"], "已保留的中文摘要。")
+
+    def test_conflicting_normalized_names_do_not_override_exact_names(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            table = Path(temporary) / "journals.tsv"
+            table.write_text(
+                "期刊名称\tIF\tJCR分区\tCategory\tISSN\teISSN\t中科院分区\n"
+                "Biological Psychiatry\t10\tQ1\tA\t0006-3223\tN/A\t1\n"
+                "Biological Psychiatry: Global Open Science\t4\tQ2\tB\t2667-1743\tN/A\t2\n",
+                encoding="utf-8",
+            )
+            original_table = build_data.TSV_PATH
+            try:
+                build_data.TSV_PATH = table
+                by_name, by_issn = build_data.load_journal_lookup()
+            finally:
+                build_data.TSV_PATH = original_table
+
+        parent = build_data.lookup_journal(
+            {"journal": "Biological Psychiatry"}, by_name, by_issn,
+        )
+        child = build_data.lookup_journal(
+            {"journal": "Biological Psychiatry: Global Open Science"},
+            by_name,
+            by_issn,
+        )
+        self.assertEqual(parent["if"], "10")
+        self.assertEqual(child["if"], "4")
+
+    def test_journal_table_placeholders_are_treated_as_missing(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            table = Path(temporary) / "journals.tsv"
+            table.write_text(
+                "期刊名称\tIF\tJCR分区\tCategory\tISSN\teISSN\t中科院分区\n"
+                "eLife\tN/A\t-\tA\t2050-084X\tN/A\t未收录\n",
+                encoding="utf-8",
+            )
+            original_table = build_data.TSV_PATH
+            try:
+                build_data.TSV_PATH = table
+                by_name, by_issn = build_data.load_journal_lookup()
+            finally:
+                build_data.TSV_PATH = original_table
+
+        metrics = build_data.lookup_journal(
+            {"journal": "eLife", "issn": "2050-084X"}, by_name, by_issn,
+        )
+        self.assertEqual(metrics, {"if": "", "jcr": "", "cas": ""})
 
     def test_existing_sanitized_web_data_is_the_cumulative_index(self):
         with tempfile.TemporaryDirectory() as temporary:

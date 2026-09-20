@@ -8,8 +8,10 @@
 
 - 使用“衰老概念 **AND** 测序概念”的分组查询检索 PubMed，而不是把所有关键词简单地用 `OR` 连接。
 - 以 PubMed 创建日期为默认增量日期，降低晚收录论文被漏掉的概率。
-- 对明确报告的平台区分“二代/短读长”“三代/长读长”“二代+三代”；摘要没有平台证据时标为“平台未报告”。
+- 对明确报告的平台区分“二代/短读长”“三代/长读长”“二代+三代”；摘要没有平台证据时标为“题目/摘要未明确平台”。
 - 识别 RNA-seq、单细胞/单核 RNA-seq、ATAC-seq、ChIP-seq、WGS、WES、甲基化测序、空间转录组、Iso-Seq 和直接 RNA 测序等实验类型。
+- 将 EPIC/Infinium、450K/850K、BeadChip 等纯芯片研究与测序分开，不再因为出现 `Illumina` 公司名而误判为二代测序。
+- 可在后端用 easyScholar 为期刊补充 IF、JCR 分区和中科院分区，并把非敏感结果按期刊缓存。
 - 从标题和摘要生成中文标题、研究设计、主要发现、创新点、局限性、物种、组织、样本量等结构化字段。
 - 每天北京时间 **08:17** 自动更新，并由 GitHub Actions 发布到 GitHub Pages。
 
@@ -23,6 +25,7 @@
 - 数据源：当前只使用 PubMed 的题录和摘要，不下载或镜像论文全文。
 
 `RNA-seq`、`scRNA-seq` 等名称本身不能证明使用了二代平台。网站只有在题目或摘要出现明确平台、短读长或长读长证据时才判断测序代际。
+作者关键词和 MeSH 中的长读长术语只标为“主题证据”，不代表论文实际使用了三代平台。纯芯片记录会从测序站点数据中排除。
 
 ## Fork 以后，本地和网页端分别做什么
 
@@ -52,8 +55,11 @@ GitHub Desktop 和 GitHub 网页端都需要，但用途不同：
 | `LLM_MODEL` | 必需 | 服务商支持的模型名称 |
 | `NCBI_EMAIL` | 必需 | 你自己的真实联系邮箱，供 NCBI 在请求异常时联系 |
 | `NCBI_API_KEY` | 推荐 | NCBI 账户中申请的 API Key；不填也能运行，但请求额度较低 |
+| `EASYSCHOLAR_SECRET_KEY` | 可选 | easyScholar 开放接口密钥；只在 GitHub Actions 后端使用，不会写入网页 |
 
 不要创建 `SEARCH_KEYWORDS` Secret。项目已经内置正确分组的“衰老 AND 测序”查询；如需高级定制，请先在本地测试 `PUBMED_BASE_QUERY`。
+
+easyScholar 是可选增强项。不配置时，网站仍会使用仓库现有的本地期刊表；配置后只查询尚未缓存、缺少指标的期刊。密钥不要发送到聊天、Issue 或提交记录。API 返回值不包含可核验的数据年份，因此网页只记录来源和查询日期，不会自行虚构年份。把第三方期刊指标展示在公开网站前，请自行确认账户条款与数据权利允许这种用途。
 
 使用 DeepSeek 时填写：`LLM_API_URL=https://api.deepseek.com/chat/completions`，
 `LLM_MODEL=deepseek-flash`。脚本会对 DeepSeek 的结构化抽取请求关闭思考模式并启用 JSON 输出，
@@ -151,6 +157,7 @@ python3 metaweb.py auto --start-date 2024-01-01 --end-date 2024-12-31
 - `.github/workflows/daily.yml`：北京时间每天 08:17 运行完整流水线，并直接部署 `web/`。
 - `.github/workflows/pages.yml`：当有提交推送到 `main`，或在 Actions 页面手动触发时，单独重新发布 Pages。
 - `data/aging_daily/` 是被 Git 忽略的本地/Runner 工作缓存；原始 PubMed 摘要不会提交到公开仓库，累计站点数据来自已脱敏的 `web/data.json`。
+- `data/journal_metrics_cache.json` 仅保存 IF/JCR 等非敏感派生字段、来源和查询时间；不会保存 easyScholar 密钥或完整原始响应。
 - GitHub Actions 每天可能自动向 `main` 增加一个数据提交。在本地开始修改前，先在 GitHub Desktop 点击 **Fetch origin**，有更新时再点击 **Pull origin**，可减少冲突。
 - 如需立即刷新，使用 Actions 页面的 **Run workflow**，不必等待第二天。
 - 定期检查 LLM 账单、Actions 运行记录和失败通知。API 调用费用由所选服务商收取。
@@ -172,6 +179,12 @@ python3 metaweb.py auto --start-date 2024-01-01 --end-date 2024-12-31
 | `PUBMED_BASE_QUERY` | 空 | 完整覆盖内置主题查询；仅建议熟悉 PubMed 语法的用户使用 |
 | `DAILY_LOOKBACK_DAYS` | `7` | 每日重复检索的 PubMed 创建日期窗口（1–30 天） |
 | `NO_ABSTRACT_RETRY_DAYS` | `30` | 无摘要记录重新向 PubMed 检查的间隔 |
+| `RECLASSIFY_BATCH_SIZE` | `100` | 分类规则升级后，每次重新获取的旧记录数；复用已有中文摘要，不重复调用 LLM |
+| `EASYSCHOLAR_REQUEST_DELAY` | `0.6` | easyScholar 相邻请求间隔秒数，保持低于官方每秒 2 次限制 |
+| `EASYSCHOLAR_TIMEOUT` | `20` | easyScholar 单次请求超时秒数 |
+| `EASYSCHOLAR_RETRIES` | `3` | easyScholar 瞬时失败的有界重试次数 |
+| `EASYSCHOLAR_CACHE_DAYS` | `180` | 已匹配 IF/JCR 指标的缓存天数；到期后自动刷新 |
+| `EASYSCHOLAR_NOT_FOUND_CACHE_DAYS` | `30` | 未匹配期刊的缓存天数；到期后自动重试 |
 
 这些可选参数目前不需要配置为 GitHub Secrets；工作流会使用代码中的安全默认值。如果确需在云端覆盖，可先修改工作流的 `env`，不要把私密值直接写进 YAML。
 
@@ -183,9 +196,11 @@ python3 metaweb.py auto --start-date 2024-01-01 --end-date 2024-12-31
 │   ├── daily.yml            # 每日抓取、构建、提交和部署
 │   └── pages.yml            # push main / 手动发布 Pages
 ├── data/aging_daily/        # 本地临时缓存（Git 忽略，不公开原始摘要）
+├── data/journal_metrics_cache.json # 非敏感期刊指标缓存
 ├── scripts/
 │   ├── fetch_pubmed.py      # PubMed 检索、分页、解析与初步分类
 │   ├── summarize_papers.py  # 中文结构化摘要
+│   ├── journal_metrics.py   # easyScholar 查询、校验与缓存
 │   ├── daily_update.py      # 每日任务编排
 │   └── build_data.py        # 生成前端 JSON
 ├── web/                     # GitHub Pages 发布目录
@@ -221,7 +236,7 @@ python3 metaweb.py auto --start-date 2024-01-01 --end-date 2024-12-31
 ## 重要免责声明
 
 - 网站中的中文内容由 AI 根据 PubMed 标题和摘要自动生成，可能存在遗漏、误译或分类错误。
-- “创新点”“局限性”“测序代际”等字段不替代阅读原论文；平台未在摘要中明确报告时，网站不会推测。
+- “创新点”“局限性”“测序代际”等字段不替代阅读原论文；平台未在题目/摘要中明确报告时，网站会显示“摘要未明确平台”，不会根据实验名称推测。
 - 本站仅用于科研信息筛选，不构成医学建议、诊断、治疗建议、系统综述结论或临床决策依据。
 - 收录不代表论文质量背书。发表状态、勘误和撤稿信息应以 PubMed、期刊和出版商页面为准。
 - 本站不托管论文全文。题录、摘要和外部链接的权利归各自作者、数据库及出版商所有。
