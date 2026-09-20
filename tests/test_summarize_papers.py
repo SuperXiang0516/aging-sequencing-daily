@@ -80,6 +80,90 @@ class NormalizeSummaryTests(unittest.TestCase):
         self.assertEqual(updated["ai_status"], "failed_terminal")
         self.assertFalse(updated["ai_done"])
 
+    def test_deepseek_payload_disables_thinking_and_requires_json(self):
+        record = {
+            "title": "Aging sequencing study",
+            "abstract": "A usable abstract.",
+        }
+        with (
+            mock.patch.object(
+                summarize_papers,
+                "LLM_API_URL",
+                "https://api.deepseek.com/chat/completions",
+            ),
+            mock.patch.object(summarize_papers, "LLM_MODEL", "deepseek-flash"),
+        ):
+            payload = summarize_papers._build_request_payload(record)
+
+        self.assertEqual(payload["model"], "deepseek-flash")
+        self.assertEqual(payload["thinking"], {"type": "disabled"})
+        self.assertEqual(payload["response_format"], {"type": "json_object"})
+
+    def test_deepseek_endpoint_matching_does_not_accept_lookalike_host(self):
+        self.assertTrue(summarize_papers._is_deepseek_endpoint(
+            "https://api.deepseek.com/v1/chat/completions"
+        ))
+        self.assertFalse(summarize_papers._is_deepseek_endpoint(
+            "https://api.deepseek.com.evil.example/chat/completions"
+        ))
+        self.assertFalse(summarize_papers._is_deepseek_endpoint(
+            "https://gateway.deepseek.com/chat/completions"
+        ))
+
+    def test_other_provider_payload_omits_deepseek_extensions(self):
+        with mock.patch.object(
+            summarize_papers,
+            "LLM_API_URL",
+            "https://api.example.com/v1/chat/completions",
+        ):
+            payload = summarize_papers._build_request_payload({})
+
+        self.assertNotIn("thinking", payload)
+        self.assertNotIn("response_format", payload)
+
+    def test_call_llm_sends_deepseek_extensions_at_request_root(self):
+        model_result = self._valid_model_result()
+        response = mock.MagicMock()
+        response.__enter__.return_value = response
+        response.read.return_value = json.dumps({
+            "choices": [{
+                "message": {"content": json.dumps(model_result, ensure_ascii=False)}
+            }]
+        }).encode("utf-8")
+        captured = {}
+
+        def fake_urlopen(request, timeout):
+            captured["payload"] = json.loads(request.data.decode("utf-8"))
+            captured["timeout"] = timeout
+            return response
+
+        record = {
+            "title": "Aging sequencing study",
+            "abstract": "A usable abstract.",
+        }
+        with (
+            mock.patch.object(
+                summarize_papers,
+                "LLM_API_URL",
+                "https://api.deepseek.com/chat/completions",
+            ),
+            mock.patch.object(summarize_papers, "LLM_API_KEY", "test-key"),
+            mock.patch.object(summarize_papers.urllib.request, "urlopen", fake_urlopen),
+        ):
+            result, error = summarize_papers.call_llm(record)
+
+        self.assertEqual(error, "")
+        self.assertEqual(result["summary_zh"], model_result["summary_zh"])
+        self.assertEqual(captured["payload"]["thinking"], {"type": "disabled"})
+        self.assertEqual(
+            captured["payload"]["response_format"],
+            {"type": "json_object"},
+        )
+        self.assertTrue(all(
+            "thinking" not in message
+            for message in captured["payload"]["messages"]
+        ))
+
 
 if __name__ == "__main__":
     unittest.main()

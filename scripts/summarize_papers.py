@@ -8,6 +8,7 @@ import logging
 import os
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -172,11 +173,17 @@ def _normalize_result(value: dict, record: dict) -> dict:
     return normalized
 
 
-def call_llm(record: dict) -> tuple:
-    """Return ``(normalized_result, error_message)``."""
-    if not LLM_API_KEY:
-        return None, "未配置 LLM_API_KEY"
+def _is_deepseek_endpoint(api_url: str) -> bool:
+    """Return whether ``api_url`` targets an official DeepSeek API host."""
+    try:
+        hostname = (urllib.parse.urlparse(api_url).hostname or "").lower()
+    except (TypeError, ValueError):
+        return False
+    return hostname == "api.deepseek.com"
 
+
+def _build_request_payload(record: dict) -> dict:
+    """Build an OpenAI-compatible request with provider-safe extensions."""
     deterministic = {
         "sequencing_generation": record.get("sequencing_generation", "平台未报告"),
         "sequencing_assays": record.get("sequencing_assays", []),
@@ -192,7 +199,7 @@ def call_llm(record: dict) -> tuple:
         record.get("abstract", "") or "（无摘要）",
         json.dumps(deterministic, ensure_ascii=False),
     )
-    payload = json.dumps({
+    payload = {
         "model": LLM_MODEL,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
@@ -200,7 +207,24 @@ def call_llm(record: dict) -> tuple:
         ],
         "temperature": 0,
         "max_tokens": 1400,
-    }).encode("utf-8")
+    }
+
+    # Current DeepSeek models enable thinking by default. For this bounded
+    # extraction task, reasoning can consume the output budget before the
+    # required JSON reaches ``content``. Disable it explicitly and ask the
+    # provider to enforce a JSON object response.
+    if _is_deepseek_endpoint(LLM_API_URL):
+        payload["thinking"] = {"type": "disabled"}
+        payload["response_format"] = {"type": "json_object"}
+    return payload
+
+
+def call_llm(record: dict) -> tuple:
+    """Return ``(normalized_result, error_message)``."""
+    if not LLM_API_KEY:
+        return None, "未配置 LLM_API_KEY"
+
+    payload = json.dumps(_build_request_payload(record)).encode("utf-8")
 
     last_error = "未知错误"
     for attempt in range(LLM_RETRIES):

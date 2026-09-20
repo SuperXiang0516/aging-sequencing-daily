@@ -55,6 +55,10 @@ GitHub Desktop 和 GitHub 网页端都需要，但用途不同：
 
 不要创建 `SEARCH_KEYWORDS` Secret。项目已经内置正确分组的“衰老 AND 测序”查询；如需高级定制，请先在本地测试 `PUBMED_BASE_QUERY`。
 
+使用 DeepSeek 时填写：`LLM_API_URL=https://api.deepseek.com/chat/completions`，
+`LLM_MODEL=deepseek-flash`。脚本会对 DeepSeek 的结构化抽取请求关闭思考模式并启用 JSON 输出，
+避免思考内容耗尽输出额度后没有返回可解析的正文。
+
 ### 2. 允许工作流写入仓库
 
 进入：
@@ -195,6 +199,12 @@ python3 metaweb.py auto --start-date 2024-01-01 --end-date 2024-12-31
 ### Actions 报“缺少 GitHub Actions Secret”
 
 回到仓库的 Actions Secrets 页面，核对报错中的名称。Secret 名区分字符，不能多空格，也不要把 Secret 只填在本地 `config.env`。
+
+### 网页显示“AI 中文解读尚未生成”
+
+在 `Actions → 每日更新与部署` 中打开最近一次运行，展开“运行每日更新”。如果日志显示
+`模型响应中没有 JSON 对象`，请确认使用当前 DeepSeek 配置，并确保仓库已包含对 DeepSeek
+关闭思考模式、启用 JSON 输出的兼容代码。失败记录会在后续每日任务或手动运行时自动重试。
 
 ### 工作流抓取成功，但 `git push` 返回 403
 

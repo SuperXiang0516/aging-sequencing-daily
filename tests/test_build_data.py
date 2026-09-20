@@ -75,6 +75,7 @@ class BuildDataTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             public_file = root / "data.json"
+            stats_file = root / "stats.json"
             daily_dir = root / "daily"
             daily_dir.mkdir()
             valid = build_data._frontend_record(self._record(
@@ -88,14 +89,24 @@ class BuildDataTests(unittest.TestCase):
                 json.dumps([valid, legacy], ensure_ascii=False),
                 encoding="utf-8",
             )
+            stats_file.write_text(
+                json.dumps({
+                    "tracking_domain": build_data.DATASET_ID,
+                    "total": 1,
+                }),
+                encoding="utf-8",
+            )
             original_out = build_data.OUT_FILE
+            original_stats = build_data.STATS_FILE
             original_daily = build_data.DAILY_DIR
             try:
                 build_data.OUT_FILE = public_file
+                build_data.STATS_FILE = stats_file
                 build_data.DAILY_DIR = daily_dir
                 records = build_data.merge_all()
             finally:
                 build_data.OUT_FILE = original_out
+                build_data.STATS_FILE = original_stats
                 build_data.DAILY_DIR = original_daily
 
         self.assertEqual([record["pmid"] for record in records], ["900"])

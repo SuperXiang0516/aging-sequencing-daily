@@ -50,11 +50,17 @@ def main() -> dict:
         "summary": summary_stats,
         "total": build_stats.get("total", 0),
     }
-    if summary_stats.get("error", 0) and not summary_stats.get("success", 0):
-        message = "本轮需要调用 LLM 的论文全部失败；记录已保留，后续运行会按上限重试"
-        log.error(message)
+    if summary_stats.get("error", 0):
+        message = (
+            "中文摘要存在未生成记录：成功 {0}，失败 {1}；"
+            "记录已保留，后续运行会按上限重试"
+        ).format(
+            summary_stats.get("success", 0),
+            summary_stats.get("error", 0),
+        )
+        log.warning(message)
         if os.environ.get("GITHUB_ACTIONS") == "true":
-            print("::warning title=中文摘要全部失败::{0}".format(message))
+            print("::warning title=部分中文摘要未生成::{0}".format(message))
     log.info(
         "===== 完成：新增 %s，AI 成功 %s/失败 %s，网站共 %s 篇 =====",
         result["new"],
