@@ -36,6 +36,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:09148779": {
+      "cas": "医学4区",
+      "if": "2.9",
+      "jcr": "Q3",
+      "query_name": "Journal of bone and mineral metabolism",
+      "retrieved_at": "2026-09-22T05:05:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:09394451": {
       "cas": "生物学3区",
       "if": "3.2",
@@ -60,6 +69,15 @@
       "jcr": "Q2",
       "query_name": "Cell biochemistry and function",
       "retrieved_at": "2026-09-20T13:42:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:14355604": {
+      "cas": "医学4区",
+      "if": "2.9",
+      "jcr": "Q3",
+      "query_name": "Journal of bone and mineral metabolism",
+      "retrieved_at": "2026-09-22T05:05:16Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -150,6 +168,15 @@
       "jcr": "",
       "query_name": "Frontiers in aging",
       "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:journal of bone and mineral metabolism": {
+      "cas": "医学4区",
+      "if": "2.9",
+      "jcr": "Q3",
+      "query_name": "Journal of bone and mineral metabolism",
+      "retrieved_at": "2026-09-22T05:05:16Z",
       "source": "EasyScholar",
       "status": "matched"
     },
