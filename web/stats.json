@@ -1,81 +1,87 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 29,
+  "total": 38,
   "by_generation": {
-    "平台未报告": 28,
+    "平台未报告": 37,
     "二代/短读长": 1
   },
   "by_assay": {
-    "RNA测序": 21,
-    "单核RNA测序": 4,
+    "RNA测序": 26,
+    "空间转录组": 7,
+    "单核RNA测序": 6,
+    "单细胞RNA测序": 5,
     "未标注": 4,
-    "空间转录组": 4,
-    "单细胞RNA测序": 2,
     "DNA甲基化测序": 1,
     "全基因组测序": 1,
     "宏基因组测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 19,
-    "衰老研究": 6,
-    "细胞衰老": 4,
-    "年龄相关疾病": 3,
+    "生理性衰老": 27,
+    "衰老研究": 7,
+    "年龄相关疾病": 5,
+    "细胞衰老": 5,
     "长寿与寿命": 3,
+    "DNA损伤": 1,
     "T细胞衰老": 1,
     "免疫衰老": 1,
+    "氧化应激": 1,
+    "端粒维持": 1,
+    "线粒体功能": 1,
     "虚弱与肌少症": 1,
+    "表观遗传调控": 1,
     "衰老干预与年轻化": 1
   },
   "by_species": {
-    "人": 14,
-    "小鼠": 14,
+    "人": 21,
+    "小鼠": 21,
     "大鼠": 2,
     "未标注": 2,
+    "牦牛": 2,
+    "鸡": 2,
     "普通牛": 1,
     "果蝇": 1,
-    "牦牛": 1,
     "犏牛": 1,
     "线虫": 1,
     "花生": 1,
-    "鸡": 1
+    "蝾螈": 1
   },
   "by_ai_status": {
-    "success": 29
+    "success": 38
   },
   "by_journal_metrics_status": {
-    "matched": 26,
+    "matched": 35,
     "error": 2,
     "not_applicable": 1
   },
   "by_year": {
-    "2026": 29
+    "2026": 38
   },
   "by_type": {
-    "研究论文": 24,
-    "综述": 4,
+    "研究论文": 31,
+    "综述": 6,
     "Benchmark": 1
   },
   "top_journals": {
     "Animals : an open access journal from MDPI": 2,
+    "Arthritis & rheumatology (Hoboken, N.J.)": 2,
+    "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 2,
+    "Frontiers in immunology": 2,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 1,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 1,
     "Amino acids": 1,
     "Archives of gerontology and geriatrics": 1,
-    "Arthritis & rheumatology (Hoboken, N.J.)": 1,
     "Cancer letters": 1,
     "Cell biochemistry and function": 1,
     "Cell genomics": 1,
+    "Circulation": 1,
+    "EBioMedicine": 1,
     "Experimental eye research": 1,
-    "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 1,
     "Foods (Basel, Switzerland)": 1,
     "Free radical biology & medicine": 1,
     "Frontiers in aging": 1,
     "GeroScience": 1,
     "Investigative ophthalmology & visual science": 1,
-    "Journal of bone and mineral metabolism": 1,
-    "Journal of cellular and molecular medicine": 1,
-    "Journal of molecular neuroscience : MN": 1,
-    "Journal of sport and health science": 1
+    "Journal of bone and mineral metabolism": 1
   }
 }
