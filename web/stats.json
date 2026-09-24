@@ -1,27 +1,28 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 38,
+  "total": 43,
   "by_generation": {
-    "平台未报告": 37,
+    "平台未报告": 42,
     "二代/短读长": 1
   },
   "by_assay": {
-    "RNA测序": 26,
+    "RNA测序": 30,
+    "单细胞RNA测序": 8,
     "空间转录组": 7,
     "单核RNA测序": 6,
-    "单细胞RNA测序": 5,
-    "未标注": 4,
+    "未标注": 5,
     "DNA甲基化测序": 1,
     "全基因组测序": 1,
     "宏基因组测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 27,
+    "生理性衰老": 29,
+    "细胞衰老": 8,
     "衰老研究": 7,
     "年龄相关疾病": 5,
-    "细胞衰老": 5,
-    "长寿与寿命": 3,
+    "长寿与寿命": 5,
+    "衰老干预与年轻化": 2,
     "DNA损伤": 1,
     "T细胞衰老": 1,
     "免疫衰老": 1,
@@ -29,45 +30,46 @@
     "端粒维持": 1,
     "线粒体功能": 1,
     "虚弱与肌少症": 1,
-    "表观遗传调控": 1,
-    "衰老干预与年轻化": 1
+    "表观遗传调控": 1
   },
   "by_species": {
-    "人": 21,
-    "小鼠": 21,
+    "人": 23,
+    "小鼠": 23,
+    "未标注": 3,
     "大鼠": 2,
-    "未标注": 2,
     "牦牛": 2,
     "鸡": 2,
     "普通牛": 1,
     "果蝇": 1,
     "犏牛": 1,
+    "犬": 1,
     "线虫": 1,
     "花生": 1,
     "蝾螈": 1
   },
   "by_ai_status": {
-    "success": 38
+    "success": 43
   },
   "by_journal_metrics_status": {
-    "matched": 35,
+    "matched": 40,
     "error": 2,
     "not_applicable": 1
   },
   "by_year": {
-    "2026": 38
+    "2026": 43
   },
   "by_type": {
-    "研究论文": 31,
+    "研究论文": 36,
     "综述": 6,
     "Benchmark": 1
   },
   "top_journals": {
+    "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 3,
+    "Frontiers in immunology": 3,
     "Animals : an open access journal from MDPI": 2,
     "Arthritis & rheumatology (Hoboken, N.J.)": 2,
-    "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 2,
-    "Frontiers in immunology": 2,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 1,
+    "Aging cell": 1,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 1,
     "Amino acids": 1,
     "Archives of gerontology and geriatrics": 1,
@@ -80,8 +82,7 @@
     "Foods (Basel, Switzerland)": 1,
     "Free radical biology & medicine": 1,
     "Frontiers in aging": 1,
-    "GeroScience": 1,
-    "Investigative ophthalmology & visual science": 1,
-    "Journal of bone and mineral metabolism": 1
+    "Frontiers in cell and developmental biology": 1,
+    "Gastroenterology": 1
   }
 }
