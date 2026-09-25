@@ -126,6 +126,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:20770375": {
+      "cas": "工程技术4区",
+      "if": "4.2",
+      "jcr": "Q2",
+      "query_name": "Membranes",
+      "retrieved_at": "2026-09-25T05:04:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:26736217": {
       "cas": "医学4区",
       "if": "4.9",
@@ -195,6 +204,24 @@
       "jcr": "Q3",
       "query_name": "Journal of bone and mineral metabolism",
       "retrieved_at": "2026-09-22T05:05:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:medrxiv the preprint server for health sciences": {
+      "cas": "",
+      "if": "",
+      "jcr": "",
+      "query_name": "medRxiv : the preprint server for health sciences",
+      "retrieved_at": "2026-09-25T05:04:08Z",
+      "source": "preprint",
+      "status": "not_applicable"
+    },
+    "name:membranes": {
+      "cas": "工程技术4区",
+      "if": "4.2",
+      "jcr": "Q2",
+      "query_name": "Membranes",
+      "retrieved_at": "2026-09-25T05:04:08Z",
       "source": "EasyScholar",
       "status": "matched"
     },

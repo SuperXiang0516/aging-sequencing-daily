@@ -1,27 +1,27 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 43,
+  "total": 54,
   "by_generation": {
-    "平台未报告": 42,
-    "二代/短读长": 1
+    "平台未报告": 52,
+    "二代/短读长": 2
   },
   "by_assay": {
-    "RNA测序": 30,
-    "单细胞RNA测序": 8,
-    "空间转录组": 7,
-    "单核RNA测序": 6,
-    "未标注": 5,
+    "RNA测序": 35,
+    "单细胞RNA测序": 10,
+    "空间转录组": 9,
+    "单核RNA测序": 8,
+    "未标注": 8,
+    "全基因组测序": 2,
     "DNA甲基化测序": 1,
-    "全基因组测序": 1,
     "宏基因组测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 29,
-    "细胞衰老": 8,
+    "生理性衰老": 34,
+    "细胞衰老": 11,
+    "年龄相关疾病": 10,
+    "长寿与寿命": 8,
     "衰老研究": 7,
-    "年龄相关疾病": 5,
-    "长寿与寿命": 5,
     "衰老干预与年轻化": 2,
     "DNA损伤": 1,
     "T细胞衰老": 1,
@@ -30,12 +30,13 @@
     "端粒维持": 1,
     "线粒体功能": 1,
     "虚弱与肌少症": 1,
-    "表观遗传调控": 1
+    "表观遗传调控": 1,
+    "认知功能": 1
   },
   "by_species": {
-    "人": 23,
-    "小鼠": 23,
-    "未标注": 3,
+    "人": 29,
+    "小鼠": 25,
+    "未标注": 7,
     "大鼠": 2,
     "牦牛": 2,
     "鸡": 2,
@@ -48,41 +49,41 @@
     "蝾螈": 1
   },
   "by_ai_status": {
-    "success": 43
+    "success": 54
   },
   "by_journal_metrics_status": {
-    "matched": 40,
-    "error": 2,
-    "not_applicable": 1
+    "matched": 47,
+    "not_applicable": 5,
+    "error": 2
   },
   "by_year": {
-    "2026": 43
+    "2026": 54
   },
   "by_type": {
-    "研究论文": 36,
-    "综述": 6,
-    "Benchmark": 1
+    "研究论文": 45,
+    "综述": 7,
+    "Benchmark": 2
   },
   "top_journals": {
+    "bioRxiv : the preprint server for biology": 4,
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 3,
     "Frontiers in immunology": 3,
+    "Alzheimer's & dementia : the journal of the Alzheimer's Association": 2,
     "Animals : an open access journal from MDPI": 2,
     "Arthritis & rheumatology (Hoboken, N.J.)": 2,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 1,
     "Aging cell": 1,
-    "Alzheimer's & dementia : the journal of the Alzheimer's Association": 1,
     "Amino acids": 1,
     "Archives of gerontology and geriatrics": 1,
+    "Brain communications": 1,
     "Cancer letters": 1,
     "Cell biochemistry and function": 1,
+    "Cell death and differentiation": 1,
     "Cell genomics": 1,
+    "Cells": 1,
     "Circulation": 1,
+    "Clinical science (London, England : 1979)": 1,
     "EBioMedicine": 1,
-    "Experimental eye research": 1,
-    "Foods (Basel, Switzerland)": 1,
-    "Free radical biology & medicine": 1,
-    "Frontiers in aging": 1,
-    "Frontiers in cell and developmental biology": 1,
-    "Gastroenterology": 1
+    "Experimental eye research": 1
   }
 }
