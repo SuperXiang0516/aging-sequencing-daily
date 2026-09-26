@@ -126,6 +126,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:20506511": {
+      "cas": "医学3区",
+      "if": "3.5",
+      "jcr": "Q2",
+      "query_name": "BMC pharmacology & toxicology",
+      "retrieved_at": "2026-09-26T05:06:17Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:20770375": {
       "cas": "工程技术4区",
       "if": "4.2",
@@ -135,12 +144,48 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:21905991": {
+      "cas": "医学1区",
+      "if": "9.9",
+      "jcr": "Q1",
+      "query_name": "Journal of cachexia, sarcopenia and muscle",
+      "retrieved_at": "2026-09-26T05:06:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:21906009": {
+      "cas": "医学1区",
+      "if": "9.9",
+      "jcr": "Q1",
+      "query_name": "Journal of cachexia, sarcopenia and muscle",
+      "retrieved_at": "2026-09-26T05:06:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:23301910": {
+      "cas": "医学4区",
+      "if": "1.5",
+      "jcr": "",
+      "query_name": "American journal of clinical and experimental urology",
+      "retrieved_at": "2026-09-26T05:06:21Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:26736217": {
       "cas": "医学4区",
       "if": "4.9",
       "jcr": "",
       "query_name": "Frontiers in aging",
       "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:american journal of clinical and experimental urology": {
+      "cas": "医学4区",
+      "if": "1.5",
+      "jcr": "",
+      "query_name": "American journal of clinical and experimental urology",
+      "retrieved_at": "2026-09-26T05:06:21Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -170,6 +215,15 @@
       "retrieved_at": "2026-09-20T03:52:00Z",
       "source": "preprint",
       "status": "not_applicable"
+    },
+    "name:bmc pharmacology & toxicology": {
+      "cas": "医学3区",
+      "if": "3.5",
+      "jcr": "Q2",
+      "query_name": "BMC pharmacology & toxicology",
+      "retrieved_at": "2026-09-26T05:06:17Z",
+      "source": "EasyScholar",
+      "status": "matched"
     },
     "name:cell biochemistry and function": {
       "cas": "生物学4区",
@@ -204,6 +258,15 @@
       "jcr": "Q3",
       "query_name": "Journal of bone and mineral metabolism",
       "retrieved_at": "2026-09-22T05:05:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:journal of cachexia sarcopenia and muscle": {
+      "cas": "医学1区",
+      "if": "9.9",
+      "jcr": "Q1",
+      "query_name": "Journal of cachexia, sarcopenia and muscle",
+      "retrieved_at": "2026-09-26T05:06:16Z",
       "source": "EasyScholar",
       "status": "matched"
     },

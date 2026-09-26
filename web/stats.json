@@ -1,28 +1,28 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 54,
+  "total": 58,
   "by_generation": {
-    "平台未报告": 52,
+    "平台未报告": 56,
     "二代/短读长": 2
   },
   "by_assay": {
-    "RNA测序": 35,
-    "单细胞RNA测序": 10,
-    "空间转录组": 9,
+    "RNA测序": 38,
+    "单细胞RNA测序": 12,
+    "空间转录组": 10,
+    "未标注": 9,
     "单核RNA测序": 8,
-    "未标注": 8,
     "全基因组测序": 2,
     "DNA甲基化测序": 1,
     "宏基因组测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 34,
-    "细胞衰老": 11,
+    "生理性衰老": 37,
+    "细胞衰老": 12,
     "年龄相关疾病": 10,
-    "长寿与寿命": 8,
+    "长寿与寿命": 9,
     "衰老研究": 7,
-    "衰老干预与年轻化": 2,
+    "衰老干预与年轻化": 3,
     "DNA损伤": 1,
     "T细胞衰老": 1,
     "免疫衰老": 1,
@@ -31,38 +31,40 @@
     "线粒体功能": 1,
     "虚弱与肌少症": 1,
     "表观遗传调控": 1,
+    "衰老细胞清除": 1,
     "认知功能": 1
   },
   "by_species": {
-    "人": 29,
-    "小鼠": 25,
-    "未标注": 7,
+    "人": 31,
+    "小鼠": 26,
+    "未标注": 8,
     "大鼠": 2,
     "牦牛": 2,
+    "线虫": 2,
     "鸡": 2,
     "普通牛": 1,
     "果蝇": 1,
     "犏牛": 1,
     "犬": 1,
-    "线虫": 1,
     "花生": 1,
     "蝾螈": 1
   },
   "by_ai_status": {
-    "success": 54
+    "success": 58
   },
   "by_journal_metrics_status": {
-    "matched": 47,
+    "matched": 51,
     "not_applicable": 5,
     "error": 2
   },
   "by_year": {
-    "2026": 54
+    "2026": 58
   },
   "by_type": {
-    "研究论文": 45,
-    "综述": 7,
-    "Benchmark": 2
+    "研究论文": 47,
+    "综述": 8,
+    "Benchmark": 2,
+    "临床试验": 1
   },
   "top_journals": {
     "bioRxiv : the preprint server for biology": 4,
@@ -71,19 +73,19 @@
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 2,
     "Animals : an open access journal from MDPI": 2,
     "Arthritis & rheumatology (Hoboken, N.J.)": 2,
+    "Frontiers in cell and developmental biology": 2,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 1,
     "Aging cell": 1,
+    "American journal of clinical and experimental urology": 1,
     "Amino acids": 1,
     "Archives of gerontology and geriatrics": 1,
+    "BMC pharmacology & toxicology": 1,
     "Brain communications": 1,
     "Cancer letters": 1,
     "Cell biochemistry and function": 1,
     "Cell death and differentiation": 1,
     "Cell genomics": 1,
     "Cells": 1,
-    "Circulation": 1,
-    "Clinical science (London, England : 1979)": 1,
-    "EBioMedicine": 1,
-    "Experimental eye research": 1
+    "Circulation": 1
   }
 }
