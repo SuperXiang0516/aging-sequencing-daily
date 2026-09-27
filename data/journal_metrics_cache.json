@@ -81,6 +81,24 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:13419145": {
+      "cas": "医学4区",
+      "if": "2.8",
+      "jcr": "Q2",
+      "query_name": "Journal of occupational health",
+      "retrieved_at": "2026-09-27T08:09:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:13489585": {
+      "cas": "医学4区",
+      "if": "2.8",
+      "jcr": "Q2",
+      "query_name": "Journal of occupational health",
+      "retrieved_at": "2026-09-27T08:09:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:14355604": {
       "cas": "医学4区",
       "if": "2.9",
@@ -135,12 +153,39 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:20734425": {
+      "cas": "生物学3区",
+      "if": "3.1",
+      "jcr": "Q2",
+      "query_name": "Genes",
+      "retrieved_at": "2026-09-27T08:09:20Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:20763921": {
+      "cas": "医学2区",
+      "if": "8.2",
+      "jcr": "Q1",
+      "query_name": "Antioxidants (Basel, Switzerland)",
+      "retrieved_at": "2026-09-27T08:09:22Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:20770375": {
       "cas": "工程技术4区",
       "if": "4.2",
       "jcr": "Q2",
       "query_name": "Membranes",
       "retrieved_at": "2026-09-25T05:04:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:20958811": {
+      "cas": "医学3区",
+      "if": "1.5",
+      "jcr": "",
+      "query_name": "World journal of otorhinolaryngology - head and neck surgery",
+      "retrieved_at": "2026-09-27T08:09:24Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -171,6 +216,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:25891081": {
+      "cas": "医学3区",
+      "if": "1.5",
+      "jcr": "",
+      "query_name": "World journal of otorhinolaryngology - head and neck surgery",
+      "retrieved_at": "2026-09-27T08:09:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:26736217": {
       "cas": "医学4区",
       "if": "4.9",
@@ -195,6 +249,15 @@
       "jcr": "Q3",
       "query_name": "Amino acids",
       "retrieved_at": "2026-09-20T13:42:06Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:antioxidants basel switzerland": {
+      "cas": "医学2区",
+      "if": "8.2",
+      "jcr": "Q1",
+      "query_name": "Antioxidants (Basel, Switzerland)",
+      "retrieved_at": "2026-09-27T08:09:22Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -252,6 +315,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:genes": {
+      "cas": "生物学3区",
+      "if": "3.1",
+      "jcr": "Q2",
+      "query_name": "Genes",
+      "retrieved_at": "2026-09-27T08:09:20Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:journal of bone and mineral metabolism": {
       "cas": "医学4区",
       "if": "2.9",
@@ -267,6 +339,15 @@
       "jcr": "Q1",
       "query_name": "Journal of cachexia, sarcopenia and muscle",
       "retrieved_at": "2026-09-26T05:06:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:journal of occupational health": {
+      "cas": "医学4区",
+      "if": "2.8",
+      "jcr": "Q2",
+      "query_name": "Journal of occupational health",
+      "retrieved_at": "2026-09-27T08:09:16Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -303,6 +384,15 @@
       "jcr": "Q1",
       "query_name": "Tissue & cell",
       "retrieved_at": "2026-09-20T13:42:01Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:world journal of otorhinolaryngology head and neck surgery": {
+      "cas": "医学3区",
+      "if": "1.5",
+      "jcr": "",
+      "query_name": "World journal of otorhinolaryngology - head and neck surgery",
+      "retrieved_at": "2026-09-27T08:09:24Z",
       "source": "EasyScholar",
       "status": "matched"
     }

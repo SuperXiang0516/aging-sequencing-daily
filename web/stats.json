@@ -1,91 +1,97 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 58,
+  "total": 78,
   "by_generation": {
-    "平台未报告": 56,
-    "二代/短读长": 2
+    "平台未报告": 73,
+    "二代/短读长": 3,
+    "三代/长读长": 2
   },
   "by_assay": {
-    "RNA测序": 38,
-    "单细胞RNA测序": 12,
-    "空间转录组": 10,
-    "未标注": 9,
-    "单核RNA测序": 8,
+    "RNA测序": 52,
+    "单细胞RNA测序": 16,
+    "未标注": 14,
+    "空间转录组": 12,
+    "单核RNA测序": 10,
     "全基因组测序": 2,
+    "ChIP-seq": 1,
     "DNA甲基化测序": 1,
     "宏基因组测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 37,
-    "细胞衰老": 12,
-    "年龄相关疾病": 10,
-    "长寿与寿命": 9,
-    "衰老研究": 7,
-    "衰老干预与年轻化": 3,
+    "生理性衰老": 46,
+    "细胞衰老": 19,
+    "衰老研究": 14,
+    "年龄相关疾病": 11,
+    "长寿与寿命": 11,
+    "衰老干预与年轻化": 4,
     "DNA损伤": 1,
     "T细胞衰老": 1,
     "免疫衰老": 1,
+    "出生后发育": 1,
     "氧化应激": 1,
     "端粒维持": 1,
     "线粒体功能": 1,
     "虚弱与肌少症": 1,
     "表观遗传调控": 1,
     "衰老细胞清除": 1,
-    "认知功能": 1
+    "认知功能": 1,
+    "青春期成熟": 1
   },
   "by_species": {
-    "人": 31,
-    "小鼠": 26,
-    "未标注": 8,
+    "人": 44,
+    "小鼠": 29,
+    "未标注": 12,
+    "牦牛": 3,
+    "鸡": 3,
     "大鼠": 2,
-    "牦牛": 2,
     "线虫": 2,
-    "鸡": 2,
     "普通牛": 1,
     "果蝇": 1,
     "犏牛": 1,
     "犬": 1,
+    "猪": 1,
     "花生": 1,
     "蝾螈": 1
   },
   "by_ai_status": {
-    "success": 58
+    "success": 78
   },
   "by_journal_metrics_status": {
-    "matched": 51,
+    "matched": 69,
     "not_applicable": 5,
-    "error": 2
+    "error": 4
   },
   "by_year": {
-    "2026": 58
+    "2026": 77,
+    "2025": 1
   },
   "by_type": {
-    "研究论文": 47,
-    "综述": 8,
+    "研究论文": 63,
+    "综述": 12,
     "Benchmark": 2,
     "临床试验": 1
   },
   "top_journals": {
+    "International journal of molecular sciences": 5,
     "bioRxiv : the preprint server for biology": 4,
+    "Animals : an open access journal from MDPI": 3,
+    "Biomolecules": 3,
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 3,
+    "Frontiers in cell and developmental biology": 3,
     "Frontiers in immunology": 3,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 2,
-    "Animals : an open access journal from MDPI": 2,
     "Arthritis & rheumatology (Hoboken, N.J.)": 2,
-    "Frontiers in cell and developmental biology": 2,
+    "Genes": 2,
+    "Poultry science": 2,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 1,
     "Aging cell": 1,
     "American journal of clinical and experimental urology": 1,
     "Amino acids": 1,
+    "Antioxidants (Basel, Switzerland)": 1,
     "Archives of gerontology and geriatrics": 1,
     "BMC pharmacology & toxicology": 1,
-    "Brain communications": 1,
-    "Cancer letters": 1,
-    "Cell biochemistry and function": 1,
-    "Cell death and differentiation": 1,
-    "Cell genomics": 1,
-    "Cells": 1,
-    "Circulation": 1
+    "Biochemical and biophysical research communications": 1,
+    "Brain communications": 1
   }
 }
