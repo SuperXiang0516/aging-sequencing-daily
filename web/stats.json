@@ -1,17 +1,17 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 78,
+  "total": 82,
   "by_generation": {
-    "平台未报告": 73,
+    "平台未报告": 77,
     "二代/短读长": 3,
     "三代/长读长": 2
   },
   "by_assay": {
-    "RNA测序": 52,
-    "单细胞RNA测序": 16,
-    "未标注": 14,
-    "空间转录组": 12,
+    "RNA测序": 54,
+    "单细胞RNA测序": 18,
+    "未标注": 16,
+    "空间转录组": 13,
     "单核RNA测序": 10,
     "全基因组测序": 2,
     "ChIP-seq": 1,
@@ -19,17 +19,19 @@
     "宏基因组测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 46,
-    "细胞衰老": 19,
-    "衰老研究": 14,
-    "年龄相关疾病": 11,
+    "生理性衰老": 47,
+    "细胞衰老": 21,
+    "衰老研究": 15,
+    "年龄相关疾病": 12,
     "长寿与寿命": 11,
     "衰老干预与年轻化": 4,
     "DNA损伤": 1,
     "T细胞衰老": 1,
+    "代际行为缺陷": 1,
     "免疫衰老": 1,
     "出生后发育": 1,
     "氧化应激": 1,
+    "生殖衰老": 1,
     "端粒维持": 1,
     "线粒体功能": 1,
     "虚弱与肌少症": 1,
@@ -39,15 +41,16 @@
     "青春期成熟": 1
   },
   "by_species": {
-    "人": 44,
+    "人": 45,
     "小鼠": 29,
-    "未标注": 12,
+    "未标注": 14,
     "牦牛": 3,
     "鸡": 3,
     "大鼠": 2,
     "线虫": 2,
     "普通牛": 1,
     "果蝇": 1,
+    "橡胶树": 1,
     "犏牛": 1,
     "犬": 1,
     "猪": 1,
@@ -55,25 +58,26 @@
     "蝾螈": 1
   },
   "by_ai_status": {
-    "success": 78
+    "success": 82
   },
   "by_journal_metrics_status": {
-    "matched": 69,
+    "matched": 73,
     "not_applicable": 5,
     "error": 4
   },
   "by_year": {
-    "2026": 77,
+    "2026": 81,
     "2025": 1
   },
   "by_type": {
-    "研究论文": 63,
-    "综述": 12,
+    "研究论文": 66,
+    "综述": 13,
     "Benchmark": 2,
     "临床试验": 1
   },
   "top_journals": {
     "International journal of molecular sciences": 5,
+    "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 4,
     "bioRxiv : the preprint server for biology": 4,
     "Animals : an open access journal from MDPI": 3,
     "Biomolecules": 3,
@@ -84,7 +88,6 @@
     "Arthritis & rheumatology (Hoboken, N.J.)": 2,
     "Genes": 2,
     "Poultry science": 2,
-    "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 1,
     "Aging cell": 1,
     "American journal of clinical and experimental urology": 1,
     "Amino acids": 1,
