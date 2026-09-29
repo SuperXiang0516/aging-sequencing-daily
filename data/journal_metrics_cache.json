@@ -144,6 +144,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:19326203": {
+      "cas": "综合性期刊3区",
+      "if": "2.8",
+      "jcr": "Q2",
+      "query_name": "PloS one",
+      "retrieved_at": "2026-09-29T05:49:34Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:20506511": {
       "cas": "医学3区",
       "if": "3.5",
@@ -366,6 +375,15 @@
       "jcr": "Q2",
       "query_name": "Membranes",
       "retrieved_at": "2026-09-25T05:04:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:plos one": {
+      "cas": "综合性期刊3区",
+      "if": "2.8",
+      "jcr": "Q2",
+      "query_name": "PloS one",
+      "retrieved_at": "2026-09-29T05:49:34Z",
       "source": "EasyScholar",
       "status": "matched"
     },
