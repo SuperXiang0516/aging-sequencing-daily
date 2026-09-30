@@ -1,5 +1,14 @@
 {
   "journals": {
+    "issn:00139351": {
+      "cas": "环境科学与生态学2区",
+      "if": "8.2",
+      "jcr": "Q1",
+      "query_name": "Environmental research",
+      "retrieved_at": "2026-09-30T05:39:33Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:00144835": {
       "cas": "医学3区",
       "if": "3.1",
@@ -69,6 +78,15 @@
       "jcr": "Q2",
       "query_name": "Experimental eye research",
       "retrieved_at": "2026-09-20T13:41:59Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:10960953": {
+      "cas": "环境科学与生态学2区",
+      "if": "8.2",
+      "jcr": "Q1",
+      "query_name": "Environmental research",
+      "retrieved_at": "2026-09-30T05:39:33Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -303,6 +321,15 @@
       "jcr": "Q2",
       "query_name": "Cell biochemistry and function",
       "retrieved_at": "2026-09-20T13:42:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:environmental research": {
+      "cas": "环境科学与生态学2区",
+      "if": "8.2",
+      "jcr": "Q1",
+      "query_name": "Environmental research",
+      "retrieved_at": "2026-09-30T05:39:33Z",
       "source": "EasyScholar",
       "status": "matched"
     },
