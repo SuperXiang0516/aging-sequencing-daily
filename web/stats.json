@@ -1,42 +1,43 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 89,
+  "total": 96,
   "by_generation": {
-    "平台未报告": 84,
+    "平台未报告": 91,
     "二代/短读长": 3,
     "三代/长读长": 2
   },
   "by_assay": {
-    "RNA测序": 58,
-    "单细胞RNA测序": 19,
+    "RNA测序": 63,
+    "单细胞RNA测序": 22,
     "未标注": 17,
     "空间转录组": 14,
     "单核RNA测序": 10,
-    "全基因组测序": 4,
+    "全基因组测序": 5,
     "ChIP-seq": 1,
     "DNA甲基化测序": 1,
     "宏基因组测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 52,
-    "细胞衰老": 24,
+    "生理性衰老": 58,
+    "细胞衰老": 27,
     "衰老研究": 15,
+    "长寿与寿命": 13,
     "年龄相关疾病": 12,
-    "长寿与寿命": 12,
-    "衰老干预与年轻化": 4,
+    "衰老干预与年轻化": 6,
+    "虚弱与肌少症": 2,
     "DNA损伤": 1,
     "T细胞衰老": 1,
     "代谢活性": 1,
     "代际行为缺陷": 1,
     "免疫衰老": 1,
+    "免疫衰老与炎性衰老": 1,
     "出生后发育": 1,
     "棕色脂肪细胞衰退": 1,
     "氧化应激": 1,
     "生殖衰老": 1,
     "端粒维持": 1,
     "线粒体功能": 1,
-    "虚弱与肌少症": 1,
     "表观遗传调控": 1,
     "衰老细胞清除": 1,
     "认知功能": 1,
@@ -44,11 +45,11 @@
     "青春期成熟": 1
   },
   "by_species": {
-    "人": 48,
-    "小鼠": 33,
+    "人": 52,
+    "小鼠": 37,
     "未标注": 14,
+    "线虫": 4,
     "牦牛": 3,
-    "线虫": 3,
     "鸡": 3,
     "人类": 2,
     "大鼠": 2,
@@ -62,27 +63,28 @@
     "蝾螈": 1
   },
   "by_ai_status": {
-    "success": 89
+    "success": 96
   },
   "by_journal_metrics_status": {
-    "matched": 80,
-    "not_applicable": 5,
-    "error": 4
+    "matched": 86,
+    "error": 5,
+    "not_applicable": 5
   },
   "by_year": {
-    "2026": 88,
+    "2026": 95,
     "2025": 1
   },
   "by_type": {
-    "研究论文": 73,
+    "研究论文": 80,
     "综述": 13,
     "Benchmark": 2,
     "临床试验": 1
   },
   "top_journals": {
+    "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 5,
     "International journal of molecular sciences": 5,
-    "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 4,
     "bioRxiv : the preprint server for biology": 4,
+    "Aging cell": 3,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 3,
     "Animals : an open access journal from MDPI": 3,
     "Biomolecules": 3,
@@ -93,7 +95,6 @@
     "Arthritis & rheumatology (Hoboken, N.J.)": 2,
     "Genes": 2,
     "Poultry science": 2,
-    "Aging cell": 1,
     "American journal of clinical and experimental urology": 1,
     "Amino acids": 1,
     "Antioxidants (Basel, Switzerland)": 1,
