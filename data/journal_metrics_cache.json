@@ -234,6 +234,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:22962360": {
+      "cas": "医学4区",
+      "if": "2.2",
+      "jcr": "Q2",
+      "query_name": "Frontiers in pediatrics",
+      "retrieved_at": "2026-10-02T05:48:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:23288957": {
       "cas": "医学4区",
       "if": "3.8",
@@ -267,6 +276,15 @@
       "jcr": "",
       "query_name": "Frontiers in aging",
       "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:27725723": {
+      "cas": "",
+      "if": "3.3",
+      "jcr": "",
+      "query_name": "Gastro hep advances",
+      "retrieved_at": "2026-10-02T05:48:53Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -360,6 +378,24 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:frontiers in pediatrics": {
+      "cas": "医学4区",
+      "if": "2.2",
+      "jcr": "Q2",
+      "query_name": "Frontiers in pediatrics",
+      "retrieved_at": "2026-10-02T05:48:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:gastro hep advances": {
+      "cas": "",
+      "if": "3.3",
+      "jcr": "",
+      "query_name": "Gastro hep advances",
+      "retrieved_at": "2026-10-02T05:48:53Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:genes": {
       "cas": "生物学3区",
       "if": "3.1",
@@ -440,6 +476,15 @@
       "retrieved_at": "2026-09-23T04:51:08Z",
       "source": "EasyScholar",
       "status": "matched"
+    },
+    "name:research square": {
+      "cas": "",
+      "if": "",
+      "jcr": "",
+      "query_name": "Research square",
+      "retrieved_at": "2026-10-02T05:48:45Z",
+      "source": "preprint",
+      "status": "not_applicable"
     },
     "name:tissue & cell": {
       "cas": "生物学3区",

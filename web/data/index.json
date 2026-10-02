@@ -1,12 +1,17 @@
 [
   {
     "year": "2026",
-    "count": 95,
+    "count": 121,
     "file": "data/2026.json"
   },
   {
     "year": "2025",
     "count": 1,
     "file": "data/2025.json"
+  },
+  {
+    "year": "2024",
+    "count": 1,
+    "file": "data/2024.json"
   }
 ]
