@@ -1,19 +1,19 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 123,
+  "total": 127,
   "by_generation": {
-    "平台未报告": 116,
+    "平台未报告": 120,
     "三代/长读长": 3,
     "二代/短读长": 3,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 82,
+    "RNA测序": 85,
     "单细胞RNA测序": 31,
-    "未标注": 20,
+    "未标注": 21,
     "空间转录组": 17,
-    "单核RNA测序": 11,
+    "单核RNA测序": 13,
     "全基因组测序": 7,
     "ChIP-seq": 2,
     "宏基因组测序": 2,
@@ -21,24 +21,29 @@
     "直接RNA测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 77,
-    "细胞衰老": 33,
+    "生理性衰老": 79,
+    "细胞衰老": 34,
+    "长寿与寿命": 18,
+    "年龄相关疾病": 17,
     "衰老研究": 17,
-    "长寿与寿命": 17,
-    "年龄相关疾病": 16,
-    "衰老干预与年轻化": 7,
+    "衰老干预与年轻化": 8,
     "生殖衰老": 3,
     "虚弱与肌少症": 2,
     "DNA损伤": 1,
     "T细胞衰老": 1,
+    "Wnt信号与衰老": 1,
     "代谢活性": 1,
     "代际行为缺陷": 1,
     "免疫衰老": 1,
     "免疫衰老与炎性衰老": 1,
     "出生后发育": 1,
     "卵巢衰老": 1,
+    "寿命": 1,
     "棕色脂肪细胞衰退": 1,
+    "椎间盘衰老": 1,
     "氧化应激": 1,
+    "氧化应激耐受": 1,
+    "热应激": 1,
     "生物年龄与衰老时钟": 1,
     "端粒维持": 1,
     "线粒体功能": 1,
@@ -46,16 +51,17 @@
     "细胞稳态": 1,
     "表观遗传调控": 1,
     "衰老相关分泌表型": 1,
+    "衰老相关转录组": 1,
     "衰老细胞清除": 1,
     "认知功能": 1,
     "认知衰退": 1,
     "青春期成熟": 1
   },
   "by_species": {
-    "人": 68,
-    "小鼠": 45,
+    "人": 70,
+    "小鼠": 46,
     "未标注": 19,
-    "线虫": 4,
+    "线虫": 5,
     "大鼠": 3,
     "牦牛": 3,
     "鸡": 3,
@@ -67,6 +73,7 @@
     "犏牛": 1,
     "犬": 1,
     "短命鱼": 1,
+    "秀丽隐杆线虫": 1,
     "花生": 1,
     "蝾螈": 1,
     "豚鼠": 1,
@@ -75,20 +82,20 @@
     "非洲绿松石鳉鱼": 1
   },
   "by_ai_status": {
-    "success": 123
+    "success": 127
   },
   "by_journal_metrics_status": {
-    "matched": 93,
+    "matched": 97,
     "not_applicable": 23,
     "error": 7
   },
   "by_year": {
-    "2026": 121,
+    "2026": 125,
     "2025": 1,
     "2024": 1
   },
   "by_type": {
-    "研究论文": 106,
+    "研究论文": 110,
     "综述": 13,
     "Benchmark": 3,
     "临床试验": 1
@@ -97,7 +104,7 @@
     "bioRxiv : the preprint server for biology": 18,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 5,
     "International journal of molecular sciences": 5,
-    "Aging cell": 3,
+    "Aging cell": 4,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 3,
     "Animals : an open access journal from MDPI": 3,
     "Biomolecules": 3,
@@ -110,9 +117,9 @@
     "Genes": 2,
     "Poultry science": 2,
     "Research square": 2,
+    "Acta neuropathologica communications": 1,
     "American journal of clinical and experimental urology": 1,
     "Amino acids": 1,
-    "Antioxidants (Basel, Switzerland)": 1,
-    "Archives of gerontology and geriatrics": 1
+    "Antioxidants (Basel, Switzerland)": 1
   }
 }

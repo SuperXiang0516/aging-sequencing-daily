@@ -171,6 +171,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:20457758": {
+      "cas": "生物学2区",
+      "if": "2.6",
+      "jcr": "Q2",
+      "query_name": "Ecology and evolution",
+      "retrieved_at": "2026-10-03T05:24:31Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:20506511": {
       "cas": "医学3区",
       "if": "3.5",
@@ -348,6 +357,15 @@
       "jcr": "Q2",
       "query_name": "Cell biochemistry and function",
       "retrieved_at": "2026-09-20T13:42:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:ecology and evolution": {
+      "cas": "生物学2区",
+      "if": "2.6",
+      "jcr": "Q2",
+      "query_name": "Ecology and evolution",
+      "retrieved_at": "2026-10-03T05:24:31Z",
       "source": "EasyScholar",
       "status": "matched"
     },
