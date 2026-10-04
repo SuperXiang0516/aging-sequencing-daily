@@ -54,6 +54,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:08958378": {
+      "cas": "医学4区",
+      "if": "2.1",
+      "jcr": "Q4",
+      "query_name": "Inhalation toxicology",
+      "retrieved_at": "2026-10-04T06:00:26Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:09148779": {
       "cas": "医学4区",
       "if": "2.9",
@@ -69,6 +78,15 @@
       "jcr": "Q3",
       "query_name": "Amino acids",
       "retrieved_at": "2026-09-20T13:42:06Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:10917691": {
+      "cas": "医学4区",
+      "if": "2.1",
+      "jcr": "Q4",
+      "query_name": "Inhalation toxicology",
+      "retrieved_at": "2026-10-04T06:00:26Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -150,6 +168,15 @@
       "jcr": "Q1",
       "query_name": "Tissue & cell",
       "retrieved_at": "2026-09-20T13:42:01Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:16642295": {
+      "cas": "医学3区",
+      "if": "3.3",
+      "jcr": "Q2",
+      "query_name": "Frontiers in neurology",
+      "retrieved_at": "2026-10-04T06:00:31Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -396,6 +423,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:frontiers in neurology": {
+      "cas": "医学3区",
+      "if": "3.3",
+      "jcr": "Q2",
+      "query_name": "Frontiers in neurology",
+      "retrieved_at": "2026-10-04T06:00:31Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:frontiers in pediatrics": {
       "cas": "医学4区",
       "if": "2.2",
@@ -420,6 +456,15 @@
       "jcr": "Q2",
       "query_name": "Genes",
       "retrieved_at": "2026-09-27T08:09:20Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:inhalation toxicology": {
+      "cas": "医学4区",
+      "if": "2.1",
+      "jcr": "Q4",
+      "query_name": "Inhalation toxicology",
+      "retrieved_at": "2026-10-04T06:00:26Z",
       "source": "EasyScholar",
       "status": "matched"
     },

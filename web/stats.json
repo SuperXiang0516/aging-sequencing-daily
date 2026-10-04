@@ -1,19 +1,19 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 127,
+  "total": 132,
   "by_generation": {
-    "平台未报告": 120,
+    "平台未报告": 125,
     "三代/长读长": 3,
     "二代/短读长": 3,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 85,
-    "单细胞RNA测序": 31,
+    "RNA测序": 89,
+    "单细胞RNA测序": 33,
     "未标注": 21,
-    "空间转录组": 17,
-    "单核RNA测序": 13,
+    "空间转录组": 18,
+    "单核RNA测序": 14,
     "全基因组测序": 7,
     "ChIP-seq": 2,
     "宏基因组测序": 2,
@@ -21,13 +21,14 @@
     "直接RNA测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 79,
-    "细胞衰老": 34,
+    "生理性衰老": 83,
+    "细胞衰老": 36,
+    "衰老研究": 18,
     "长寿与寿命": 18,
     "年龄相关疾病": 17,
-    "衰老研究": 17,
-    "衰老干预与年轻化": 8,
+    "衰老干预与年轻化": 9,
     "生殖衰老": 3,
+    "免疫衰老与炎性衰老": 2,
     "虚弱与肌少症": 2,
     "DNA损伤": 1,
     "T细胞衰老": 1,
@@ -35,7 +36,6 @@
     "代谢活性": 1,
     "代际行为缺陷": 1,
     "免疫衰老": 1,
-    "免疫衰老与炎性衰老": 1,
     "出生后发育": 1,
     "卵巢衰老": 1,
     "寿命": 1,
@@ -58,9 +58,9 @@
     "青春期成熟": 1
   },
   "by_species": {
-    "人": 70,
-    "小鼠": 46,
-    "未标注": 19,
+    "人": 72,
+    "小鼠": 49,
+    "未标注": 20,
     "线虫": 5,
     "大鼠": 3,
     "牦牛": 3,
@@ -82,21 +82,21 @@
     "非洲绿松石鳉鱼": 1
   },
   "by_ai_status": {
-    "success": 127
+    "success": 132
   },
   "by_journal_metrics_status": {
-    "matched": 97,
+    "matched": 102,
     "not_applicable": 23,
     "error": 7
   },
   "by_year": {
-    "2026": 125,
+    "2026": 130,
     "2025": 1,
     "2024": 1
   },
   "by_type": {
-    "研究论文": 110,
-    "综述": 13,
+    "研究论文": 114,
+    "综述": 14,
     "Benchmark": 3,
     "临床试验": 1
   },
@@ -105,12 +105,12 @@
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 5,
     "International journal of molecular sciences": 5,
     "Aging cell": 4,
+    "Frontiers in immunology": 4,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 3,
     "Animals : an open access journal from MDPI": 3,
     "Biomolecules": 3,
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 3,
     "Frontiers in cell and developmental biology": 3,
-    "Frontiers in immunology": 3,
     "Nature communications": 3,
     "medRxiv : the preprint server for health sciences": 3,
     "Arthritis & rheumatology (Hoboken, N.J.)": 2,
