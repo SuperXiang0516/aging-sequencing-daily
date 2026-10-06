@@ -81,6 +81,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:0965206X": {
+      "cas": "医学3区",
+      "if": "2.5",
+      "jcr": "Q2",
+      "query_name": "Journal of tissue viability",
+      "retrieved_at": "2026-10-06T06:28:35Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:10917691": {
       "cas": "医学4区",
       "if": "2.1",
@@ -492,6 +501,15 @@
       "jcr": "Q2",
       "query_name": "Journal of occupational health",
       "retrieved_at": "2026-09-27T08:09:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:journal of tissue viability": {
+      "cas": "医学3区",
+      "if": "2.5",
+      "jcr": "Q2",
+      "query_name": "Journal of tissue viability",
+      "retrieved_at": "2026-10-06T06:28:35Z",
       "source": "EasyScholar",
       "status": "matched"
     },
