@@ -189,6 +189,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:17576512": {
+      "cas": "医学2区",
+      "if": "7.8",
+      "jcr": "Q1",
+      "query_name": "Stem cell research & therapy",
+      "retrieved_at": "2026-10-07T06:07:28Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:18726976": {
       "cas": "医学3区",
       "if": "4.7",
@@ -566,6 +575,15 @@
       "retrieved_at": "2026-10-02T05:48:45Z",
       "source": "preprint",
       "status": "not_applicable"
+    },
+    "name:stem cell research & therapy": {
+      "cas": "医学2区",
+      "if": "7.8",
+      "jcr": "Q1",
+      "query_name": "Stem cell research & therapy",
+      "retrieved_at": "2026-10-07T06:07:28Z",
+      "source": "EasyScholar",
+      "status": "matched"
     },
     "name:tissue & cell": {
       "cas": "生物学3区",
