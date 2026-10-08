@@ -72,6 +72,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:09186158": {
+      "cas": "医学4区",
+      "if": "1.8",
+      "jcr": "Q3",
+      "query_name": "Biological & pharmaceutical bulletin",
+      "retrieved_at": "2026-10-08T06:13:32Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:09394451": {
       "cas": "生物学3区",
       "if": "3.2",
@@ -132,6 +141,15 @@
       "jcr": "Q2",
       "query_name": "Journal of occupational health",
       "retrieved_at": "2026-09-27T08:09:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:13475215": {
+      "cas": "医学4区",
+      "if": "1.8",
+      "jcr": "Q3",
+      "query_name": "Biological & pharmaceutical bulletin",
+      "retrieved_at": "2026-10-08T06:13:32Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -375,6 +393,15 @@
       "jcr": "Q2",
       "query_name": "Archives of gerontology and geriatrics",
       "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:biological & pharmaceutical bulletin": {
+      "cas": "医学4区",
+      "if": "1.8",
+      "jcr": "Q3",
+      "query_name": "Biological & pharmaceutical bulletin",
+      "retrieved_at": "2026-10-08T06:13:32Z",
       "source": "EasyScholar",
       "status": "matched"
     },
