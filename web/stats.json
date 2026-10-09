@@ -1,20 +1,20 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 145,
+  "total": 152,
   "by_generation": {
-    "平台未报告": 137,
+    "平台未报告": 144,
     "三代/长读长": 4,
     "二代/短读长": 3,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 97,
-    "单细胞RNA测序": 34,
-    "未标注": 26,
-    "空间转录组": 18,
-    "单核RNA测序": 14,
-    "全基因组测序": 7,
+    "RNA测序": 100,
+    "单细胞RNA测序": 37,
+    "未标注": 28,
+    "空间转录组": 20,
+    "单核RNA测序": 15,
+    "全基因组测序": 8,
     "ChIP-seq": 2,
     "宏基因组测序": 2,
     "DNA甲基化测序": 1,
@@ -22,9 +22,9 @@
     "直接RNA测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 89,
-    "细胞衰老": 41,
-    "衰老研究": 22,
+    "生理性衰老": 92,
+    "细胞衰老": 43,
+    "衰老研究": 25,
     "长寿与寿命": 18,
     "年龄相关疾病": 17,
     "衰老干预与年轻化": 10,
@@ -42,6 +42,8 @@
     "卵巢衰老": 1,
     "寿命": 1,
     "年龄相关疾病生物标志物": 1,
+    "年龄相关神经衰退对骨骼的影响": 1,
+    "年龄相关突变机制": 1,
     "棕色脂肪细胞衰退": 1,
     "椎间盘衰老": 1,
     "氧化应激": 1,
@@ -64,8 +66,8 @@
     "青春期成熟": 1
   },
   "by_species": {
-    "人": 82,
-    "小鼠": 53,
+    "人": 88,
+    "小鼠": 57,
     "未标注": 22,
     "线虫": 5,
     "大鼠": 3,
@@ -74,6 +76,7 @@
     "人类": 2,
     "果蝇": 2,
     "猪": 2,
+    "啮齿类": 1,
     "普通牛": 1,
     "橡胶树": 1,
     "犏牛": 1,
@@ -88,26 +91,26 @@
     "非洲绿松石鳉鱼": 1
   },
   "by_ai_status": {
-    "success": 145
+    "success": 152
   },
   "by_journal_metrics_status": {
-    "matched": 114,
-    "not_applicable": 24,
+    "matched": 118,
+    "not_applicable": 27,
     "error": 7
   },
   "by_year": {
-    "2026": 143,
+    "2026": 150,
     "2025": 1,
     "2024": 1
   },
   "by_type": {
-    "研究论文": 126,
-    "综述": 14,
+    "研究论文": 132,
+    "综述": 15,
     "Benchmark": 4,
     "临床试验": 1
   },
   "top_journals": {
-    "bioRxiv : the preprint server for biology": 18,
+    "bioRxiv : the preprint server for biology": 21,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 5,
     "Aging cell": 5,
     "International journal of molecular sciences": 5,
@@ -122,10 +125,10 @@
     "medRxiv : the preprint server for health sciences": 3,
     "Arthritis & rheumatology (Hoboken, N.J.)": 2,
     "Biochemical and biophysical research communications": 2,
+    "Experimental & molecular medicine": 2,
     "Genes": 2,
     "Poultry science": 2,
     "Acta neuropathologica communications": 1,
-    "American journal of clinical and experimental urology": 1,
-    "Amino acids": 1
+    "American journal of clinical and experimental urology": 1
   }
 }
