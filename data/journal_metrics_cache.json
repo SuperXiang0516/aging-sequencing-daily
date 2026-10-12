@@ -54,6 +54,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:02681161": {
+      "cas": "医学1区",
+      "if": "6.8",
+      "jcr": "Q1",
+      "query_name": "Human reproduction (Oxford, England)",
+      "retrieved_at": "2026-10-12T06:07:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:08958378": {
       "cas": "医学4区",
       "if": "2.1",
@@ -177,6 +186,15 @@
       "jcr": "Q3",
       "query_name": "Amino acids",
       "retrieved_at": "2026-09-20T13:42:06Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:14602350": {
+      "cas": "医学1区",
+      "if": "6.8",
+      "jcr": "Q1",
+      "query_name": "Human reproduction (Oxford, England)",
+      "retrieved_at": "2026-10-12T06:07:05Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -348,6 +366,15 @@
       "jcr": "",
       "query_name": "American journal of clinical and experimental urology",
       "retrieved_at": "2026-09-26T05:06:21Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:23523204": {
+      "cas": "医学3区",
+      "if": "4.0",
+      "jcr": "Q2",
+      "query_name": "Regenerative therapy",
+      "retrieved_at": "2026-10-12T06:07:08Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -531,6 +558,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:human reproduction oxford england": {
+      "cas": "医学1区",
+      "if": "6.8",
+      "jcr": "Q1",
+      "query_name": "Human reproduction (Oxford, England)",
+      "retrieved_at": "2026-10-12T06:07:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:inhalation toxicology": {
       "cas": "医学4区",
       "if": "2.1",
@@ -618,6 +654,15 @@
       "jcr": "Q1",
       "query_name": "Poultry science",
       "retrieved_at": "2026-09-23T04:51:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:regenerative therapy": {
+      "cas": "医学3区",
+      "if": "4.0",
+      "jcr": "Q2",
+      "query_name": "Regenerative therapy",
+      "retrieved_at": "2026-10-12T06:07:08Z",
       "source": "EasyScholar",
       "status": "matched"
     },
