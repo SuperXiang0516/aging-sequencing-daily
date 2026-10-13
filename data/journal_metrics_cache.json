@@ -396,6 +396,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:27662098": {
+      "cas": "",
+      "if": "30.4",
+      "jcr": "",
+      "query_name": "Exploration (Beijing, China)",
+      "retrieved_at": "2026-10-13T06:51:57Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:27725723": {
       "cas": "",
       "if": "3.3",
@@ -510,6 +519,15 @@
       "jcr": "Q2",
       "query_name": "Experimental eye research",
       "retrieved_at": "2026-09-20T13:41:59Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:exploration beijing china": {
+      "cas": "",
+      "if": "30.4",
+      "jcr": "",
+      "query_name": "Exploration (Beijing, China)",
+      "retrieved_at": "2026-10-13T06:51:57Z",
       "source": "EasyScholar",
       "status": "matched"
     },
