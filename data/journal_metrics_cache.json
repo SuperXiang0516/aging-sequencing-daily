@@ -18,6 +18,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:00319317": {
+      "cas": "生物学2区",
+      "if": "4.0",
+      "jcr": "Q1",
+      "query_name": "Physiologia plantarum",
+      "retrieved_at": "2026-10-16T04:39:43Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:00325791": {
       "cas": "农林科学2区",
       "if": "4.5",
@@ -69,6 +78,15 @@
       "jcr": "Q4",
       "query_name": "Inhalation toxicology",
       "retrieved_at": "2026-10-04T06:00:26Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:0908665X": {
+      "cas": "医学4区",
+      "if": "3.8",
+      "jcr": "Q1",
+      "query_name": "Xenotransplantation",
+      "retrieved_at": "2026-10-16T04:39:42Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -171,6 +189,24 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:13993054": {
+      "cas": "生物学2区",
+      "if": "4.0",
+      "jcr": "Q1",
+      "query_name": "Physiologia plantarum",
+      "retrieved_at": "2026-10-16T04:39:43Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:13993089": {
+      "cas": "医学4区",
+      "if": "3.8",
+      "jcr": "Q1",
+      "query_name": "Xenotransplantation",
+      "retrieved_at": "2026-10-16T04:39:42Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:14355604": {
       "cas": "医学4区",
       "if": "2.9",
@@ -267,6 +303,15 @@
       "jcr": "Q2",
       "query_name": "Ecology and evolution",
       "retrieved_at": "2026-10-03T05:24:31Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:20463758": {
+      "cas": "医学1区",
+      "if": "5.5",
+      "jcr": "Q1",
+      "query_name": "Bone & joint research",
+      "retrieved_at": "2026-10-16T04:39:32Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -387,6 +432,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:26249367": {
+      "cas": "医学3区",
+      "if": "3.0",
+      "jcr": "",
+      "query_name": "Frontiers in sports and active living",
+      "retrieved_at": "2026-10-16T04:39:36Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:26736217": {
       "cas": "医学4区",
       "if": "4.9",
@@ -477,6 +531,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:bone & joint research": {
+      "cas": "医学1区",
+      "if": "5.5",
+      "jcr": "Q1",
+      "query_name": "Bone & joint research",
+      "retrieved_at": "2026-10-16T04:39:32Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:cell biochemistry and function": {
       "cas": "生物学4区",
       "if": "3.5",
@@ -555,6 +618,15 @@
       "jcr": "Q2",
       "query_name": "Frontiers in pediatrics",
       "retrieved_at": "2026-10-02T05:48:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:frontiers in sports and active living": {
+      "cas": "医学3区",
+      "if": "3.0",
+      "jcr": "",
+      "query_name": "Frontiers in sports and active living",
+      "retrieved_at": "2026-10-16T04:39:36Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -657,6 +729,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:physiologia plantarum": {
+      "cas": "生物学2区",
+      "if": "4.0",
+      "jcr": "Q1",
+      "query_name": "Physiologia plantarum",
+      "retrieved_at": "2026-10-16T04:39:43Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:plos one": {
       "cas": "综合性期刊3区",
       "if": "2.8",
@@ -717,6 +798,15 @@
       "jcr": "",
       "query_name": "World journal of otorhinolaryngology - head and neck surgery",
       "retrieved_at": "2026-09-27T08:09:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:xenotransplantation": {
+      "cas": "医学4区",
+      "if": "3.8",
+      "jcr": "Q1",
+      "query_name": "Xenotransplantation",
+      "retrieved_at": "2026-10-16T04:39:42Z",
       "source": "EasyScholar",
       "status": "matched"
     }
