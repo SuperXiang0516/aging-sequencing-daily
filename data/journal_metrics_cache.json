@@ -351,6 +351,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:20770383": {
+      "cas": "医学3区",
+      "if": "3.3",
+      "jcr": "Q1",
+      "query_name": "Journal of clinical medicine",
+      "retrieved_at": "2026-10-17T04:36:39Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:20958811": {
       "cas": "医学3区",
       "if": "1.5",
@@ -384,6 +393,15 @@
       "jcr": "Q4",
       "query_name": "Current stem cell research & therapy",
       "retrieved_at": "2026-10-10T05:59:37Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:22237747": {
+      "cas": "生物学2区",
+      "if": "4.7",
+      "jcr": "Q1",
+      "query_name": "Plants (Basel, Switzerland)",
+      "retrieved_at": "2026-10-17T04:36:35Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -684,6 +702,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:journal of clinical medicine": {
+      "cas": "医学3区",
+      "if": "3.3",
+      "jcr": "Q1",
+      "query_name": "Journal of clinical medicine",
+      "retrieved_at": "2026-10-17T04:36:39Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:journal of occupational health": {
       "cas": "医学4区",
       "if": "2.8",
@@ -735,6 +762,15 @@
       "jcr": "Q1",
       "query_name": "Physiologia plantarum",
       "retrieved_at": "2026-10-16T04:39:43Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:plants basel switzerland": {
+      "cas": "生物学2区",
+      "if": "4.7",
+      "jcr": "Q1",
+      "query_name": "Plants (Basel, Switzerland)",
+      "retrieved_at": "2026-10-17T04:36:35Z",
       "source": "EasyScholar",
       "status": "matched"
     },
