@@ -369,6 +369,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:20967071": {
+      "cas": "医学4区",
+      "if": "3.5",
+      "jcr": "Q1",
+      "query_name": "China CDC weekly",
+      "retrieved_at": "2026-10-18T04:41:41Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:21905991": {
       "cas": "医学1区",
       "if": "9.9",
@@ -411,6 +420,24 @@
       "jcr": "Q2",
       "query_name": "Frontiers in pediatrics",
       "retrieved_at": "2026-10-02T05:48:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:2314436X": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "International journal of genomics",
+      "retrieved_at": "2026-10-18T04:41:39Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:23144378": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "International journal of genomics",
+      "retrieved_at": "2026-10-18T04:41:39Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -567,6 +594,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:china cdc weekly": {
+      "cas": "医学4区",
+      "if": "3.5",
+      "jcr": "Q1",
+      "query_name": "China CDC weekly",
+      "retrieved_at": "2026-10-18T04:41:41Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:current stem cell research & therapy": {
       "cas": "医学4区",
       "if": "2.1",
@@ -681,6 +717,15 @@
       "jcr": "Q4",
       "query_name": "Inhalation toxicology",
       "retrieved_at": "2026-10-04T06:00:26Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:international journal of genomics": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "International journal of genomics",
+      "retrieved_at": "2026-10-18T04:41:39Z",
       "source": "EasyScholar",
       "status": "matched"
     },
