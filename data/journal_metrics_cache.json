@@ -270,6 +270,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:17448069": {
+      "cas": "医学3区",
+      "if": "3.8",
+      "jcr": "Q2",
+      "query_name": "Molecular pain",
+      "retrieved_at": "2026-10-19T04:49:28Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:17576512": {
       "cas": "医学2区",
       "if": "7.8",
@@ -789,6 +798,15 @@
       "jcr": "Q2",
       "query_name": "Membranes",
       "retrieved_at": "2026-09-25T05:04:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:molecular pain": {
+      "cas": "医学3区",
+      "if": "3.8",
+      "jcr": "Q2",
+      "query_name": "Molecular pain",
+      "retrieved_at": "2026-10-19T04:49:28Z",
       "source": "EasyScholar",
       "status": "matched"
     },
