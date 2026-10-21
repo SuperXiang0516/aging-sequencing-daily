@@ -486,6 +486,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:25900064": {
+      "cas": "医学1区",
+      "if": "11.0",
+      "jcr": "Q1",
+      "query_name": "Materials today. Bio",
+      "retrieved_at": "2026-10-21T04:57:14Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:26249367": {
       "cas": "医学3区",
       "if": "3.0",
@@ -780,6 +789,15 @@
       "jcr": "Q2",
       "query_name": "Journal of tissue viability",
       "retrieved_at": "2026-10-06T06:28:35Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:materials today bio": {
+      "cas": "医学1区",
+      "if": "11.0",
+      "jcr": "Q1",
+      "query_name": "Materials today. Bio",
+      "retrieved_at": "2026-10-21T04:57:14Z",
       "source": "EasyScholar",
       "status": "matched"
     },
