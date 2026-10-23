@@ -531,6 +531,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:29499283": {
+      "cas": "",
+      "if": "",
+      "jcr": "",
+      "query_name": "hLife",
+      "retrieved_at": "2026-10-23T04:59:32Z",
+      "source": "EasyScholar",
+      "status": "not_found"
+    },
     "name:american journal of clinical and experimental urology": {
       "cas": "医学4区",
       "if": "1.5",
@@ -719,6 +728,15 @@
       "retrieved_at": "2026-09-27T08:09:20Z",
       "source": "EasyScholar",
       "status": "matched"
+    },
+    "name:hlife": {
+      "cas": "",
+      "if": "",
+      "jcr": "",
+      "query_name": "hLife",
+      "retrieved_at": "2026-10-23T04:59:32Z",
+      "source": "EasyScholar",
+      "status": "not_found"
     },
     "name:human reproduction oxford england": {
       "cas": "医学1区",
