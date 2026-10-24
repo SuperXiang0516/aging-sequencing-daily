@@ -117,6 +117,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:09594965": {
+      "cas": "医学4区",
+      "if": "2.1",
+      "jcr": "Q3",
+      "query_name": "Neuroreport",
+      "retrieved_at": "2026-10-24T04:44:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:0965206X": {
       "cas": "医学3区",
       "if": "2.5",
@@ -231,6 +240,15 @@
       "jcr": "Q1",
       "query_name": "Human reproduction (Oxford, England)",
       "retrieved_at": "2026-10-12T06:07:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:1473558X": {
+      "cas": "医学4区",
+      "if": "2.1",
+      "jcr": "Q3",
+      "query_name": "Neuroreport",
+      "retrieved_at": "2026-10-24T04:44:48Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -474,6 +492,24 @@
       "jcr": "Q2",
       "query_name": "Regenerative therapy",
       "retrieved_at": "2026-10-12T06:07:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:25000462": {
+      "cas": "农林科学4区",
+      "if": "1.2",
+      "jcr": "",
+      "query_name": "Vavilovskii zhurnal genetiki i selektsii",
+      "retrieved_at": "2026-10-24T04:44:40Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:25003259": {
+      "cas": "农林科学4区",
+      "if": "1.2",
+      "jcr": "",
+      "query_name": "Vavilovskii zhurnal genetiki i selektsii",
+      "retrieved_at": "2026-10-24T04:44:40Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -846,6 +882,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:neuroreport": {
+      "cas": "医学4区",
+      "if": "2.1",
+      "jcr": "Q3",
+      "query_name": "Neuroreport",
+      "retrieved_at": "2026-10-24T04:44:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:open forum infectious diseases": {
       "cas": "医学4区",
       "if": "3.8",
@@ -924,6 +969,15 @@
       "jcr": "Q1",
       "query_name": "Tissue & cell",
       "retrieved_at": "2026-09-20T13:42:01Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:vavilovskii zhurnal genetiki i selektsii": {
+      "cas": "农林科学4区",
+      "if": "1.2",
+      "jcr": "",
+      "query_name": "Vavilovskii zhurnal genetiki i selektsii",
+      "retrieved_at": "2026-10-24T04:44:40Z",
       "source": "EasyScholar",
       "status": "matched"
     },
