@@ -135,6 +135,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:10859195": {
+      "cas": "生物学4区",
+      "if": "3.0",
+      "jcr": "Q2",
+      "query_name": "Cell biochemistry and biophysics",
+      "retrieved_at": "2026-10-26T04:56:30Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:10917691": {
       "cas": "医学4区",
       "if": "2.1",
@@ -195,6 +204,15 @@
       "jcr": "Q2",
       "query_name": "Journal of occupational health",
       "retrieved_at": "2026-09-27T08:09:16Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:13895729": {
+      "cas": "医学3区",
+      "if": "5.3",
+      "jcr": "Q1",
+      "query_name": "Biogerontology",
+      "retrieved_at": "2026-10-26T04:56:22Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -270,6 +288,24 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:15590283": {
+      "cas": "生物学4区",
+      "if": "3.0",
+      "jcr": "Q2",
+      "query_name": "Cell biochemistry and biophysics",
+      "retrieved_at": "2026-10-26T04:56:30Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:15736768": {
+      "cas": "医学3区",
+      "if": "5.3",
+      "jcr": "Q1",
+      "query_name": "Biogerontology",
+      "retrieved_at": "2026-10-26T04:56:22Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:1574888X": {
       "cas": "医学4区",
       "if": "2.1",
@@ -321,6 +357,15 @@
       "jcr": "Q2",
       "query_name": "PloS one",
       "retrieved_at": "2026-09-29T05:49:34Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:19438141": {
+      "cas": "医学4区",
+      "if": "1.8",
+      "jcr": "Q3",
+      "query_name": "American journal of translational research",
+      "retrieved_at": "2026-10-26T04:56:31Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -447,6 +492,15 @@
       "jcr": "Q2",
       "query_name": "Frontiers in pediatrics",
       "retrieved_at": "2026-10-02T05:48:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:2296858X": {
+      "cas": "医学3区",
+      "if": "3.6",
+      "jcr": "Q1",
+      "query_name": "Frontiers in medicine",
+      "retrieved_at": "2026-10-26T04:56:23Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -585,6 +639,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:american journal of translational research": {
+      "cas": "医学4区",
+      "if": "1.8",
+      "jcr": "Q3",
+      "query_name": "American journal of translational research",
+      "retrieved_at": "2026-10-26T04:56:31Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:amino acids": {
       "cas": "生物学3区",
       "if": "3.2",
@@ -609,6 +672,15 @@
       "jcr": "Q2",
       "query_name": "Archives of gerontology and geriatrics",
       "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:biogerontology": {
+      "cas": "医学3区",
+      "if": "5.3",
+      "jcr": "Q1",
+      "query_name": "Biogerontology",
+      "retrieved_at": "2026-10-26T04:56:22Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -645,6 +717,15 @@
       "jcr": "Q1",
       "query_name": "Bone & joint research",
       "retrieved_at": "2026-10-16T04:39:32Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:cell biochemistry and biophysics": {
+      "cas": "生物学4区",
+      "if": "3.0",
+      "jcr": "Q2",
+      "query_name": "Cell biochemistry and biophysics",
+      "retrieved_at": "2026-10-26T04:56:30Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -717,6 +798,15 @@
       "jcr": "",
       "query_name": "Frontiers in aging",
       "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:frontiers in medicine": {
+      "cas": "医学3区",
+      "if": "3.6",
+      "jcr": "Q1",
+      "query_name": "Frontiers in medicine",
+      "retrieved_at": "2026-10-26T04:56:23Z",
       "source": "EasyScholar",
       "status": "matched"
     },
