@@ -1,5 +1,14 @@
 {
   "journals": {
+    "issn:00088749": {
+      "cas": "医学3区",
+      "if": "3.3",
+      "jcr": "Q3",
+      "query_name": "Cellular immunology",
+      "retrieved_at": "2026-10-29T05:55:45Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:00139351": {
       "cas": "环境科学与生态学2区",
       "if": "8.2",
@@ -141,6 +150,15 @@
       "jcr": "Q2",
       "query_name": "Cell biochemistry and biophysics",
       "retrieved_at": "2026-10-26T04:56:30Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:10902163": {
+      "cas": "医学3区",
+      "if": "3.3",
+      "jcr": "Q3",
+      "query_name": "Cellular immunology",
+      "retrieved_at": "2026-10-29T05:55:45Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -735,6 +753,15 @@
       "jcr": "Q2",
       "query_name": "Cell biochemistry and function",
       "retrieved_at": "2026-09-20T13:42:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:cellular immunology": {
+      "cas": "医学3区",
+      "if": "3.3",
+      "jcr": "Q3",
+      "query_name": "Cellular immunology",
+      "retrieved_at": "2026-10-29T05:55:45Z",
       "source": "EasyScholar",
       "status": "matched"
     },
