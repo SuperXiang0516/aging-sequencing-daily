@@ -1,19 +1,19 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 282,
+  "total": 287,
   "by_generation": {
-    "平台未报告": 263,
+    "平台未报告": 268,
     "三代/长读长": 14,
     "二代/短读长": 4,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 184,
-    "单细胞RNA测序": 69,
+    "RNA测序": 189,
+    "单细胞RNA测序": 72,
     "未标注": 53,
-    "空间转录组": 35,
-    "单核RNA测序": 22,
+    "空间转录组": 36,
+    "单核RNA测序": 23,
     "全基因组测序": 16,
     "ATAC-seq": 4,
     "ChIP-seq": 3,
@@ -23,9 +23,9 @@
     "DNA甲基化测序": 1
   },
   "by_aging_topic": {
-    "生理性衰老": 162,
-    "细胞衰老": 78,
-    "衰老研究": 50,
+    "生理性衰老": 165,
+    "细胞衰老": 80,
+    "衰老研究": 51,
     "年龄相关疾病": 36,
     "长寿与寿命": 35,
     "衰老干预与年轻化": 19,
@@ -110,8 +110,8 @@
     "骨骼肌衰老": 1
   },
   "by_species": {
-    "人": 157,
-    "小鼠": 100,
+    "人": 160,
+    "小鼠": 103,
     "未标注": 35,
     "大鼠": 9,
     "线虫": 8,
@@ -151,22 +151,22 @@
     "鹅": 1
   },
   "by_ai_status": {
-    "success": 282
+    "success": 287
   },
   "by_journal_metrics_status": {
-    "matched": 225,
+    "matched": 229,
     "not_applicable": 44,
-    "error": 11,
+    "error": 12,
     "not_found": 2
   },
   "by_year": {
     "2027": 2,
-    "2026": 276,
+    "2026": 281,
     "2025": 2,
     "2024": 2
   },
   "by_type": {
-    "研究论文": 247,
+    "研究论文": 252,
     "综述": 23,
     "Benchmark": 11,
     "临床试验": 1
@@ -175,13 +175,13 @@
     "bioRxiv : the preprint server for biology": 34,
     "International journal of molecular sciences": 10,
     "Aging cell": 9,
-    "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 7,
+    "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 8,
     "Nature communications": 7,
     "Frontiers in immunology": 6,
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 5,
+    "Frontiers in cell and developmental biology": 5,
     "Research square": 5,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 4,
-    "Frontiers in cell and developmental biology": 4,
     "iScience": 4,
     "Animals : an open access journal from MDPI": 3,
     "Biomolecules": 3,
