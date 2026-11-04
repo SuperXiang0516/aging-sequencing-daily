@@ -351,6 +351,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:16634365": {
+      "cas": "医学3区",
+      "if": "5.2",
+      "jcr": "Q1",
+      "query_name": "Frontiers in aging neuroscience",
+      "retrieved_at": "2026-11-04T06:35:52Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:16642295": {
       "cas": "医学3区",
       "if": "3.3",
@@ -897,6 +906,15 @@
       "jcr": "",
       "query_name": "Frontiers in aging",
       "retrieved_at": "2026-09-20T13:42:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:frontiers in aging neuroscience": {
+      "cas": "医学3区",
+      "if": "5.2",
+      "jcr": "Q1",
+      "query_name": "Frontiers in aging neuroscience",
+      "retrieved_at": "2026-11-04T06:35:52Z",
       "source": "EasyScholar",
       "status": "matched"
     },
