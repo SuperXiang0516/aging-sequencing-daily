@@ -90,6 +90,24 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:03785955": {
+      "cas": "医学2区",
+      "if": "3.0",
+      "jcr": "Q1",
+      "query_name": "Hearing research",
+      "retrieved_at": "2026-11-06T06:57:23Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:05315565": {
+      "cas": "医学3区",
+      "if": "5.1",
+      "jcr": "Q1",
+      "query_name": "Experimental gerontology",
+      "retrieved_at": "2026-11-06T06:57:20Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:08958378": {
       "cas": "医学4区",
       "if": "2.1",
@@ -117,12 +135,30 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:09149198": {
+      "cas": "医学4区",
+      "if": "1.1",
+      "jcr": "Q4",
+      "query_name": "Journal of toxicologic pathology",
+      "retrieved_at": "2026-11-06T06:57:42Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:09186158": {
       "cas": "医学4区",
       "if": "1.8",
       "jcr": "Q3",
       "query_name": "Biological & pharmaceutical bulletin",
       "retrieved_at": "2026-10-08T06:13:32Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:09254439": {
+      "cas": "生物学2区",
+      "if": "5.0",
+      "jcr": "Q1",
+      "query_name": "Biochimica et biophysica acta. Molecular basis of disease",
+      "retrieved_at": "2026-11-06T06:57:20Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -396,6 +432,33 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:18736815": {
+      "cas": "医学3区",
+      "if": "5.1",
+      "jcr": "Q1",
+      "query_name": "Experimental gerontology",
+      "retrieved_at": "2026-11-06T06:57:20Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:18785891": {
+      "cas": "医学2区",
+      "if": "3.0",
+      "jcr": "Q1",
+      "query_name": "Hearing research",
+      "retrieved_at": "2026-11-06T06:57:23Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:1879260X": {
+      "cas": "生物学2区",
+      "if": "5.0",
+      "jcr": "Q1",
+      "query_name": "Biochimica et biophysica acta. Molecular basis of disease",
+      "retrieved_at": "2026-11-06T06:57:20Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:19326203": {
       "cas": "综合性期刊3区",
       "if": "2.8",
@@ -429,6 +492,15 @@
       "jcr": "Q1",
       "query_name": "Bone & joint research",
       "retrieved_at": "2026-10-16T04:39:32Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:2050084X": {
+      "cas": "生物学1区",
+      "if": "",
+      "jcr": "",
+      "query_name": "eLife",
+      "retrieved_at": "2026-11-06T06:57:22Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -756,6 +828,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:biochimica et biophysica acta molecular basis of disease": {
+      "cas": "生物学2区",
+      "if": "5.0",
+      "jcr": "Q1",
+      "query_name": "Biochimica et biophysica acta. Molecular basis of disease",
+      "retrieved_at": "2026-11-06T06:57:20Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:biogerontology": {
       "cas": "医学3区",
       "if": "5.3",
@@ -873,6 +954,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:elife": {
+      "cas": "生物学1区",
+      "if": "",
+      "jcr": "",
+      "query_name": "eLife",
+      "retrieved_at": "2026-11-06T06:57:22Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:environmental research": {
       "cas": "环境科学与生态学2区",
       "if": "8.2",
@@ -888,6 +978,15 @@
       "jcr": "Q2",
       "query_name": "Experimental eye research",
       "retrieved_at": "2026-09-20T13:41:59Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:experimental gerontology": {
+      "cas": "医学3区",
+      "if": "5.1",
+      "jcr": "Q1",
+      "query_name": "Experimental gerontology",
+      "retrieved_at": "2026-11-06T06:57:20Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -972,6 +1071,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:hearing research": {
+      "cas": "医学2区",
+      "if": "3.0",
+      "jcr": "Q1",
+      "query_name": "Hearing research",
+      "retrieved_at": "2026-11-06T06:57:23Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:hlife": {
       "cas": "",
       "if": "",
@@ -1050,6 +1158,15 @@
       "jcr": "Q2",
       "query_name": "Journal of tissue viability",
       "retrieved_at": "2026-10-06T06:28:35Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:journal of toxicologic pathology": {
+      "cas": "医学4区",
+      "if": "1.1",
+      "jcr": "Q4",
+      "query_name": "Journal of toxicologic pathology",
+      "retrieved_at": "2026-11-06T06:57:42Z",
       "source": "EasyScholar",
       "status": "matched"
     },
