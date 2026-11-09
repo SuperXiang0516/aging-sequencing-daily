@@ -1,33 +1,33 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 341,
+  "total": 345,
   "by_generation": {
-    "平台未报告": 321,
+    "平台未报告": 325,
     "三代/长读长": 15,
     "二代/短读长": 4,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 219,
-    "单细胞RNA测序": 85,
+    "RNA测序": 222,
+    "单细胞RNA测序": 87,
     "未标注": 62,
-    "空间转录组": 43,
-    "单核RNA测序": 27,
+    "空间转录组": 44,
+    "单核RNA测序": 28,
     "全基因组测序": 18,
     "ATAC-seq": 5,
     "ChIP-seq": 5,
     "全外显子组测序": 5,
     "DNA甲基化测序": 3,
-    "宏基因组测序": 2,
+    "宏基因组测序": 3,
     "直接RNA测序": 2
   },
   "by_aging_topic": {
-    "生理性衰老": 200,
+    "生理性衰老": 201,
     "细胞衰老": 97,
-    "衰老研究": 57,
+    "衰老研究": 58,
     "年龄相关疾病": 47,
-    "长寿与寿命": 43,
+    "长寿与寿命": 45,
     "衰老干预与年轻化": 24,
     "免疫衰老与炎性衰老": 13,
     "虚弱与肌少症": 12,
@@ -57,6 +57,7 @@
     "出生后发育": 1,
     "加速衰老": 1,
     "叶片衰老": 1,
+    "宿主年龄与产q细菌丰度的负相关": 1,
     "寿命": 1,
     "年龄依赖性开花": 1,
     "年龄加速": 1,
@@ -120,13 +121,14 @@
     "采样日龄": 1,
     "阿尔茨海默病": 1,
     "青春期成熟": 1,
+    "非神经元细胞衰老": 1,
     "骨密度": 1,
     "骨骼肌衰老": 1
   },
   "by_species": {
-    "人": 192,
+    "人": 195,
     "小鼠": 121,
-    "未标注": 43,
+    "未标注": 44,
     "大鼠": 13,
     "线虫": 9,
     "人类": 7,
@@ -168,29 +170,29 @@
     "鹅": 1
   },
   "by_ai_status": {
-    "success": 341
+    "success": 345
   },
   "by_journal_metrics_status": {
-    "matched": 270,
-    "not_applicable": 55,
+    "matched": 271,
+    "not_applicable": 58,
     "error": 14,
     "not_found": 2
   },
   "by_year": {
     "2027": 2,
-    "2026": 335,
+    "2026": 339,
     "2025": 2,
     "2024": 2
   },
   "by_type": {
-    "研究论文": 301,
+    "研究论文": 305,
     "综述": 25,
     "Benchmark": 13,
     "临床试验": 1,
     "案例报告": 1
   },
   "top_journals": {
-    "bioRxiv : the preprint server for biology": 44,
+    "bioRxiv : the preprint server for biology": 46,
     "Aging cell": 14,
     "International journal of molecular sciences": 10,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 8,
@@ -198,12 +200,12 @@
     "Nature communications": 8,
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 5,
     "Frontiers in cell and developmental biology": 5,
+    "GeroScience": 5,
     "Research square": 5,
+    "medRxiv : the preprint server for health sciences": 5,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 4,
-    "GeroScience": 4,
     "Poultry science": 4,
     "iScience": 4,
-    "medRxiv : the preprint server for health sciences": 4,
     "Animals : an open access journal from MDPI": 3,
     "Archives of gerontology and geriatrics": 3,
     "BMC cancer": 3,
