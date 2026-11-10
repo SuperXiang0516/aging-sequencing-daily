@@ -1,21 +1,21 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 345,
+  "total": 350,
   "by_generation": {
-    "平台未报告": 325,
+    "平台未报告": 330,
     "三代/长读长": 15,
     "二代/短读长": 4,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 222,
-    "单细胞RNA测序": 87,
-    "未标注": 62,
-    "空间转录组": 44,
+    "RNA测序": 224,
+    "单细胞RNA测序": 89,
+    "未标注": 63,
+    "空间转录组": 45,
     "单核RNA测序": 28,
     "全基因组测序": 18,
-    "ATAC-seq": 5,
+    "ATAC-seq": 6,
     "ChIP-seq": 5,
     "全外显子组测序": 5,
     "DNA甲基化测序": 3,
@@ -23,26 +23,26 @@
     "直接RNA测序": 2
   },
   "by_aging_topic": {
-    "生理性衰老": 201,
-    "细胞衰老": 97,
+    "生理性衰老": 204,
+    "细胞衰老": 101,
     "衰老研究": 58,
     "年龄相关疾病": 47,
     "长寿与寿命": 45,
-    "衰老干预与年轻化": 24,
+    "衰老干预与年轻化": 25,
     "免疫衰老与炎性衰老": 13,
     "虚弱与肌少症": 12,
-    "生物年龄与衰老时钟": 7,
+    "生物年龄与衰老时钟": 8,
     "衰老": 7,
     "生殖衰老": 5,
     "衰老相关分泌表型": 4,
     "免疫衰老": 3,
     "卵巢衰老": 3,
+    "氧化应激": 3,
+    "血管衰老": 3,
     "DNA损伤": 2,
     "复制性衰老": 2,
-    "氧化应激": 2,
     "治疗诱导衰老": 2,
     "端粒缩短": 2,
-    "血管衰老": 2,
     "衰老相关疾病": 2,
     "DNA损伤应答": 1,
     "T细胞衰老": 1,
@@ -126,8 +126,8 @@
     "骨骼肌衰老": 1
   },
   "by_species": {
-    "人": 195,
-    "小鼠": 121,
+    "人": 199,
+    "小鼠": 124,
     "未标注": 44,
     "大鼠": 13,
     "线虫": 9,
@@ -170,29 +170,29 @@
     "鹅": 1
   },
   "by_ai_status": {
-    "success": 345
+    "success": 350
   },
   "by_journal_metrics_status": {
-    "matched": 271,
-    "not_applicable": 58,
-    "error": 14,
+    "matched": 273,
+    "not_applicable": 59,
+    "error": 16,
     "not_found": 2
   },
   "by_year": {
     "2027": 2,
-    "2026": 339,
-    "2025": 2,
+    "2026": 343,
+    "2025": 3,
     "2024": 2
   },
   "by_type": {
-    "研究论文": 305,
+    "研究论文": 310,
     "综述": 25,
     "Benchmark": 13,
     "临床试验": 1,
     "案例报告": 1
   },
   "top_journals": {
-    "bioRxiv : the preprint server for biology": 46,
+    "bioRxiv : the preprint server for biology": 47,
     "Aging cell": 14,
     "International journal of molecular sciences": 10,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 8,
