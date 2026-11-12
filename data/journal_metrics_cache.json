@@ -378,6 +378,24 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:15473287": {
+      "cas": "医学4区",
+      "if": "1.9",
+      "jcr": "Q3",
+      "query_name": "Stem cells and development",
+      "retrieved_at": "2026-11-12T07:20:40Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:15578534": {
+      "cas": "医学4区",
+      "if": "1.9",
+      "jcr": "Q3",
+      "query_name": "Stem cells and development",
+      "retrieved_at": "2026-11-12T07:20:40Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:15590283": {
       "cas": "生物学4区",
       "if": "3.0",
@@ -432,12 +450,48 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:16729609": {
+      "cas": "农林科学1区",
+      "if": "3.7",
+      "jcr": "Q1",
+      "query_name": "Insect science",
+      "retrieved_at": "2026-11-12T07:20:39Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:17447917": {
+      "cas": "农林科学1区",
+      "if": "3.7",
+      "jcr": "Q1",
+      "query_name": "Insect science",
+      "retrieved_at": "2026-11-12T07:20:39Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:17448069": {
       "cas": "医学3区",
       "if": "3.8",
       "jcr": "Q2",
       "query_name": "Molecular pain",
       "retrieved_at": "2026-10-19T04:49:28Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:1755098X": {
+      "cas": "生物学1区",
+      "if": "5.9",
+      "jcr": "Q1",
+      "query_name": "Molecular ecology resources",
+      "retrieved_at": "2026-11-12T07:20:41Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:17550998": {
+      "cas": "生物学1区",
+      "if": "5.9",
+      "jcr": "Q1",
+      "query_name": "Molecular ecology resources",
+      "retrieved_at": "2026-11-12T07:20:41Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1161,6 +1215,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:insect science": {
+      "cas": "农林科学1区",
+      "if": "3.7",
+      "jcr": "Q1",
+      "query_name": "Insect science",
+      "retrieved_at": "2026-11-12T07:20:39Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:international journal of genomics": {
       "cas": "生物学4区",
       "if": "2.0",
@@ -1269,6 +1332,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:molecular ecology resources": {
+      "cas": "生物学1区",
+      "if": "5.9",
+      "jcr": "Q1",
+      "query_name": "Molecular ecology resources",
+      "retrieved_at": "2026-11-12T07:20:41Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:molecular pain": {
       "cas": "医学3区",
       "if": "3.8",
@@ -1356,6 +1428,15 @@
       "jcr": "Q1",
       "query_name": "Stem cell research & therapy",
       "retrieved_at": "2026-10-07T06:07:28Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:stem cells and development": {
+      "cas": "医学4区",
+      "if": "1.9",
+      "jcr": "Q3",
+      "query_name": "Stem cells and development",
+      "retrieved_at": "2026-11-12T07:20:40Z",
       "source": "EasyScholar",
       "status": "matched"
     },
