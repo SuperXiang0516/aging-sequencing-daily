@@ -72,6 +72,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:01476513": {
+      "cas": "环境科学与生态学2区",
+      "if": "6.6",
+      "jcr": "Q1",
+      "query_name": "Ecotoxicology and environmental safety",
+      "retrieved_at": "2026-11-13T06:53:47Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:01674943": {
       "cas": "医学3区",
       "if": "4.7",
@@ -213,6 +222,15 @@
       "jcr": "Q3",
       "query_name": "Cellular immunology",
       "retrieved_at": "2026-10-29T05:55:45Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:10902414": {
+      "cas": "环境科学与生态学2区",
+      "if": "6.6",
+      "jcr": "Q1",
+      "query_name": "Ecotoxicology and environmental safety",
+      "retrieved_at": "2026-11-13T06:53:47Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1059,6 +1077,15 @@
       "jcr": "Q2",
       "query_name": "Ecology and evolution",
       "retrieved_at": "2026-10-03T05:24:31Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:ecotoxicology and environmental safety": {
+      "cas": "环境科学与生态学2区",
+      "if": "6.6",
+      "jcr": "Q1",
+      "query_name": "Ecotoxicology and environmental safety",
+      "retrieved_at": "2026-11-13T06:53:47Z",
       "source": "EasyScholar",
       "status": "matched"
     },
