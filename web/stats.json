@@ -1,19 +1,19 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 375,
+  "total": 381,
   "by_generation": {
-    "平台未报告": 354,
+    "平台未报告": 360,
     "三代/长读长": 16,
     "二代/短读长": 4,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 242,
-    "单细胞RNA测序": 91,
+    "RNA测序": 248,
+    "单细胞RNA测序": 94,
     "未标注": 66,
-    "空间转录组": 47,
-    "单核RNA测序": 31,
+    "空间转录组": 48,
+    "单核RNA测序": 32,
     "全基因组测序": 20,
     "ATAC-seq": 6,
     "全外显子组测序": 6,
@@ -23,11 +23,11 @@
     "直接RNA测序": 2
   },
   "by_aging_topic": {
-    "生理性衰老": 219,
-    "细胞衰老": 107,
-    "衰老研究": 64,
-    "年龄相关疾病": 50,
-    "长寿与寿命": 48,
+    "生理性衰老": 224,
+    "细胞衰老": 108,
+    "衰老研究": 65,
+    "年龄相关疾病": 51,
+    "长寿与寿命": 50,
     "衰老干预与年轻化": 28,
     "虚弱与肌少症": 14,
     "免疫衰老与炎性衰老": 13,
@@ -41,12 +41,12 @@
     "复制性衰老": 3,
     "氧化应激": 3,
     "血管衰老": 3,
+    "表观遗传衰老": 3,
     "克隆性造血": 2,
     "寿命": 2,
     "治疗诱导衰老": 2,
     "端粒缩短": 2,
     "脑衰老": 2,
-    "表观遗传衰老": 2,
     "衰老相关疾病": 2,
     "DNA损伤应答": 1,
     "DNA甲基化与年龄": 1,
@@ -134,9 +134,9 @@
     "骨骼肌衰老": 1
   },
   "by_species": {
-    "人": 215,
-    "小鼠": 134,
-    "未标注": 45,
+    "人": 217,
+    "小鼠": 137,
+    "未标注": 46,
     "大鼠": 14,
     "线虫": 9,
     "人类": 8,
@@ -145,12 +145,13 @@
     "鸡": 5,
     "牦牛": 3,
     "猪": 3,
+    "短命鱼": 3,
     "斑马鱼": 2,
     "牛": 2,
     "犬": 2,
     "猕猴": 2,
-    "短命鱼": 2,
     "酵母": 2,
+    "非洲绿松石鳉鱼": 2,
     "L. chinense": 1,
     "Psyttalia carinata": 1,
     "Rhagoletis batava": 1,
@@ -177,26 +178,25 @@
     "蝾螈": 1,
     "豚鼠": 1,
     "贡氏假鳃鳉": 1,
-    "非洲绿松石鳉鱼": 1,
     "鹅": 1
   },
   "by_ai_status": {
-    "success": 375
+    "success": 381
   },
   "by_journal_metrics_status": {
-    "matched": 297,
+    "matched": 300,
     "not_applicable": 59,
-    "error": 17,
+    "error": 20,
     "not_found": 2
   },
   "by_year": {
-    "2027": 2,
-    "2026": 368,
+    "2027": 5,
+    "2026": 371,
     "2025": 3,
     "2024": 2
   },
   "by_type": {
-    "研究论文": 331,
+    "研究论文": 337,
     "综述": 28,
     "Benchmark": 14,
     "临床试验": 1,
@@ -212,6 +212,7 @@
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 5,
     "Frontiers in cell and developmental biology": 5,
     "GeroScience": 5,
+    "Methods in molecular biology (Clifton, N.J.)": 5,
     "Research square": 5,
     "medRxiv : the preprint server for health sciences": 5,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 4,
@@ -221,7 +222,6 @@
     "Animals : an open access journal from MDPI": 3,
     "Archives of gerontology and geriatrics": 3,
     "BMC cancer": 3,
-    "Biomolecules": 3,
-    "Cell": 3
+    "Biomolecules": 3
   }
 }
