@@ -1,20 +1,20 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 381,
+  "total": 396,
   "by_generation": {
-    "平台未报告": 360,
+    "平台未报告": 375,
     "三代/长读长": 16,
     "二代/短读长": 4,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 248,
-    "单细胞RNA测序": 94,
-    "未标注": 66,
-    "空间转录组": 48,
+    "RNA测序": 257,
+    "单细胞RNA测序": 97,
+    "未标注": 68,
+    "空间转录组": 53,
     "单核RNA测序": 32,
-    "全基因组测序": 20,
+    "全基因组测序": 21,
     "ATAC-seq": 6,
     "全外显子组测序": 6,
     "ChIP-seq": 5,
@@ -23,26 +23,27 @@
     "直接RNA测序": 2
   },
   "by_aging_topic": {
-    "生理性衰老": 224,
-    "细胞衰老": 108,
-    "衰老研究": 65,
+    "生理性衰老": 230,
+    "细胞衰老": 115,
+    "衰老研究": 67,
     "年龄相关疾病": 51,
-    "长寿与寿命": 50,
-    "衰老干预与年轻化": 28,
+    "长寿与寿命": 51,
+    "衰老干预与年轻化": 29,
     "虚弱与肌少症": 14,
     "免疫衰老与炎性衰老": 13,
     "生物年龄与衰老时钟": 10,
     "衰老": 7,
-    "生殖衰老": 5,
-    "衰老相关分泌表型": 5,
+    "生殖衰老": 6,
+    "衰老相关分泌表型": 6,
+    "免疫衰老": 4,
     "卵巢衰老": 4,
+    "复制性衰老": 4,
     "DNA损伤": 3,
-    "免疫衰老": 3,
-    "复制性衰老": 3,
     "氧化应激": 3,
     "血管衰老": 3,
     "表观遗传衰老": 3,
     "克隆性造血": 2,
+    "加速衰老": 2,
     "寿命": 2,
     "治疗诱导衰老": 2,
     "端粒缩短": 2,
@@ -60,7 +61,6 @@
     "代际行为缺陷": 1,
     "克隆性造血不确定潜能": 1,
     "出生后发育": 1,
-    "加速衰老": 1,
     "叶片衰老": 1,
     "宿主年龄与产q细菌丰度的负相关": 1,
     "年龄依赖性开花": 1,
@@ -78,6 +78,7 @@
     "成人型与儿童型比较": 1,
     "早发性结直肠癌": 1,
     "早老样特征": 1,
+    "早衰": 1,
     "果实软化": 1,
     "棕色脂肪细胞衰退": 1,
     "椎间盘衰老": 1,
@@ -134,11 +135,11 @@
     "骨骼肌衰老": 1
   },
   "by_species": {
-    "人": 217,
-    "小鼠": 137,
-    "未标注": 46,
-    "大鼠": 14,
-    "线虫": 9,
+    "人": 223,
+    "小鼠": 140,
+    "未标注": 52,
+    "大鼠": 15,
+    "线虫": 10,
     "人类": 8,
     "果蝇": 5,
     "非人灵长类": 5,
@@ -181,23 +182,23 @@
     "鹅": 1
   },
   "by_ai_status": {
-    "success": 381
+    "success": 396
   },
   "by_journal_metrics_status": {
-    "matched": 300,
+    "matched": 315,
     "not_applicable": 59,
     "error": 20,
     "not_found": 2
   },
   "by_year": {
     "2027": 5,
-    "2026": 371,
+    "2026": 386,
     "2025": 3,
     "2024": 2
   },
   "by_type": {
-    "研究论文": 337,
-    "综述": 28,
+    "研究论文": 350,
+    "综述": 30,
     "Benchmark": 14,
     "临床试验": 1,
     "案例报告": 1
@@ -205,7 +206,7 @@
   "top_journals": {
     "bioRxiv : the preprint server for biology": 47,
     "Aging cell": 16,
-    "International journal of molecular sciences": 10,
+    "International journal of molecular sciences": 15,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 9,
     "Frontiers in immunology": 8,
     "Nature communications": 8,
@@ -216,12 +217,12 @@
     "Research square": 5,
     "medRxiv : the preprint server for health sciences": 5,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 4,
+    "Biochemical and biophysical research communications": 4,
     "Journal of advanced research": 4,
     "Poultry science": 4,
     "iScience": 4,
     "Animals : an open access journal from MDPI": 3,
     "Archives of gerontology and geriatrics": 3,
-    "BMC cancer": 3,
-    "Biomolecules": 3
+    "BMC cancer": 3
   }
 }

@@ -810,6 +810,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:23993529": {
+      "cas": "医学2区",
+      "if": "8.6",
+      "jcr": "Q1",
+      "query_name": "Human reproduction open",
+      "retrieved_at": "2026-11-15T06:43:46Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:25000462": {
       "cas": "农林科学4区",
       "if": "1.2",
@@ -1223,6 +1232,15 @@
       "retrieved_at": "2026-10-23T04:59:32Z",
       "source": "EasyScholar",
       "status": "not_found"
+    },
+    "name:human reproduction open": {
+      "cas": "医学2区",
+      "if": "8.6",
+      "jcr": "Q1",
+      "query_name": "Human reproduction open",
+      "retrieved_at": "2026-11-15T06:43:46Z",
+      "source": "EasyScholar",
+      "status": "matched"
     },
     "name:human reproduction oxford england": {
       "cas": "医学1区",
