@@ -207,6 +207,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:10404651": {
+      "cas": "生物学1区",
+      "if": "13.5",
+      "jcr": "Q1",
+      "query_name": "The Plant cell",
+      "retrieved_at": "2026-11-16T06:40:57Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:10859195": {
       "cas": "生物学4区",
       "if": "3.0",
@@ -384,6 +393,15 @@
       "jcr": "Q1",
       "query_name": "Poultry science",
       "retrieved_at": "2026-09-23T04:51:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:1532298X": {
+      "cas": "生物学1区",
+      "if": "13.5",
+      "jcr": "Q1",
+      "query_name": "The Plant cell",
+      "retrieved_at": "2026-11-16T06:40:57Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1419,6 +1437,15 @@
       "jcr": "Q1",
       "query_name": "Physiologia plantarum",
       "retrieved_at": "2026-10-16T04:39:43Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:plant cell": {
+      "cas": "生物学1区",
+      "if": "13.5",
+      "jcr": "Q1",
+      "query_name": "The Plant cell",
+      "retrieved_at": "2026-11-16T06:40:57Z",
       "source": "EasyScholar",
       "status": "matched"
     },
