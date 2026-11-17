@@ -1,17 +1,17 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 397,
+  "total": 403,
   "by_generation": {
-    "平台未报告": 376,
+    "平台未报告": 382,
     "三代/长读长": 16,
     "二代/短读长": 4,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 258,
-    "单细胞RNA测序": 97,
-    "未标注": 68,
+    "RNA测序": 262,
+    "单细胞RNA测序": 100,
+    "未标注": 70,
     "空间转录组": 53,
     "单核RNA测序": 32,
     "全基因组测序": 21,
@@ -23,11 +23,11 @@
     "直接RNA测序": 2
   },
   "by_aging_topic": {
-    "生理性衰老": 231,
-    "细胞衰老": 115,
+    "生理性衰老": 236,
+    "细胞衰老": 117,
     "衰老研究": 67,
+    "长寿与寿命": 53,
     "年龄相关疾病": 51,
-    "长寿与寿命": 51,
     "衰老干预与年轻化": 29,
     "虚弱与肌少症": 14,
     "免疫衰老与炎性衰老": 13,
@@ -137,14 +137,14 @@
     "骨骼肌衰老": 1
   },
   "by_species": {
-    "人": 223,
-    "小鼠": 140,
+    "人": 227,
+    "小鼠": 143,
     "未标注": 52,
     "大鼠": 15,
     "线虫": 10,
     "人类": 8,
+    "非人灵长类": 6,
     "果蝇": 5,
-    "非人灵长类": 5,
     "鸡": 5,
     "牦牛": 3,
     "猪": 3,
@@ -182,29 +182,30 @@
     "蝾螈": 1,
     "豚鼠": 1,
     "贡氏假鳃鳉": 1,
+    "食蟹猴": 1,
     "高粱": 1,
     "鹅": 1,
     "黍亚科禾草": 1
   },
   "by_ai_status": {
-    "success": 397
+    "success": 403
   },
   "by_journal_metrics_status": {
-    "matched": 316,
+    "matched": 322,
     "not_applicable": 59,
     "error": 20,
     "not_found": 2
   },
   "by_year": {
     "2027": 5,
-    "2026": 387,
+    "2026": 393,
     "2025": 3,
     "2024": 2
   },
   "by_type": {
-    "研究论文": 351,
+    "研究论文": 356,
     "综述": 30,
-    "Benchmark": 14,
+    "Benchmark": 15,
     "临床试验": 1,
     "案例报告": 1
   },
@@ -213,8 +214,8 @@
     "Aging cell": 16,
     "International journal of molecular sciences": 15,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 9,
+    "Nature communications": 9,
     "Frontiers in immunology": 8,
-    "Nature communications": 8,
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 5,
     "Frontiers in cell and developmental biology": 5,
     "GeroScience": 5,

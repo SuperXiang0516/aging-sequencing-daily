@@ -342,6 +342,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:14336510": {
+      "cas": "医学4区",
+      "if": "0.7",
+      "jcr": "Q4",
+      "query_name": "Clinical laboratory",
+      "retrieved_at": "2026-11-17T08:02:03Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:14355604": {
       "cas": "医学4区",
       "if": "2.9",
@@ -558,6 +567,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:18759777": {
+      "cas": "医学1区",
+      "if": "23.3",
+      "jcr": "Q1",
+      "query_name": "Cell stem cell",
+      "retrieved_at": "2026-11-17T08:02:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:18785891": {
       "cas": "医学2区",
       "if": "3.0",
@@ -681,6 +699,15 @@
       "jcr": "Q1",
       "query_name": "China CDC weekly",
       "retrieved_at": "2026-10-18T04:41:41Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:21525250": {
+      "cas": "医学3区",
+      "if": "9.6",
+      "jcr": "Q1",
+      "query_name": "Aging and disease",
+      "retrieved_at": "2026-11-17T08:02:02Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -927,6 +954,15 @@
       "source": "EasyScholar",
       "status": "not_found"
     },
+    "name:aging and disease": {
+      "cas": "医学3区",
+      "if": "9.6",
+      "jcr": "Q1",
+      "query_name": "Aging and disease",
+      "retrieved_at": "2026-11-17T08:02:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:american journal of clinical and experimental urology": {
       "cas": "医学4区",
       "if": "1.5",
@@ -1053,6 +1089,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:cell stem cell": {
+      "cas": "医学1区",
+      "if": "23.3",
+      "jcr": "Q1",
+      "query_name": "Cell stem cell",
+      "retrieved_at": "2026-11-17T08:02:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:cellular immunology": {
       "cas": "医学3区",
       "if": "3.3",
@@ -1077,6 +1122,15 @@
       "jcr": "Q2",
       "query_name": "Clinical and experimental immunology",
       "retrieved_at": "2026-10-30T05:57:05Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:clinical laboratory": {
+      "cas": "医学4区",
+      "if": "0.7",
+      "jcr": "Q4",
+      "query_name": "Clinical laboratory",
+      "retrieved_at": "2026-11-17T08:02:03Z",
       "source": "EasyScholar",
       "status": "matched"
     },
