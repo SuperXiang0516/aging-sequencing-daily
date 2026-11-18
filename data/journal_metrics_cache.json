@@ -423,12 +423,30 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:15362310": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "Omics : a journal of integrative biology",
+      "retrieved_at": "2026-11-18T07:38:34Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:15473287": {
       "cas": "医学4区",
       "if": "1.9",
       "jcr": "Q3",
       "query_name": "Stem cells and development",
       "retrieved_at": "2026-11-12T07:20:40Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:15578100": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "Omics : a journal of integrative biology",
+      "retrieved_at": "2026-11-18T07:38:34Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1473,6 +1491,15 @@
       "jcr": "Q3",
       "query_name": "Neuroreport",
       "retrieved_at": "2026-10-24T04:44:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:omics a journal of integrative biology": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "Omics : a journal of integrative biology",
+      "retrieved_at": "2026-11-18T07:38:34Z",
       "source": "EasyScholar",
       "status": "matched"
     },
