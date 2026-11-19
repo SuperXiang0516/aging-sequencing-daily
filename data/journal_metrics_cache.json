@@ -108,6 +108,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:03000605": {
+      "cas": "医学4区",
+      "if": "1.8",
+      "jcr": "Q3",
+      "query_name": "The Journal of international medical research",
+      "retrieved_at": "2026-11-19T07:34:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:03785955": {
       "cas": "医学2区",
       "if": "3.0",
@@ -279,6 +288,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:11782234": {
+      "cas": "医学4区",
+      "if": "2.2",
+      "jcr": "",
+      "query_name": "Breast cancer : basic and clinical research",
+      "retrieved_at": "2026-11-19T07:34:12Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:13419145": {
       "cas": "医学4区",
       "if": "2.8",
@@ -384,6 +402,33 @@
       "jcr": "Q3",
       "query_name": "The Journal of heredity",
       "retrieved_at": "2026-11-08T06:13:34Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:14732130": {
+      "cas": "医学4区",
+      "if": "3.5",
+      "jcr": "Q1",
+      "query_name": "Journal of cosmetic dermatology",
+      "retrieved_at": "2026-11-19T07:34:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:14732165": {
+      "cas": "医学4区",
+      "if": "3.5",
+      "jcr": "Q1",
+      "query_name": "Journal of cosmetic dermatology",
+      "retrieved_at": "2026-11-19T07:34:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:14732300": {
+      "cas": "医学4区",
+      "if": "1.8",
+      "jcr": "Q3",
+      "query_name": "The Journal of international medical research",
+      "retrieved_at": "2026-11-19T07:34:08Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -702,6 +747,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:20958137": {
+      "cas": "生物学1区",
+      "if": "5.6",
+      "jcr": "Q1",
+      "query_name": "Zoological research",
+      "retrieved_at": "2026-11-19T07:34:09Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:20958811": {
       "cas": "医学3区",
       "if": "1.5",
@@ -945,6 +999,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:26884844": {
+      "cas": "医学4区",
+      "if": "1.5",
+      "jcr": "",
+      "query_name": "Women's health reports (New Rochelle, N.Y.)",
+      "retrieved_at": "2026-11-19T07:34:13Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:27662098": {
       "cas": "",
       "if": "30.4",
@@ -1086,6 +1149,15 @@
       "jcr": "Q1",
       "query_name": "Bone & joint research",
       "retrieved_at": "2026-10-16T04:39:32Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:breast cancer basic and clinical research": {
+      "cas": "医学4区",
+      "if": "2.2",
+      "jcr": "",
+      "query_name": "Breast cancer : basic and clinical research",
+      "retrieved_at": "2026-11-19T07:34:12Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1395,12 +1467,30 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:journal of cosmetic dermatology": {
+      "cas": "医学4区",
+      "if": "3.5",
+      "jcr": "Q1",
+      "query_name": "Journal of cosmetic dermatology",
+      "retrieved_at": "2026-11-19T07:34:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:journal of heredity": {
       "cas": "生物学2区",
       "if": "2.2",
       "jcr": "Q3",
       "query_name": "The Journal of heredity",
       "retrieved_at": "2026-11-08T06:13:34Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:journal of international medical research": {
+      "cas": "医学4区",
+      "if": "1.8",
+      "jcr": "Q3",
+      "query_name": "The Journal of international medical research",
+      "retrieved_at": "2026-11-19T07:34:08Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1620,6 +1710,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:women s health reports new rochelle n y": {
+      "cas": "医学4区",
+      "if": "1.5",
+      "jcr": "",
+      "query_name": "Women's health reports (New Rochelle, N.Y.)",
+      "retrieved_at": "2026-11-19T07:34:13Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:world journal of otorhinolaryngology head and neck surgery": {
       "cas": "医学3区",
       "if": "1.5",
@@ -1635,6 +1734,15 @@
       "jcr": "Q1",
       "query_name": "Xenotransplantation",
       "retrieved_at": "2026-10-16T04:39:42Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:zoological research": {
+      "cas": "生物学1区",
+      "if": "5.6",
+      "jcr": "Q1",
+      "query_name": "Zoological research",
+      "retrieved_at": "2026-11-19T07:34:09Z",
       "source": "EasyScholar",
       "status": "matched"
     }
