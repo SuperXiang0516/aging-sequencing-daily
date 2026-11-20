@@ -405,6 +405,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:14712377": {
+      "cas": "医学3区",
+      "if": "2.6",
+      "jcr": "Q3",
+      "query_name": "BMC neurology",
+      "retrieved_at": "2026-11-20T07:26:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:14732130": {
       "cas": "医学4区",
       "if": "3.5",
@@ -1133,6 +1142,15 @@
       "retrieved_at": "2026-09-20T03:52:00Z",
       "source": "preprint",
       "status": "not_applicable"
+    },
+    "name:bmc neurology": {
+      "cas": "医学3区",
+      "if": "2.6",
+      "jcr": "Q3",
+      "query_name": "BMC neurology",
+      "retrieved_at": "2026-11-20T07:26:08Z",
+      "source": "EasyScholar",
+      "status": "matched"
     },
     "name:bmc pharmacology & toxicology": {
       "cas": "医学3区",

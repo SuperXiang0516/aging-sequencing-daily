@@ -1,19 +1,19 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 417,
+  "total": 423,
   "by_generation": {
-    "平台未报告": 396,
+    "平台未报告": 402,
     "三代/长读长": 16,
     "二代/短读长": 4,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 270,
-    "单细胞RNA测序": 103,
-    "未标注": 74,
+    "RNA测序": 275,
+    "单细胞RNA测序": 104,
+    "未标注": 75,
     "空间转录组": 56,
-    "单核RNA测序": 36,
+    "单核RNA测序": 38,
     "全基因组测序": 22,
     "ATAC-seq": 6,
     "全外显子组测序": 6,
@@ -23,14 +23,14 @@
     "直接RNA测序": 2
   },
   "by_aging_topic": {
-    "生理性衰老": 246,
-    "细胞衰老": 120,
-    "衰老研究": 68,
-    "年龄相关疾病": 55,
+    "生理性衰老": 251,
+    "细胞衰老": 121,
+    "衰老研究": 69,
+    "年龄相关疾病": 58,
     "长寿与寿命": 54,
     "衰老干预与年轻化": 30,
     "虚弱与肌少症": 15,
-    "免疫衰老与炎性衰老": 13,
+    "免疫衰老与炎性衰老": 14,
     "生物年龄与衰老时钟": 11,
     "衰老": 7,
     "衰老相关分泌表型": 7,
@@ -138,10 +138,10 @@
     "骨骼肌衰老": 1
   },
   "by_species": {
-    "人": 234,
-    "小鼠": 145,
+    "人": 238,
+    "小鼠": 146,
     "未标注": 55,
-    "大鼠": 15,
+    "大鼠": 16,
     "线虫": 11,
     "人类": 9,
     "非人灵长类": 7,
@@ -189,22 +189,22 @@
     "黍亚科禾草": 1
   },
   "by_ai_status": {
-    "success": 417
+    "success": 423
   },
   "by_journal_metrics_status": {
-    "matched": 336,
+    "matched": 342,
     "not_applicable": 59,
     "error": 20,
     "not_found": 2
   },
   "by_year": {
     "2027": 5,
-    "2026": 406,
+    "2026": 412,
     "2025": 4,
     "2024": 2
   },
   "by_type": {
-    "研究论文": 370,
+    "研究论文": 376,
     "综述": 30,
     "Benchmark": 15,
     "临床试验": 1,
@@ -212,14 +212,14 @@
   },
   "top_journals": {
     "bioRxiv : the preprint server for biology": 47,
-    "Aging cell": 18,
+    "Aging cell": 19,
     "International journal of molecular sciences": 15,
     "Advanced science (Weinheim, Baden-Wurttemberg, Germany)": 9,
     "Frontiers in immunology": 9,
     "Nature communications": 9,
+    "GeroScience": 6,
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 5,
     "Frontiers in cell and developmental biology": 5,
-    "GeroScience": 5,
     "Methods in molecular biology (Clifton, N.J.)": 5,
     "Research square": 5,
     "medRxiv : the preprint server for health sciences": 5,
