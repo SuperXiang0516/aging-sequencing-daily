@@ -117,6 +117,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:03043894": {
+      "cas": "环境科学与生态学1区",
+      "if": "10.6",
+      "jcr": "Q1",
+      "query_name": "Journal of hazardous materials",
+      "retrieved_at": "2026-11-21T07:20:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:03785955": {
       "cas": "医学2区",
       "if": "3.0",
@@ -630,6 +639,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:18733336": {
+      "cas": "环境科学与生态学1区",
+      "if": "10.6",
+      "jcr": "Q1",
+      "query_name": "Journal of hazardous materials",
+      "retrieved_at": "2026-11-21T07:20:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:18736815": {
       "cas": "医学3区",
       "if": "5.1",
@@ -996,6 +1014,15 @@
       "jcr": "",
       "query_name": "Frontiers in sports and active living",
       "retrieved_at": "2026-10-16T04:39:36Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:26661667": {
+      "cas": "生物学4区",
+      "if": "1.4",
+      "jcr": "",
+      "query_name": "STAR protocols",
+      "retrieved_at": "2026-11-21T07:20:23Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1494,6 +1521,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:journal of hazardous materials": {
+      "cas": "环境科学与生态学1区",
+      "if": "10.6",
+      "jcr": "Q1",
+      "query_name": "Journal of hazardous materials",
+      "retrieved_at": "2026-11-21T07:20:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:journal of heredity": {
       "cas": "生物学2区",
       "if": "2.2",
@@ -1682,6 +1718,15 @@
       "retrieved_at": "2026-10-02T05:48:45Z",
       "source": "preprint",
       "status": "not_applicable"
+    },
+    "name:star protocols": {
+      "cas": "生物学4区",
+      "if": "1.4",
+      "jcr": "",
+      "query_name": "STAR protocols",
+      "retrieved_at": "2026-11-21T07:20:23Z",
+      "source": "EasyScholar",
+      "status": "matched"
     },
     "name:stem cell research & therapy": {
       "cas": "医学2区",
