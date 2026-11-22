@@ -495,6 +495,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:15392791": {
+      "cas": "医学4区",
+      "if": "2.9",
+      "jcr": "Q3",
+      "query_name": "Neuroinformatics",
+      "retrieved_at": "2026-11-22T06:59:25Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:15473287": {
       "cas": "医学4区",
       "if": "1.9",
@@ -519,6 +528,15 @@
       "jcr": "Q3",
       "query_name": "Stem cells and development",
       "retrieved_at": "2026-11-12T07:20:40Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:15590089": {
+      "cas": "医学4区",
+      "if": "2.9",
+      "jcr": "Q3",
+      "query_name": "Neuroinformatics",
+      "retrieved_at": "2026-11-22T06:59:25Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1067,7 +1085,7 @@
       "if": "",
       "jcr": "",
       "query_name": "hLife",
-      "retrieved_at": "2026-10-23T04:59:32Z",
+      "retrieved_at": "2026-11-22T06:59:44Z",
       "source": "EasyScholar",
       "status": "not_found"
     },
@@ -1436,7 +1454,7 @@
       "if": "",
       "jcr": "",
       "query_name": "hLife",
-      "retrieved_at": "2026-10-23T04:59:32Z",
+      "retrieved_at": "2026-11-22T06:59:44Z",
       "source": "EasyScholar",
       "status": "not_found"
     },
@@ -1626,6 +1644,15 @@
       "jcr": "Q2",
       "query_name": "Molecular pain",
       "retrieved_at": "2026-10-19T04:49:28Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:neuroinformatics": {
+      "cas": "医学4区",
+      "if": "2.9",
+      "jcr": "Q3",
+      "query_name": "Neuroinformatics",
+      "retrieved_at": "2026-11-22T06:59:25Z",
       "source": "EasyScholar",
       "status": "matched"
     },

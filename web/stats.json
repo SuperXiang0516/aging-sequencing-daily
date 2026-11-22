@@ -1,18 +1,18 @@
 {
   "schema_version": 3,
   "tracking_domain": "aging-sequencing-v1",
-  "total": 446,
+  "total": 449,
   "by_generation": {
-    "平台未报告": 425,
+    "平台未报告": 428,
     "三代/长读长": 16,
     "二代/短读长": 4,
     "二代+三代": 1
   },
   "by_assay": {
-    "RNA测序": 287,
+    "RNA测序": 288,
     "单细胞RNA测序": 108,
-    "未标注": 77,
-    "空间转录组": 62,
+    "未标注": 78,
+    "空间转录组": 63,
     "单核RNA测序": 41,
     "全基因组测序": 24,
     "全外显子组测序": 8,
@@ -23,8 +23,8 @@
     "直接RNA测序": 2
   },
   "by_aging_topic": {
-    "生理性衰老": 268,
-    "细胞衰老": 124,
+    "生理性衰老": 270,
+    "细胞衰老": 125,
     "衰老研究": 73,
     "年龄相关疾病": 61,
     "长寿与寿命": 59,
@@ -35,19 +35,19 @@
     "衰老相关分泌表型": 9,
     "衰老": 7,
     "生殖衰老": 6,
+    "复制性衰老": 5,
     "DNA损伤": 4,
     "免疫衰老": 4,
     "卵巢衰老": 4,
-    "复制性衰老": 4,
+    "氧化应激": 4,
     "克隆性造血": 3,
     "加速衰老": 3,
-    "氧化应激": 3,
+    "端粒缩短": 3,
     "血管衰老": 3,
     "表观遗传衰老": 3,
     "寿命": 2,
     "年龄相关性黄斑变性": 2,
     "治疗诱导衰老": 2,
-    "端粒缩短": 2,
     "脑衰老": 2,
     "衰老相关疾病": 2,
     "DNA损伤应答": 1,
@@ -88,6 +88,7 @@
     "植物衰老": 1,
     "椎间盘衰老": 1,
     "母亲年龄相关T21风险": 1,
+    "母体高龄": 1,
     "氧化应激耐受": 1,
     "氮再循环": 1,
     "炎性衰老": 1,
@@ -147,12 +148,12 @@
     "骨骼肌衰老": 1
   },
   "by_species": {
-    "人": 255,
-    "小鼠": 153,
+    "人": 256,
+    "小鼠": 154,
     "未标注": 56,
     "大鼠": 16,
+    "人类": 11,
     "线虫": 11,
-    "人类": 10,
     "非人灵长类": 8,
     "果蝇": 5,
     "鸡": 5,
@@ -198,22 +199,22 @@
     "黍亚科禾草": 1
   },
   "by_ai_status": {
-    "success": 446
+    "success": 449
   },
   "by_journal_metrics_status": {
-    "matched": 352,
+    "matched": 355,
     "not_applicable": 72,
     "error": 20,
     "not_found": 2
   },
   "by_year": {
     "2027": 5,
-    "2026": 435,
+    "2026": 438,
     "2025": 4,
     "2024": 2
   },
   "by_type": {
-    "研究论文": 397,
+    "研究论文": 400,
     "综述": 31,
     "Benchmark": 16,
     "临床试验": 1,
@@ -232,12 +233,12 @@
     "Frontiers in cell and developmental biology": 6,
     "FASEB journal : official publication of the Federation of American Societies for Experimental Biology": 5,
     "Methods in molecular biology (Clifton, N.J.)": 5,
+    "iScience": 5,
     "Alzheimer's & dementia : the journal of the Alzheimer's Association": 4,
     "BMC cancer": 4,
     "Biochemical and biophysical research communications": 4,
     "Journal of advanced research": 4,
     "Poultry science": 4,
-    "iScience": 4,
     "Animals : an open access journal from MDPI": 3,
     "Archives of gerontology and geriatrics": 3
   }
