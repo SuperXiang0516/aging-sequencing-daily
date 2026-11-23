@@ -36,6 +36,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:00207454": {
+      "cas": "医学4区",
+      "if": "1.7",
+      "jcr": "Q4",
+      "query_name": "The International journal of neuroscience",
+      "retrieved_at": "2026-11-23T07:49:00Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:00221503": {
       "cas": "生物学2区",
       "if": "2.2",
@@ -546,6 +555,15 @@
       "jcr": "Q2",
       "query_name": "Cell biochemistry and biophysics",
       "retrieved_at": "2026-10-26T04:56:30Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:15635279": {
+      "cas": "医学4区",
+      "if": "1.7",
+      "jcr": "Q4",
+      "query_name": "The International journal of neuroscience",
+      "retrieved_at": "2026-11-23T07:49:00Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1500,6 +1518,15 @@
       "jcr": "Q3",
       "query_name": "International journal of genomics",
       "retrieved_at": "2026-10-18T04:41:39Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:international journal of neuroscience": {
+      "cas": "医学4区",
+      "if": "1.7",
+      "jcr": "Q4",
+      "query_name": "The International journal of neuroscience",
+      "retrieved_at": "2026-11-23T07:49:00Z",
       "source": "EasyScholar",
       "status": "matched"
     },
