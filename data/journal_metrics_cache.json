@@ -117,6 +117,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:02724340": {
+      "cas": "医学4区",
+      "if": "7.4",
+      "jcr": "Q1",
+      "query_name": "Cellular and molecular neurobiology",
+      "retrieved_at": "2026-11-24T10:00:52Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:03000605": {
       "cas": "医学4区",
       "if": "1.8",
@@ -576,6 +585,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:15736830": {
+      "cas": "医学4区",
+      "if": "7.4",
+      "jcr": "Q1",
+      "query_name": "Cellular and molecular neurobiology",
+      "retrieved_at": "2026-11-24T10:00:52Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:1574888X": {
       "cas": "医学4区",
       "if": "2.1",
@@ -744,6 +762,15 @@
       "jcr": "Q2",
       "query_name": "Ecology and evolution",
       "retrieved_at": "2026-10-03T05:24:31Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:20459769": {
+      "cas": "医学3区",
+      "if": "5.6",
+      "jcr": "",
+      "query_name": "Cell regeneration (London, England)",
+      "retrieved_at": "2026-11-24T10:00:40Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1260,12 +1287,30 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:cell regeneration london england": {
+      "cas": "医学3区",
+      "if": "5.6",
+      "jcr": "",
+      "query_name": "Cell regeneration (London, England)",
+      "retrieved_at": "2026-11-24T10:00:40Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:cell stem cell": {
       "cas": "医学1区",
       "if": "23.3",
       "jcr": "Q1",
       "query_name": "Cell stem cell",
       "retrieved_at": "2026-11-17T08:02:02Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:cellular and molecular neurobiology": {
+      "cas": "医学4区",
+      "if": "7.4",
+      "jcr": "Q1",
+      "query_name": "Cellular and molecular neurobiology",
+      "retrieved_at": "2026-11-24T10:00:52Z",
       "source": "EasyScholar",
       "status": "matched"
     },
