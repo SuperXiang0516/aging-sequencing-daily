@@ -351,6 +351,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:13570560": {
+      "cas": "医学4区",
+      "if": "4.7",
+      "jcr": "Q2",
+      "query_name": "Medical oncology (Northwood, London, England)",
+      "retrieved_at": "2026-11-25T08:45:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:13652249": {
       "cas": "医学4区",
       "if": "3.9",
@@ -567,6 +576,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:1559131X": {
+      "cas": "医学4区",
+      "if": "4.7",
+      "jcr": "Q2",
+      "query_name": "Medical oncology (Northwood, London, England)",
+      "retrieved_at": "2026-11-25T08:45:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:15635279": {
       "cas": "医学4区",
       "if": "1.7",
@@ -756,6 +774,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:19769571": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "Genes & genomics",
+      "retrieved_at": "2026-11-25T08:45:23Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:20457758": {
       "cas": "生物学2区",
       "if": "2.6",
@@ -834,6 +861,15 @@
       "jcr": "Q1",
       "query_name": "Journal of clinical medicine",
       "retrieved_at": "2026-10-17T04:36:39Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:20929293": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "Genes & genomics",
+      "retrieved_at": "2026-11-25T08:45:23Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1089,6 +1125,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:2673253X": {
+      "cas": "医学3区",
+      "if": "5.2",
+      "jcr": "",
+      "query_name": "Frontiers in digital health",
+      "retrieved_at": "2026-11-25T08:45:25Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:26736217": {
       "cas": "医学4区",
       "if": "4.9",
@@ -1104,6 +1149,15 @@
       "jcr": "",
       "query_name": "Women's health reports (New Rochelle, N.Y.)",
       "retrieved_at": "2026-11-19T07:34:13Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:27526542": {
+      "cas": "综合性期刊3区",
+      "if": "4.8",
+      "jcr": "",
+      "query_name": "PNAS nexus",
+      "retrieved_at": "2026-11-25T08:45:25Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1449,6 +1503,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:frontiers in digital health": {
+      "cas": "医学3区",
+      "if": "5.2",
+      "jcr": "",
+      "query_name": "Frontiers in digital health",
+      "retrieved_at": "2026-11-25T08:45:25Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:frontiers in medicine": {
       "cas": "医学3区",
       "if": "3.6",
@@ -1500,6 +1563,15 @@
       "jcr": "Q2",
       "query_name": "Genes",
       "retrieved_at": "2026-09-27T08:09:20Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:genes & genomics": {
+      "cas": "生物学4区",
+      "if": "2.0",
+      "jcr": "Q3",
+      "query_name": "Genes & genomics",
+      "retrieved_at": "2026-11-25T08:45:23Z",
       "source": "EasyScholar",
       "status": "matched"
     },
@@ -1683,6 +1755,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "name:medical oncology northwood london england": {
+      "cas": "医学4区",
+      "if": "4.7",
+      "jcr": "Q2",
+      "query_name": "Medical oncology (Northwood, London, England)",
+      "retrieved_at": "2026-11-25T08:45:24Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "name:medrxiv the preprint server for health sciences": {
       "cas": "",
       "if": "",
@@ -1788,6 +1869,15 @@
       "jcr": "Q2",
       "query_name": "PloS one",
       "retrieved_at": "2026-09-29T05:49:34Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:pnas nexus": {
+      "cas": "综合性期刊3区",
+      "if": "4.8",
+      "jcr": "",
+      "query_name": "PNAS nexus",
+      "retrieved_at": "2026-11-25T08:45:25Z",
       "source": "EasyScholar",
       "status": "matched"
     },
