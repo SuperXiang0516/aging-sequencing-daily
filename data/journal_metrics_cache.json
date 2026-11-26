@@ -1116,6 +1116,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:26293277": {
+      "cas": "医学3区",
+      "if": "4.9",
+      "jcr": "Q2",
+      "query_name": "Stem cell reviews and reports",
+      "retrieved_at": "2026-11-26T08:30:31Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:26661667": {
       "cas": "生物学4区",
       "if": "1.4",
@@ -1923,6 +1932,15 @@
       "jcr": "Q1",
       "query_name": "Stem cell research & therapy",
       "retrieved_at": "2026-10-07T06:07:28Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:stem cell reviews and reports": {
+      "cas": "医学3区",
+      "if": "4.9",
+      "jcr": "Q2",
+      "query_name": "Stem cell reviews and reports",
+      "retrieved_at": "2026-11-26T08:30:31Z",
       "source": "EasyScholar",
       "status": "matched"
     },
