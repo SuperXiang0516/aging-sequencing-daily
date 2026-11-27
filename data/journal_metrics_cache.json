@@ -441,6 +441,24 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:14673037": {
+      "cas": "生物学3区",
+      "if": "4.1",
+      "jcr": "Q2",
+      "query_name": "Current issues in molecular biology",
+      "retrieved_at": "2026-11-27T08:45:41Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "issn:14673045": {
+      "cas": "生物学3区",
+      "if": "4.1",
+      "jcr": "Q2",
+      "query_name": "Current issues in molecular biology",
+      "retrieved_at": "2026-11-27T08:45:41Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:14712377": {
       "cas": "医学3区",
       "if": "2.6",
@@ -1419,6 +1437,15 @@
       "jcr": "",
       "query_name": "Cureus",
       "retrieved_at": "2026-11-02T06:18:18Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:current issues in molecular biology": {
+      "cas": "生物学3区",
+      "if": "4.1",
+      "jcr": "Q2",
+      "query_name": "Current issues in molecular biology",
+      "retrieved_at": "2026-11-27T08:45:41Z",
       "source": "EasyScholar",
       "status": "matched"
     },
