@@ -1179,6 +1179,15 @@
       "source": "EasyScholar",
       "status": "matched"
     },
+    "issn:27316068": {
+      "cas": "医学2区",
+      "if": "13.0",
+      "jcr": "",
+      "query_name": "npj aging",
+      "retrieved_at": "2026-11-28T07:58:45Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
     "issn:27526542": {
       "cas": "综合性期刊3区",
       "if": "4.8",
@@ -1851,6 +1860,15 @@
       "jcr": "Q3",
       "query_name": "Neuroreport",
       "retrieved_at": "2026-10-24T04:44:48Z",
+      "source": "EasyScholar",
+      "status": "matched"
+    },
+    "name:npj aging": {
+      "cas": "医学2区",
+      "if": "13.0",
+      "jcr": "",
+      "query_name": "npj aging",
+      "retrieved_at": "2026-11-28T07:58:45Z",
       "source": "EasyScholar",
       "status": "matched"
     },
